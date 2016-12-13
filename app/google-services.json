@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "623364229527",
+    "firebase_url": "https://lots-676e3.firebaseio.com",
+    "project_id": "lots-676e3",
+    "storage_bucket": "lots-676e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623364229527:android:c54dc1a5ca19f048",
+        "android_client_info": {
+          "package_name": "com.heapdragon.lots"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "623364229527-a2oegutkd63hjrmvn3nm8u1utpeg2v41.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.heapdragon.lots",
+            "certificate_hash": "CD53DB3EF7C686E2047050CC727E792AEE2D970B"
+          }
+        },
+        {
+          "client_id": "623364229527-tv88asjmlj5lv712o046iuhvfgntggma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwo8QnSnfEkrPCR_YdtrWgNdpuc-EwXU0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "623364229527-tv88asjmlj5lv712o046iuhvfgntggma.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
