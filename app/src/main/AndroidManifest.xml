@@ -19,6 +19,7 @@
             android:name=".SiteActivity"
             android:label="@string/title_activity_site"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".AddSiteActivity"/>
     </application>
 
 </manifest>
