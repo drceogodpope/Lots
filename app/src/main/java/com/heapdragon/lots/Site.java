@@ -5,48 +5,62 @@ package com.heapdragon.lots;
  */
 
 public class Site{
-    private String name;
+    private final static String TAG = "Site";
+    public static int totalSites = 0;
     private String id;
-
-    private int totalLots;
+    private String name;
+    private int numberOfLots;
     private int incompleteLots;
     private int receivedLots;
     private int readyLots;
     private int issue_lots;
 
-    public Site(String name, String id, int totalLots, int incompleteLots, int receivedLots, int readyLots, int issue_lots) {
+    private int siteColor;
+
+    public Site(String name,int numberOfLots){
         this.name = name;
-        this.id = id;
-        this.totalLots = totalLots;
-        this.incompleteLots = incompleteLots;
-        this.receivedLots = receivedLots;
-        this.readyLots = readyLots;
-        this.issue_lots = issue_lots;
+        this.numberOfLots = numberOfLots;
+        this.incompleteLots = numberOfLots;
+        this.receivedLots = 0;
+        this.readyLots = 0;
+        this.issue_lots = 0;
+        this.siteColor = totalSites%4;
+        totalSites++;
     }
 
-    public Site(String name, int totalLots){
+    public Site(String name, int numberOfLots, int incompleteLots, int issueLots, int readyLots, int receivedLots, int siteColor,String id) {
         this.name = name;
-        this.totalLots = totalLots;
-        incompleteLots = totalLots;
-        receivedLots = 0;
-        readyLots = 0;
-        issue_lots = 0;
+        this.numberOfLots = numberOfLots;
+        this.incompleteLots = incompleteLots;
+        this.issue_lots = issueLots;
+        this.readyLots = readyLots;
+        this.receivedLots = receivedLots;
+        this.siteColor = siteColor;
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public int getTotalLots() {
-        return totalLots;
+    public int getNumberOfLots() {
+        return numberOfLots;
     }
 
-    public void setTotalLots(int totalLots) {
-        this.totalLots = totalLots;
+    public void setNumberOfLots(int numberOfLots) {
+        this.numberOfLots = numberOfLots;
     }
 
     public int getIncompleteLots() {
@@ -80,4 +94,6 @@ public class Site{
     public void setIssue_lots(int issue_lots) {
         this.issue_lots = issue_lots;
     }
+
+    public int getSiteColor() {return siteColor;}
 }

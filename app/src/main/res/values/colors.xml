@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorBlueGrey">#547281</color>
+    <color name="colorDarkBlueGrey">#455A64</color>
+    <color name="colorLightBlueGrey">#CFD8DC</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#212121</color>
+    <color name="colorAmber">#FFC107</color>
+
+    <color name="colorGrey">#757575</color>
+    <color name="colorLightGrey">#BDBDBD</color>
+    <color name="colorDarkGrey">#3F494F</color>
+
+    <color name="colorPink">#EC1762</color>
+    <color name="colorCyan">#02C4D9</color>
+    <color name="colorPurple">#9E1FB3</color>
+    <color name="colorIndigo">#3A4BB7</color>
+
+
+    <integer-array name="site_colors">
+        <item>@color/colorPink</item>
+        <item>@color/colorCyan</item>
+        <item>@color/colorPurple</item>
+        <item>@color/colorIndigo</item>
+    </integer-array>
+
+
+
+    <!--System Colors-->
+    <color name="colorLightPrimary">@color/colorLightBlueGrey</color>
+    <color name="colorLightText">@color/colorWhite</color>
+    <color name ="colorDarkText">@color/colorBlack</color>
+    <color name="colorGreyText">@color/colorGrey</color>
+    <color name="colorLightGreyText">@color/colorLightGrey</color>
+    <color name="colorDarkBackground">@color/colorDarkGrey</color>
+    <!--System Colors-->
+
 </resources>
+

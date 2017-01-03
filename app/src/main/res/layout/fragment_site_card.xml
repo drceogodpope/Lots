@@ -6,66 +6,83 @@
 
 <android.support.v7.widget.CardView android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     app:cardElevation="3dp"
     android:id="@+id/site_card"
-    android:layout_margin="10dp"
+    app:cardBackgroundColor="@color/colorIndigo"
+    android:layout_margin="5dp"
     android:layout_height="wrap_content"
     android:layout_alignParentTop="true"
     android:layout_alignParentStart="true"
+    tools:context=".MainActivity"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
+        android:background="@android:color/transparent"
         android:orientation="horizontal"
         android:layout_width="match_parent"
+        android:weightSum="10"
         android:layout_margin="10dp"
         android:layout_height="match_parent">
-        <LinearLayout
+        <FrameLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
-            android:background="@color/colorPrimaryDark"
+            android:background="@android:color/transparent"
             android:layout_height="match_parent">
-            <ImageButton
-                android:id="@+id/site_card_issue_image"
-                android:layout_width="wrap_content"
-                android:background="@color/colorPrimaryDark"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:src="@drawable/warning_amber_24x24"
-                android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:id="@+id/site_card_total_ready"
-                android:background="@color/colorPrimary"
                 android:layout_height="match_parent"
-                android:padding="50dp"
-                android:textSize="50sp"
+                android:textSize="40sp"
+                android:layout_margin="15dp"
                 android:gravity="center"
                 android:textColor="@android:color/white"
                 android:text="10"/>
-        </LinearLayout>
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:gravity="center"
+            android:gravity="top"
+            android:paddingStart="10dp"
+            android:layout_marginEnd="30dp"
+            android:layout_weight="7"
             android:orientation="vertical"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
-                android:padding="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:text="Lotus Pointe"
-                    style="@style/Base.TextAppearance.AppCompat.Title"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/site_card_name" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:text="Lotus Pointe"
+                        android:textColor="@color/colorLightText"
+                        style="@style/Base.TextAppearance.AppCompat.Title"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/site_card_name" />
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:id="@+id/site_card_issue_image"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/warning_amber_24x24"/>
+                </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/site_card_total_lots"
                     android:layout_width="match_parent"
+                    android:textColor="@color/colorLightText"
                     android:text="153 lots"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -73,27 +90,25 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_gravity="end"
-                    android:id="@+id/site_card_lot_button"
-                    android:textColor="@color/colorPrimary"
-                    android:background="@android:color/transparent"
-                    android:layout_height="wrap_content"
-                    android:text="LOT"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
                     android:layout_gravity="start"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorLightText"
                     android:background="@android:color/transparent"
                     android:layout_height="wrap_content"
                     android:text="MAP"
                     android:id="@+id/site_card_map_button" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="end"
+                    android:textColor="@color/colorLightText"
+                    android:id="@+id/site_card_lot_button"
+                    android:background="@android:color/transparent"
+                    android:layout_height="wrap_content"
+                    android:text="LOT"/>
             </FrameLayout>
         </LinearLayout>
     </LinearLayout>

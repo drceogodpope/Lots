@@ -14,7 +14,7 @@ public class DataBaseConstants {
     static final String RECEIVED_LOTS_NODE = "received_lots";
     static final String READY_LOTS_NODE = "ready_lots";
     static final String ISSUE_LOTS_NODE = "issue_lots";
-
+    static final String SITE_COLOR_NODE = "site_color";
     //
 
 

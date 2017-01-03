@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import static com.heapdragon.lots.AddSiteActivity.*;
 import static com.heapdragon.lots.DataBaseConstants.INCOMPLETE_LOTS_NODE;
 import static com.heapdragon.lots.DataBaseConstants.ISSUE_LOTS_NODE;
@@ -17,6 +19,7 @@ import static com.heapdragon.lots.DataBaseConstants.NAME_NODE;
 import static com.heapdragon.lots.DataBaseConstants.READY_LOTS_NODE;
 import static com.heapdragon.lots.DataBaseConstants.RECEIVED_LOTS_NODE;
 import static com.heapdragon.lots.DataBaseConstants.SITES_NODE;
+import static com.heapdragon.lots.DataBaseConstants.SITE_COLOR_NODE;
 import static com.heapdragon.lots.DataBaseConstants.TOTAL_LOTS_NODE;
 
 import com.google.firebase.database.DatabaseReference;
@@ -46,7 +49,6 @@ public class AddSiteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_site);
         android.util.Log.d(TAG,"onCreate()");
 
-
         siteName = (EditText) findViewById(R.id.add_site_activity_name);
         numberOfLots = (EditText) findViewById(R.id.add_site_activity_total_lots);
         createSiteButton = (Button) findViewById(R.id.add_site_activity_create_site_button);
@@ -62,30 +64,29 @@ public class AddSiteActivity extends AppCompatActivity {
 
     private void createSite() {
 
-        String name = siteName.getText().toString();
-        String numLots = numberOfLots.getText().toString();
-        try {
-            String key = createSiteNode(name,numLots);
-            createLotNode(key,Integer.parseInt(numLots));
-        } catch (NumberFormatException e) {
-            Log.d("", numLots + " is not a number");
-        }
-
-
+            String name = siteName.getText().toString();
+            int numLots = Integer.parseInt(numberOfLots.getText().toString());
+            Site site = new Site(name,numLots);
+            try {
+                String key = createSiteNode(site);
+                createLotNode(key,site.getNumberOfLots());
+            } catch (NumberFormatException e) {
+                Toast.makeText(getApplicationContext(),"Check number of lots!",Toast.LENGTH_SHORT).show();
+                Log.d("", numLots + " is not a number");
+            }
     }
 
-    private String createSiteNode(String name,String numLots){
+    private String createSiteNode(Site site){
         DatabaseReference sitesRef = mRootRef.child(SITES_NODE).getRef();
         String key;
-        int num = Integer.parseInt(numLots);
-        android.util.Log.d("",num+" is a number");
-        Map<String,String> map = new HashMap<>();
-        map.put(NAME_NODE,name);
-        map.put(TOTAL_LOTS_NODE,numLots);
-        map.put(INCOMPLETE_LOTS_NODE,numLots);
-        map.put(RECEIVED_LOTS_NODE,"0");
-        map.put(READY_LOTS_NODE,"0");
-        map.put(ISSUE_LOTS_NODE,"0");
+        Map<String,Object> map = new HashMap<>();
+        map.put(NAME_NODE,site.getName());
+        map.put(TOTAL_LOTS_NODE,site.getNumberOfLots());
+        map.put(INCOMPLETE_LOTS_NODE,site.getIncompleteLots());
+        map.put(RECEIVED_LOTS_NODE,site.getReceivedLots());
+        map.put(READY_LOTS_NODE,site.getReadyLots());
+        map.put(ISSUE_LOTS_NODE,site.getIssue_lots());
+        map.put(SITE_COLOR_NODE,site.getSiteColor());
 
         key = sitesRef.push().getKey();
         sitesRef.child(key).setValue(map);
