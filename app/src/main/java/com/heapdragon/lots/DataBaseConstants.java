@@ -5,9 +5,8 @@ package com.heapdragon.lots;
  */
 
 public class DataBaseConstants {
-    //SITES NODE KEYS
+    //SITES NODE CONSTANTS
     static final String SITES_NODE = "sites";
-
     static final String NAME_NODE = "name";
     static final String TOTAL_LOTS_NODE = "total_lots";
     static final String INCOMPLETE_LOTS_NODE = "incomplete_lots";
@@ -15,9 +14,9 @@ public class DataBaseConstants {
     static final String READY_LOTS_NODE = "ready_lots";
     static final String ISSUE_LOTS_NODE = "issue_lots";
     static final String SITE_COLOR_NODE = "site_color";
-    //
+    //SITE NODE CONSTANTS
 
-
-     static final String LOTS_NODE_PREFIX = "lots_";
-
+    //LOTS NODE CONSTANTS
+    static final String LOTS_NODE_PREFIX = "lots_";
+    //LOTS NODE CONSTANTS
 }

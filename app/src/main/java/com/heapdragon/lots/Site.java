@@ -1,9 +1,5 @@
 package com.heapdragon.lots;
 
-/**
- * Created by Francesco on 2016-12-21.
- */
-
 public class Site{
     private final static String TAG = "Site";
     public static int totalSites = 0;
@@ -14,7 +10,6 @@ public class Site{
     private int receivedLots;
     private int readyLots;
     private int issue_lots;
-
     private int siteColor;
 
     public Site(String name,int numberOfLots){
