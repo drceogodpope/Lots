@@ -2,22 +2,15 @@ package com.heapdragon.lots;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.nfc.Tag;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.*;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-
-/**
- * Created by Francesco on 2016-12-26.
- */
 
 public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHolder> {
     public static final String TAG = "SiteAdapter";
@@ -47,10 +40,7 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
             totalLots = (TextView) itemView.findViewById(R.id.site_card_total_lots);
             mapButton = (TextView) itemView.findViewById(R.id.site_card_map_button);
             lotsButton = (TextView) itemView.findViewById(R.id.site_card_lot_button);
-
         }
-
-
     }
 
     @Override
@@ -63,6 +53,7 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
     public void onBindViewHolder(final SiteCardViewHolder holder, int position) {
         final Site site = sites.get(position);
         holder.site = site;
+        holder.cardView.setRadius(10);
         holder.siteName.setText(site.getName());
         holder.totalLots.setText(String.valueOf(site.getNumberOfLots()));
         holder.readyLots.setText(String.valueOf(site.getReadyLots()));
@@ -90,6 +81,7 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
             public void onClick(View view) {
                 Intent intent = new Intent(holder.cardView.getContext(),SiteActivity.class);
                 intent.putExtra("key",site.getId());
+                intent.putExtra("name",holder.siteName.getText().toString());
                 intent.putExtra("color",((ColorDrawable)holder.cardView.getBackground()).getColor());
                 holder.cardView.getContext().startActivity(intent);
             }

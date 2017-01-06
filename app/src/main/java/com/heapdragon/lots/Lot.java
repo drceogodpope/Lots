@@ -6,23 +6,23 @@ package com.heapdragon.lots;
 
 public class Lot {
 
-    private int number;
-    private int status;  // 0-not ready,1-ready,2-issue,3-received
+    private long number;
+    private long status;  // 0-not ready,1-ready,2-issue,3-received
 
-    public Lot(int number){
+    public Lot(long number, long status){
         this.number = number;
-        status = 0;
+        this.status = status;
     }
 
-    public int getNumber() {
+    public long getNumber() {
         return number;
     }
 
-    public int getStatus() {
+    public long getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(long status) {
         if(status>=0 && status<4){
             this.status = status;
         }

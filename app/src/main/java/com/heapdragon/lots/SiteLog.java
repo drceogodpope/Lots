@@ -4,14 +4,14 @@ package com.heapdragon.lots;
  * Created by Francesco on 2016-12-23.
  */
 
-public class Log {
+public class SiteLog {
 
     private String subject;
     private String message;
     private String siteKey;
     private String lotKey;
 
-    public Log(String subject, String message, String siteKey, String lotKey) {
+    public SiteLog(String subject, String message, String siteKey, String lotKey) {
         this.subject = subject;
         this.message = message;
         this.siteKey = siteKey;
