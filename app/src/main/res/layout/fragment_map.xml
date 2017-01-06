@@ -29,7 +29,7 @@
             android:background="@android:color/transparent"
             android:id="@+id/add_site_map_button"
             android:layout_marginBottom="50dp"
-            android:src="@drawable/insert_photo_grey_54x54"
+            android:src="@drawable/photo_library_grey_96x96"
             android:layout_height="wrap_content" />
     </LinearLayout>
 

@@ -18,12 +18,11 @@
     <color name="colorIndigo">#3A4BB7</color>
 
 
-    <integer-array name="site_colors">
-        <item>@color/colorPink</item>
-        <item>@color/colorCyan</item>
-        <item>@color/colorPurple</item>
-        <item>@color/colorIndigo</item>
-    </integer-array>
+    <!--Status Colors-->
+    <color name="colorGreen">#009688</color>
+    <color name="colorRed">#D0021B</color>
+    <color name="colorYellow">#F8E71C</color>
+
 
 
 

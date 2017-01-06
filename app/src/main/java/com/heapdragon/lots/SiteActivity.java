@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.Window;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -56,6 +57,7 @@ public class SiteActivity extends AppCompatActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(new SiteFragAdapter(getSupportFragmentManager(),key));
+        mViewPager.setOffscreenPageLimit(3);
 
         tabLayout = (TabLayout) findViewById(R.id.site_activity_tab_layout);
         tabLayout.setupWithViewPager(mViewPager);
@@ -78,6 +80,8 @@ public class SiteActivity extends AppCompatActivity {
         });
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setBackgroundColor(getIntent().getIntExtra("color",0));
+        toolbar.setBackgroundColor((getIntent().getIntExtra("color",0)));
+        getWindow().setStatusBarColor(Utility.darker(getIntent().getIntExtra("color",0),0.8f));
     }
 
     @Override

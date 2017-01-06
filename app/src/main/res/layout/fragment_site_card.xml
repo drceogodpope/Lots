@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView android:layout_width="match_parent"
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardElevation="3dp"
     android:id="@+id/site_card"
     app:cardBackgroundColor="@color/colorIndigo"
-    android:layout_margin="5dp"
+    android:layout_margin="10dp"
     app:cardCornerRadius="7dp"
     android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentStart="true"
     tools:context=".MainActivity"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -27,11 +26,11 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:id="@+id/site_card_total_ready"
                 android:layout_height="match_parent"
                 android:textSize="40sp"
-                android:layout_margin="15dp"
+                android:layout_margin="20dp"
                 android:gravity="center"
                 android:textColor="@android:color/white"
                 android:text="10"/>
@@ -47,6 +46,7 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:layout_margin="20dp"
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:paddingTop="10dp"
@@ -62,7 +62,7 @@
                         android:layout_width="match_parent"
                         android:text="Lotus Pointe"
                         android:textColor="@color/colorLightText"
-                        style="@style/Base.TextAppearance.AppCompat.Title"
+                        style="@style/Base.TextAppearance.AppCompat.Headline"
                         android:layout_height="wrap_content"
                         android:id="@+id/site_card_name" />
                     <ImageButton
@@ -85,6 +85,9 @@
 
 
             <FrameLayout
+                android:layout_marginStart="20dp"
+                android:paddingEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -94,7 +97,7 @@
                     android:textColor="@color/colorLightText"
                     android:background="@android:color/transparent"
                     android:layout_height="wrap_content"
-                    android:text="MAP"
+                    android:text="Map"
                     android:id="@+id/site_card_map_button" />
 
                 <TextView
@@ -104,7 +107,7 @@
                     android:id="@+id/site_card_lot_button"
                     android:background="@android:color/transparent"
                     android:layout_height="wrap_content"
-                    android:text="LOT"/>
+                    android:text="Log"/>
             </FrameLayout>
         </LinearLayout>
     </LinearLayout>

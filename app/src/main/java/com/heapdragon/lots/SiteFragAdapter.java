@@ -3,6 +3,7 @@ package com.heapdragon.lots;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
 /**
  * Created by Francesco on 2017-01-03.
@@ -25,7 +26,7 @@ public class SiteFragAdapter extends FragmentPagerAdapter {
             case 1: // Fragment # 0 - This will show FirstFragment different title
                 return SiteMapFragment.newInstance(key);
             case 2: // Fragment # 1 - This will show SecondFragment
-                return SiteMapFragment.newInstance(key);
+                return LogFragment.newInstance(key);
             default:
                 return null;
         }
@@ -34,9 +35,9 @@ public class SiteFragAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position){
-            case 0: return "LOTS";
-            case 1:return "MAP";
-            case 2:return "LOG";
+            case 0: return "Lots";
+            case 1:return "Map";
+            case 2:return "Log";
         }
         return "";
     }

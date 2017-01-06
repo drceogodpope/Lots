@@ -53,6 +53,7 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
     public void onBindViewHolder(final SiteCardViewHolder holder, int position) {
         final Site site = sites.get(position);
         holder.site = site;
+        holder.cardView.setRadius(10);
         holder.siteName.setText(site.getName());
         holder.totalLots.setText(String.valueOf(site.getNumberOfLots()));
         holder.readyLots.setText(String.valueOf(site.getReadyLots()));

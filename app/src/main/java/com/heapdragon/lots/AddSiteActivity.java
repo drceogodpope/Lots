@@ -28,17 +28,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Francesco on 2016-12-26.
- */
-
 public class AddSiteActivity extends AppCompatActivity {
 
     private static final String TAG = "AddSiteActivity";
 
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://lots-676e3.firebaseio.com/");
-
-
+    private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://lots-676e3.firebaseio.com/");
     private EditText siteName;
     private EditText numberOfLots;
     private Button createSiteButton;
@@ -63,17 +57,19 @@ public class AddSiteActivity extends AppCompatActivity {
     }
 
     private void createSite() {
-
-            String name = siteName.getText().toString();
-            int numLots = Integer.parseInt(numberOfLots.getText().toString());
-            Site site = new Site(name,numLots);
-            try {
-                String key = createSiteNode(site);
-                createLotNode(key,site.getNumberOfLots());
-            } catch (NumberFormatException e) {
-                Toast.makeText(getApplicationContext(),"Check number of lots!",Toast.LENGTH_SHORT).show();
-                Log.d("", numLots + " is not a number");
+            if(numberOfLots.getText().toString().length()>0&&siteName.getText().toString().length()>0){
+                String name = Utility.capitilizeFirst(siteName.getText().toString());
+                int numLots = Integer.parseInt(numberOfLots.getText().toString());
+                Site site = new Site(name,numLots);
+                try {
+                    String key = createSiteNode(site);
+                    createLotNode(key,site.getNumberOfLots());
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getApplicationContext(),"Check number of lots!",Toast.LENGTH_SHORT).show();
+                    Log.d("", numLots + " is not a number");
+                }
             }
+
     }
 
     private String createSiteNode(Site site){
@@ -99,8 +95,6 @@ public class AddSiteActivity extends AppCompatActivity {
             lotRef.child(String.valueOf(i)).setValue(0);
         }
     }
-
-
 
     private void startMainActivity(){
         Intent i = new Intent(getApplicationContext(),MainActivity.class);
