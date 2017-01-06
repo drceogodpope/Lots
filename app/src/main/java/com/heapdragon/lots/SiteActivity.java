@@ -39,6 +39,7 @@ public class SiteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG,"onCreate()");
         setContentView(R.layout.activity_site);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -61,6 +62,7 @@ public class SiteActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                Log.d(TAG,"onTabSelected() "+ tab);
                 mViewPager.setCurrentItem(tab.getPosition());
             }
 
@@ -101,46 +103,6 @@ public class SiteActivity extends AppCompatActivity {
         mSitesRef.child(key).removeValue();
         mRootRef.child(LOTS_NODE_PREFIX+key).removeValue();
     }
-
-//    public class SectionsPagerAdapter extends PagerAdapter {
-//        private Context mContext;
-//        String key;
-//
-//        public SectionsPagerAdapter(Context context,String key) {
-//            mContext = context;
-//            this.key = key;
-//        }
-//
-//        @Override
-//        public Object instantiateItem(ViewGroup container, int position) {
-//            ModelObject modelObject = ModelObject.values()[position];
-//            LayoutInflater inflater = LayoutInflater.from(mContext);
-//            ViewGroup layout = (ViewGroup) inflater.inflate(modelObject.getLayoutResId(), container, false);
-//            container.addView(layout);
-//            return layout;
-//        }
-//
-//        @Override
-//        public void destroyItem(ViewGroup collection, int position, Object view) {
-//            collection.removeView((View) view);
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return ModelObject.values().length;
-//        }
-//
-//        @Override
-//        public CharSequence getPageTitle(int position) {
-//            ModelObject customPagerEnum = ModelObject.values()[position];
-//            return mContext.getString(customPagerEnum.getTitleResId());
-//        }
-//
-//        @Override
-//        public boolean isViewFromObject(View view, Object object) {
-//            return view == object;
-//        }
-//    }
 
     @Override
     public void onBackPressed() {
