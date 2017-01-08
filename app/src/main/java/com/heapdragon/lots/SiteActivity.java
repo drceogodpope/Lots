@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import static com.heapdragon.lots.DataBaseConstants.LOG_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.LOTS_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.NAME_NODE;
 import static com.heapdragon.lots.DataBaseConstants.SITES_NODE;
@@ -106,6 +107,7 @@ public class SiteActivity extends AppCompatActivity {
     private void deleteSite() {
         mSitesRef.child(key).removeValue();
         mRootRef.child(LOTS_NODE_PREFIX+key).removeValue();
+        mRootRef.child(LOG_NODE_PREFIX+key).removeValue();
     }
 
     @Override

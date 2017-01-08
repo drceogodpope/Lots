@@ -11,7 +11,6 @@ public class Lot {
     public static final int ISSUE = 2;
     public static final int RECEIVED = 3;
 
-
     private long number;
     private long status;  // 0-not ready,1-ready,2-issue,3-received
 

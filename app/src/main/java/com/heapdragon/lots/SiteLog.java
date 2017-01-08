@@ -24,7 +24,7 @@ public class SiteLog implements Comparator<SiteLog>{
         this.lotNumber = (int)lotNumber;
         this.status = status;
         user = "User Name"; // change later
-        title = "Lot - " + String.valueOf(lotNumber) + " " + getStatusString(status);
+        title = "Lot " + String.valueOf(lotNumber) + " - " + getStatusString(status);
     }
 
     private String getStatusString(int status) {
