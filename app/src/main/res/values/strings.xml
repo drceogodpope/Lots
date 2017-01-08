@@ -8,6 +8,10 @@
     <string name="map">Map</string>
     <string name="log">Log</string>
 
+    <string name="not_ready">Not Ready</string>
+    <string name="ready">Ready</string>
+    <string name="issue">Issue</string>
+    <string name="Received">Received</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.*;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import static com.heapdragon.lots.AddSiteActivity.*;
 import static com.heapdragon.lots.DataBaseConstants.INCOMPLETE_LOTS_NODE;
 import static com.heapdragon.lots.DataBaseConstants.ISSUE_LOTS_NODE;
+import static com.heapdragon.lots.DataBaseConstants.LOG_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.LOTS_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.NAME_NODE;
 import static com.heapdragon.lots.DataBaseConstants.READY_LOTS_NODE;
@@ -54,6 +56,7 @@ public class AddSiteActivity extends AppCompatActivity {
                 startMainActivity();
             }
         });
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
     private void createSite() {
@@ -71,6 +74,7 @@ public class AddSiteActivity extends AppCompatActivity {
             }
 
     }
+
 
     private String createSiteNode(Site site){
         DatabaseReference sitesRef = mRootRef.child(SITES_NODE).getRef();

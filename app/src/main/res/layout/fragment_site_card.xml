@@ -6,7 +6,6 @@
     app:cardElevation="3dp"
     android:id="@+id/site_card"
     app:cardBackgroundColor="@color/colorIndigo"
-    android:layout_margin="10dp"
     app:cardCornerRadius="7dp"
     android:layout_height="wrap_content"
     tools:context=".MainActivity"

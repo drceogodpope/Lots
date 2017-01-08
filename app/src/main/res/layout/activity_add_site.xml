@@ -32,7 +32,6 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_margin="16dp"
     android:layout_below="@id/appbar"
     android:layout_height="wrap_content">
     <EditText
@@ -78,10 +77,9 @@
         android:layout_width="match_parent"
         android:gravity="center"
         android:layout_gravity="center"
-        android:padding="10dp"
+        android:padding="50dp"
         android:layout_height="wrap_content"
         android:background="@color/colorGrey"
-        android:layout_margin="20dp"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:text="Create Site"/>
 </LinearLayout>
