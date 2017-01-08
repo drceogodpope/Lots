@@ -1,52 +1,73 @@
 package com.heapdragon.lots;
 
-/**
- * Created by Francesco on 2016-12-23.
- */
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
-public class SiteLog {
+import java.util.Comparator;
 
-    private String subject;
-    private String message;
-    private String siteKey;
-    private String lotKey;
+public class SiteLog implements Comparator<SiteLog>{
 
-    public SiteLog(String subject, String message, String siteKey, String lotKey) {
-        this.subject = subject;
-        this.message = message;
-        this.siteKey = siteKey;
-        this.lotKey = lotKey;
+    private final String NOT_READY = "Not Ready";
+    private final String READY = "Ready";
+    private final String ISSUE = "Issue";
+    private final String RECEIVED = "Received";
+
+    private DateTime dateTime;
+    private int lotNumber;
+    private String user;
+    private int status;
+    private String title;
+
+    public SiteLog(DateTime dateTime,long lotNumber,int status) {
+        this.dateTime = dateTime;
+        this.lotNumber = (int)lotNumber;
+        this.status = status;
+        user = "User Name"; // change later
+        title = "Lot - " + String.valueOf(lotNumber) + " " + getStatusString(status);
     }
 
-    public String getSubject() {
-        return subject;
+    private String getStatusString(int status) {
+        switch (status){
+            case 0:
+                return NOT_READY;
+            case 1:
+                return READY;
+            case 2:
+                return ISSUE;
+            default:
+            return RECEIVED;
+        }
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public DateTime getDateTime() {
+        return dateTime;
     }
 
-    public String getMessage() {
-        return message;
+    public int getLotNumber() {
+        return lotNumber;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public String getUser() {
+        return user;
     }
 
-    public String getSiteKey() {
-        return siteKey;
+    public int getStatus() {
+        return status;
     }
 
-    public void setSiteKey(String siteKey) {
-        this.siteKey = siteKey;
+    public String getTitle() {
+        return title;
     }
 
-    public String getLotKey() {
-        return lotKey;
+    public String getTimeStamp(){
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/dd/yyyy HH:mm:ss");
+        return dateTime.toString(dtf);
     }
 
-    public void setLotKey(String lotKey) {
-        this.lotKey = lotKey;
+    @Override
+    public int compare(SiteLog siteLog, SiteLog t1) {
+        return siteLog.getDateTime().compareTo(t1.getDateTime());
     }
+
 }

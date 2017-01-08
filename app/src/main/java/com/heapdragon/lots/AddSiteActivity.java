@@ -14,6 +14,7 @@ import android.widget.Toast;
 import static com.heapdragon.lots.AddSiteActivity.*;
 import static com.heapdragon.lots.DataBaseConstants.INCOMPLETE_LOTS_NODE;
 import static com.heapdragon.lots.DataBaseConstants.ISSUE_LOTS_NODE;
+import static com.heapdragon.lots.DataBaseConstants.LOG_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.LOTS_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.NAME_NODE;
 import static com.heapdragon.lots.DataBaseConstants.READY_LOTS_NODE;
@@ -71,6 +72,7 @@ public class AddSiteActivity extends AppCompatActivity {
             }
 
     }
+
 
     private String createSiteNode(Site site){
         DatabaseReference sitesRef = mRootRef.child(SITES_NODE).getRef();

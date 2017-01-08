@@ -74,7 +74,6 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return lots.size();

@@ -19,4 +19,13 @@ public class DataBaseConstants {
     //LOTS NODE CONSTANTS
     static final String LOTS_NODE_PREFIX = "lots_";
     //LOTS NODE CONSTANTS
+
+    //LOG NODE CONSTANTS
+    static final String LOG_NODE_PREFIX = "log_";
+    static final String LOG_TIME_STAMP = "time_stamp";
+    static final String LOG_STATUS = "status";
+    static final String LOG_NUMBER = "number";
+    //LOG NODE CONSTANTS
+
+
 }
