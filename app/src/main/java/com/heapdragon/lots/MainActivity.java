@@ -51,15 +51,20 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 sites.clear();
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    String name = ds.child(NAME_NODE).getValue().toString();
-                    int numberOfLots = Integer.valueOf(ds.child(TOTAL_LOTS_NODE).getValue().toString());
-                    int incompleteLots = Integer.valueOf(ds.child(INCOMPLETE_LOTS_NODE).getValue().toString());
-                    int issueLots = Integer.valueOf(ds.child(ISSUE_LOTS_NODE).getValue().toString());
-                    int readyLots = Integer.valueOf(ds.child(READY_LOTS_NODE).getValue().toString());
-                    int receivedLots = Integer.valueOf(ds.child(RECEIVED_LOTS_NODE).getValue().toString());
-                    int siteColor = Integer.valueOf(ds.child(SITE_COLOR_NODE).getValue().toString());
-                    String id = ds.getKey();
-                    MainActivity.this.sites.add(new Site(name,numberOfLots,incompleteLots,issueLots,readyLots,receivedLots,siteColor,id));
+                    try{
+                        String name = ds.child(NAME_NODE).getValue().toString();
+                        int numberOfLots = Integer.valueOf(ds.child(TOTAL_LOTS_NODE).getValue().toString());
+                        int incompleteLots = Integer.valueOf(ds.child(INCOMPLETE_LOTS_NODE).getValue().toString());
+                        int issueLots = Integer.valueOf(ds.child(ISSUE_LOTS_NODE).getValue().toString());
+                        int readyLots = Integer.valueOf(ds.child(READY_LOTS_NODE).getValue().toString());
+                        int receivedLots = Integer.valueOf(ds.child(RECEIVED_LOTS_NODE).getValue().toString());
+                        int siteColor = Integer.valueOf(ds.child(SITE_COLOR_NODE).getValue().toString());
+                        String id = ds.getKey();
+                        MainActivity.this.sites.add(new Site(name,numberOfLots,incompleteLots,issueLots,readyLots,receivedLots,siteColor,id));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
                 }
                 MainActivity.this.mSiteAdapter.notifyDataSetChanged();
             }
@@ -74,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //Handle item selection
@@ -86,5 +90,10 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

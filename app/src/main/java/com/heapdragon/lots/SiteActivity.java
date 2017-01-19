@@ -105,9 +105,9 @@ public class SiteActivity extends AppCompatActivity {
     }
 
     private void deleteSite() {
-        mSitesRef.child(key).removeValue();
         mRootRef.child(LOTS_NODE_PREFIX+key).removeValue();
         mRootRef.child(LOG_NODE_PREFIX+key).removeValue();
+        mSitesRef.child(key).removeValue();
     }
 
     @Override

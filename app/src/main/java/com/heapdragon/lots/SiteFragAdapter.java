@@ -3,11 +3,6 @@ package com.heapdragon.lots;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
-
-/**
- * Created by Francesco on 2017-01-03.
- */
 
 public class SiteFragAdapter extends FragmentPagerAdapter {
 
@@ -26,7 +21,7 @@ public class SiteFragAdapter extends FragmentPagerAdapter {
             case 1: // Fragment # 0 - This will show FirstFragment different title
                 return SiteMapFragment.newInstance(key);
             case 2: // Fragment # 1 - This will show SecondFragment
-                return LogFragment.newInstance(key);
+                return SiteLogFragment.newInstance(key);
             default:
                 return null;
         }

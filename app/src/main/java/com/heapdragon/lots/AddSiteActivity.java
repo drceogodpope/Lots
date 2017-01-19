@@ -32,7 +32,7 @@ import java.util.Map;
 
 public class AddSiteActivity extends AppCompatActivity {
 
-    private static final String TAG = "AddSiteActivity";
+    private static final String TAG = "AddSiteActivityTAG";
 
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://lots-676e3.firebaseio.com/");
     private EditText siteName;
@@ -60,6 +60,7 @@ public class AddSiteActivity extends AppCompatActivity {
     }
 
     private void createSite() {
+            Log.d(TAG,"createSite()");
             if(numberOfLots.getText().toString().length()>0&&siteName.getText().toString().length()>0){
                 String name = Utility.capitilizeFirst(siteName.getText().toString());
                 int numLots = Integer.parseInt(numberOfLots.getText().toString());

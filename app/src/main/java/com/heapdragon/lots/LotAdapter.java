@@ -69,6 +69,7 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
                 Context context = holder.dot.getContext();
                 Intent intent = new Intent(context,LotActivity.class);
                 intent.putExtra("key",key);
+                intent.putExtra("status",holder.lot.getStatus());
                 intent.putExtra("lotNumber",lotNumber);
                 context.startActivity(intent);
             }
