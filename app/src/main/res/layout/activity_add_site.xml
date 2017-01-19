@@ -32,6 +32,7 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:layout_margin="16dp"
     android:layout_below="@id/appbar"
     android:layout_height="wrap_content">
     <EditText
@@ -76,8 +77,10 @@
         android:id="@+id/add_site_activity_create_site_button"
         android:layout_width="match_parent"
         android:gravity="center"
+        android:clickable="true"
         android:layout_gravity="center"
         android:padding="50dp"
+        android:textColor="@color/colorLightGrey"
         android:layout_height="wrap_content"
         android:background="@color/colorGrey"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
