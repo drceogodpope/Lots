@@ -83,6 +83,7 @@ public class SiteActivity extends AppCompatActivity {
         tabLayout.setBackgroundColor(getIntent().getIntExtra("color",0));
         toolbar.setBackgroundColor((getIntent().getIntExtra("color",0)));
         getWindow().setStatusBarColor(Utility.darker(getIntent().getIntExtra("color",0),0.8f));
+        mViewPager.setCurrentItem(getIntent().getIntExtra("adapterPage",0));
     }
 
     @Override

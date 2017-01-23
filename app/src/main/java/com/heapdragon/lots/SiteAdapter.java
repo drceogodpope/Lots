@@ -97,6 +97,31 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
             }
         });
 
+        holder.mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(holder.cardView.getContext(),SiteActivity.class);
+                intent.putExtra("key",site.getId());
+                intent.putExtra("name",holder.siteName.getText().toString());
+                intent.putExtra("color",((ColorDrawable)holder.cardView.getBackground()).getColor());
+                intent.putExtra("adapterPage",1);
+                holder.cardView.getContext().startActivity(intent);
+            }
+        });
+
+        holder.lotsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(holder.cardView.getContext(),SiteActivity.class);
+                intent.putExtra("key",site.getId());
+                intent.putExtra("name",holder.siteName.getText().toString());
+                intent.putExtra("color",((ColorDrawable)holder.cardView.getBackground()).getColor());
+                intent.putExtra("adapterPage",2);
+                holder.cardView.getContext().startActivity(intent);
+            }
+        });
+
+
         DatabaseReference lotRef = FirebaseDatabase.getInstance().getReference().child(LOTS_NODE_PREFIX+holder.site.getId());
         lotRef.orderByValue().equalTo(1).addValueEventListener(new ValueEventListener() {
             @Override
@@ -120,6 +145,7 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
                     }
                 });
                 holder.readyLots.setText(String.valueOf(count));
+
             }
 
             @Override
