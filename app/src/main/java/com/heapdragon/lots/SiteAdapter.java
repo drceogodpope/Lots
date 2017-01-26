@@ -55,7 +55,8 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
 
     @Override
     public SiteCardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_site_card,parent,false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.fragment_site_card,parent,false);
         return new SiteCardViewHolder(itemView);
     }
 
@@ -75,13 +76,17 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
         }
         android.util.Log.d(TAG,site.getName() + site.getSiteColor());
         switch (site.getSiteColor()){
-            case 0: holder.cardView.setBackgroundColor(ContextCompat.getColor(holder.cardView.getContext(),R.color.colorCyan));
+            case 0: holder.cardView.setBackgroundColor(
+                    ContextCompat.getColor(holder.cardView.getContext(), R.color.colorCyan));
                 break;
-            case 1: holder.cardView.setBackgroundColor(ContextCompat.getColor(holder.cardView.getContext(),R.color.colorPink));
+            case 1: holder.cardView.setBackgroundColor(
+                    ContextCompat.getColor(holder.cardView.getContext(),R.color.colorPink));
                 break;
-            case 2: holder.cardView.setBackgroundColor(ContextCompat.getColor(holder.cardView.getContext(),R.color.colorPurple));
+            case 2: holder.cardView.setBackgroundColor(
+                    ContextCompat.getColor(holder.cardView.getContext(),R.color.colorPurple));
                 break;
-            case 3: holder.cardView.setBackgroundColor(ContextCompat.getColor(holder.cardView.getContext(),R.color.colorIndigo));
+            case 3: holder.cardView.setBackgroundColor(
+                    ContextCompat.getColor(holder.cardView.getContext(),R.color.colorIndigo));
                 break;
 
         }
@@ -126,26 +131,21 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
         lotRef.orderByValue().equalTo(1).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                int count = 0;
-                for (DataSnapshot ds:dataSnapshot.getChildren()){
-                    count++;
-                }
+                final long count = dataSnapshot.getChildrenCount();
+
                 final DatabaseReference sitesRef = FirebaseDatabase.getInstance().getReference().child(SITES_NODE);
-                final int finalCount = count;
                 sitesRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.child(site.getId()).exists()){
-                            sitesRef.child(holder.site.getId()).child(READY_LOTS_NODE).setValue(finalCount);
+                        if(dataSnapshot.hasChild(site.getId())){
+                            sitesRef.child(holder.site.getId()).child(READY_LOTS_NODE).setValue(count);
                         }
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
                     }
                 });
                 holder.readyLots.setText(String.valueOf(count));
-
             }
 
             @Override
