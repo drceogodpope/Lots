@@ -12,16 +12,36 @@
     <color name="colorLightGrey">#BDBDBD</color>
     <color name="colorDarkGrey">#3F494F</color>
 
+    <color name="colorGreen">#009688</color>
+    <color name="colorRed">#D0021B</color>
+    <color name="colorYellow">#F8E71C</color>
+
     <color name="colorPink">#EC1762</color>
     <color name="colorCyan">#02C4D9</color>
     <color name="colorPurple">#9E1FB3</color>
     <color name="colorIndigo">#3A4BB7</color>
+    <color name="colorChineseRed">#AF4319</color>
+    <color name="colorRichLavender">#EFBDEB</color>
+
 
 
     <!--Status Colors-->
-    <color name="colorGreen">#009688</color>
-    <color name="colorRed">#D0021B</color>
-    <color name="colorYellow">#F8E71C</color>
+    <array name="siteColors">
+        <item>@color/colorPink</item>
+        <item>@color/colorCyan</item>
+        <item>@color/colorPurple</item>
+        <item>@color/colorIndigo</item>
+        <item>@color/colorGrey</item>
+        <item>@color/colorChineseRed</item>
+        <item>@color/colorRichLavender</item>
+    </array>
+
+    <array name="statusColors">
+        <item>@color/colorRed</item>
+        <item>@color/colorGreen</item>
+        <item>@color/colorYellow</item>
+        <item>@color/colorGrey</item>
+    </array>
 
 
 
