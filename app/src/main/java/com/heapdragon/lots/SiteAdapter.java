@@ -64,9 +64,10 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
     public void onBindViewHolder(final SiteCardViewHolder holder, int position) {
         final Site site = sites.get(position);
         holder.site = site;
-        holder.cardView.setRadius(10);
+        Log.d(TAG,String.valueOf("CARD CORNER RADIUS: "+holder.cardView.getRadius()));
         holder.siteName.setText(site.getName());
         holder.totalLots.setText(String.valueOf(site.getNumberOfLots()));
+        holder.cardView.setPreventCornerOverlap(false);
         holder.readyLots.setText(String.valueOf(site.getReadyLots()));
         if(site.getIssue_lots()<1){
             holder.issueButton.setVisibility(View.INVISIBLE);
@@ -88,7 +89,6 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
             case 3: holder.cardView.setBackgroundColor(
                     ContextCompat.getColor(holder.cardView.getContext(),R.color.colorIndigo));
                 break;
-
         }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +132,6 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final long count = dataSnapshot.getChildrenCount();
-
                 final DatabaseReference sitesRef = FirebaseDatabase.getInstance().getReference().child(SITES_NODE);
                 sitesRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

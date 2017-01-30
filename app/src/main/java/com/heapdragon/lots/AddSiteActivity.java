@@ -24,6 +24,8 @@ import static com.heapdragon.lots.DataBaseConstants.SITES_NODE;
 import static com.heapdragon.lots.DataBaseConstants.SITE_COLOR_NODE;
 import static com.heapdragon.lots.DataBaseConstants.TOTAL_LOTS_NODE;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -34,7 +36,8 @@ public class AddSiteActivity extends AppCompatActivity {
 
     private static final String TAG = "AddSiteActivityTAG";
 
-    private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://lots-676e3.firebaseio.com/");
+    private DatabaseReference mRootRef = FirebaseDatabase.getInstance().
+            getReferenceFromUrl("https://lots-676e3.firebaseio.com/");
     private EditText siteName;
     private EditText numberOfLots;
     private Button createSiteButton;
@@ -70,6 +73,7 @@ public class AddSiteActivity extends AppCompatActivity {
                     createLotNode(key,site.getNumberOfLots());
                 } catch (NumberFormatException e) {
                     Toast.makeText(getApplicationContext(),"Check number of lots!",Toast.LENGTH_SHORT).show();
+                    YoYo.with(Techniques.Shake).duration(1000).playOn(numberOfLots);
                     Log.d("", numLots + " is not a number");
                 }
             }
