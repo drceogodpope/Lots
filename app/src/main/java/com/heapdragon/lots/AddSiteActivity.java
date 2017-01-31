@@ -74,18 +74,18 @@ public class AddSiteActivity extends AppCompatActivity {
                         return true;
                     } catch (NumberFormatException e) {
                         Toast.makeText(getApplicationContext(),"Check number of lots!",Toast.LENGTH_SHORT).show();
-                        YoYo.with(Techniques.Shake).duration(1000).playOn(numberOfLots);
+                        YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLots);
                         Log.d("", numLots + " is not a number");
                         return false;
                     }
                 }else {
-                    YoYo.with(Techniques.Shake).duration(1000).playOn(numberOfLots);
+                    YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLots);
                     Toast.makeText(getApplicationContext(),
                             "Enter number of lots. Must be between 1 and 1000!",
                             Toast.LENGTH_LONG).show();
                 }
             }else{
-                YoYo.with(Techniques.Shake).duration(1000).playOn(siteName);
+                YoYo.with(Techniques.Shake).duration(500).playOn(siteName);
                 Toast.makeText(getApplicationContext(),
                         "Enter name of the site!",
                         Toast.LENGTH_LONG).show();
