@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -38,6 +39,7 @@ public class AddSiteActivity extends AppCompatActivity {
             getReferenceFromUrl("https://lots-676e3.firebaseio.com/");
     private EditText siteName;
     private EditText numberOfLots;
+    private CardView siteColorPicker;
     private Button createSiteButton;
 
     @Override
@@ -49,6 +51,14 @@ public class AddSiteActivity extends AppCompatActivity {
         siteName = (EditText) findViewById(R.id.add_site_activity_name);
         numberOfLots = (EditText) findViewById(R.id.add_site_activity_total_lots);
         createSiteButton = (Button) findViewById(R.id.add_site_activity_create_site_button);
+        siteColorPicker = (CardView) findViewById(R.id.colorPicker);
+
+        siteColorPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showColorPickerFrag();
+            }
+        });
 
         createSiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +69,10 @@ public class AddSiteActivity extends AppCompatActivity {
             }
         });
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+    }
+
+    private void showColorPickerFrag() {
+
     }
 
     private boolean createSite() {

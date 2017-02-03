@@ -25,6 +25,7 @@ import static com.heapdragon.lots.DataBaseConstants.LOG_STATUS;
 import static com.heapdragon.lots.DataBaseConstants.LOG_TIME_STAMP;
 
 public class SiteLogFragment extends Fragment {
+
     private final String TAG = "SiteLogFragment";
 
     private RecyclerView recyclerView;

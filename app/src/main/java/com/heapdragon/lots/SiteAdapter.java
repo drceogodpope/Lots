@@ -121,8 +121,9 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
             }
         });
 
-
+        //SETUP FOR COMPLETE LOT LISTENERS//
         DatabaseReference lotRef = FirebaseDatabase.getInstance().getReference().child(LOTS_NODE_PREFIX+holder.site.getId());
+
         lotRef.orderByValue().equalTo(1).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -131,7 +132,8 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
                 sitesRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.hasChild(site.getId())){
+                        if(dataSnapshot.hasChild(site.getId()) && count>0){
+                            Log.d(TAG,"BUG?!");
                             sitesRef.child(holder.site.getId()).child(READY_LOTS_NODE).setValue(count);
                         }
                     }
@@ -141,7 +143,6 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
                 });
                 holder.readyLots.setText(String.valueOf(count));
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
