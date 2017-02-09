@@ -82,7 +82,13 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
 
         int[] siteColors = holder.cardView.getContext().getResources().getIntArray(R.array.siteColors);
 
-        holder.cardView.setBackgroundColor(siteColors[holder.site.getSiteColor()]);
+        try {
+            holder.cardView.setBackgroundColor(siteColors[holder.site.getSiteColor()]);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            holder.cardView.setBackgroundColor(siteColors[0]);
+        }
 
 
 
