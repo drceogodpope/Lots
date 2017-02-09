@@ -61,27 +61,26 @@ public class LotActivity extends AppCompatActivity {
         notReadyButton = (Button) findViewById(R.id.not_ready_button);
         issueButton = (Button) findViewById(R.id.issue_button);
         receivedButton = (Button) findViewById(R.id.received_button);
+        final TextView siteName = (TextView) findViewById(R.id.site_name_and_number);
+
         readyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setStatus(Lot.READY);
             }
         });
-
         issueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setStatus(Lot.ISSUE);
             }
         });
-
         notReadyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setStatus(Lot.NOT_READY);
             }
         });
-
         receivedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +88,6 @@ public class LotActivity extends AppCompatActivity {
             }
         });
 
-        final TextView siteName = (TextView) findViewById(R.id.site_name_and_number);
         mSitesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -110,17 +108,8 @@ public class LotActivity extends AppCompatActivity {
     }
 
     private void changeLotColor(int status) {
-        int colorTo;
-        switch(status){
-            case 0: colorTo = ContextCompat.getColor(getApplicationContext(),R.color.colorRed);
-                break;
-            case 1: colorTo = ContextCompat.getColor(getApplicationContext(),R.color.colorGreen);
-                break;
-            case 2: colorTo = ContextCompat.getColor(getApplicationContext(),R.color.colorYellow);
-                break;
-            default: colorTo = ContextCompat.getColor(getApplicationContext(),R.color.colorGrey);
-        }
-        ViewHelper.changeColourAnim(((ColorDrawable) toolbar.getBackground()).getColor(),colorTo,toolbar);
+        int[] statusColors = getApplicationContext().getResources().getIntArray(R.array.statusColors);
+        ViewHelper.changeColourAnim(((ColorDrawable) toolbar.getBackground()).getColor(),statusColors[status],toolbar);
     }
 
     private void createLog(int status) {
