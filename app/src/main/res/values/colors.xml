@@ -22,18 +22,43 @@
     <color name="colorIndigo">#3A4BB7</color>
     <color name="colorChineseRed">#AF4319</color>
     <color name="colorRichLavender">#EFBDEB</color>
+    <color name="colorBlue1">#42A5F5</color>
+    <color name="colorBlue2">#1E88E5</color>
+    <color name="colorBlue3">#1976D2</color>
+
+    <color name="colorGreen1">#8BC34A</color>
+    <color name="colorGreen2">#7CB342</color>
+    <color name="colorGreen3">#689F38</color>
+
+    <color name="colorGold1">#FFB300</color>
+    <color name="colorGold2">#FFA000</color>
+    <color name="colorGold3">#FF8F00</color>
+
+    <color name="colorBrown1">#8D6E63</color>
+    <color name="colorBrown2">#795548</color>
+    <color name="colorBrown3">#6D4C41</color>
+
 
 
 
     <!--Status Colors-->
     <array name="siteColors">
         <item>@color/colorPink</item>
-        <item>@color/colorCyan</item>
         <item>@color/colorPurple</item>
+        <item>@color/colorCyan</item>
         <item>@color/colorIndigo</item>
         <item>@color/colorGrey</item>
         <item>@color/colorChineseRed</item>
-        <item>@color/colorRichLavender</item>
+        <item>@color/colorBlue1</item>
+        <item>@color/colorBlue2</item>
+        <item>@color/colorBlue3</item>
+        <item>@color/colorGreen1</item>
+        <item>@color/colorGreen2</item>
+        <item>@color/colorGreen3</item>
+        <item>@color/colorGold1</item>
+        <item>@color/colorGold2</item>
+        <item>@color/colorGold3</item>
+
     </array>
 
     <array name="statusColors">
