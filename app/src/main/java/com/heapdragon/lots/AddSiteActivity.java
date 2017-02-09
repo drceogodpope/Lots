@@ -36,8 +36,7 @@ public class AddSiteActivity extends AppCompatActivity {
 
     private static final String TAG = "AddSiteActivityTAG";
 
-    private DatabaseReference mRootRef = FirebaseDatabase.getInstance().
-            getReferenceFromUrl("https://lots-676e3.firebaseio.com/");
+    private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     private EditText siteName;
     private EditText numberOfLots;
     private Button createSiteButton;
