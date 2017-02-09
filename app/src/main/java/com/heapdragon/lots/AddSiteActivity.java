@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.*;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -12,10 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import static com.heapdragon.lots.AddSiteActivity.*;
 import static com.heapdragon.lots.DataBaseConstants.INCOMPLETE_LOTS_NODE;
 import static com.heapdragon.lots.DataBaseConstants.ISSUE_LOTS_NODE;
-import static com.heapdragon.lots.DataBaseConstants.LOG_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.LOTS_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.NAME_NODE;
 import static com.heapdragon.lots.DataBaseConstants.READY_LOTS_NODE;
@@ -31,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class AddSiteActivity extends AppCompatActivity {
 
@@ -39,6 +38,7 @@ public class AddSiteActivity extends AppCompatActivity {
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     private EditText siteName;
     private EditText numberOfLots;
+    private CardView siteColorPicker;
     private Button createSiteButton;
 
     @Override
@@ -50,33 +50,61 @@ public class AddSiteActivity extends AppCompatActivity {
         siteName = (EditText) findViewById(R.id.add_site_activity_name);
         numberOfLots = (EditText) findViewById(R.id.add_site_activity_total_lots);
         createSiteButton = (Button) findViewById(R.id.add_site_activity_create_site_button);
+        siteColorPicker = (CardView) findViewById(R.id.colorPicker);
+
+        siteColorPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showColorPickerFrag();
+            }
+        });
 
         createSiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createSite();
-                startMainActivity();
+                if(createSite()){
+                    startMainActivity();
+                }
             }
         });
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
-    private void createSite() {
-            Log.d(TAG,"createSite()");
-            if(numberOfLots.getText().toString().length()>0&&siteName.getText().toString().length()>0){
-                String name = Utility.capitilizeFirst(siteName.getText().toString());
-                int numLots = Integer.parseInt(numberOfLots.getText().toString());
-                Site site = new Site(name,numLots);
-                try {
-                    String key = createSiteNode(site);
-                    createLotNode(key,site.getNumberOfLots());
-                } catch (NumberFormatException e) {
-                    Toast.makeText(getApplicationContext(),"Check number of lots!",Toast.LENGTH_SHORT).show();
-                    YoYo.with(Techniques.Shake).duration(1000).playOn(numberOfLots);
-                    Log.d("", numLots + " is not a number");
+    private void showColorPickerFrag() {
+
+    }
+
+    private boolean createSite() {
+        Log.d(TAG,"createSite()");
+            if(siteName.getText().toString().trim().length()>0){
+                if(numberOfLots.getText().toString().trim().length()>0){
+                    String name = Utility.capitilizeFirst(siteName.getText().toString());
+                    int numLots = Integer.parseInt(numberOfLots.getText().toString());
+                    Site site = new Site(name,numLots);
+                    try {
+                        String key = createSiteNode(site);
+                        createLotNode(key,site.getNumberOfLots());
+                        return true;
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(getApplicationContext(),"Check number of lots!",Toast.LENGTH_SHORT).show();
+                        YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLots);
+                        Log.d("", numLots + " is not a number");
+                        return false;
+                    }
+                }else {
+                    YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLots);
+                    Toast.makeText(getApplicationContext(),
+                            "Enter number of lots. Must be between 1 and 1000!",
+                            Toast.LENGTH_LONG).show();
                 }
+            }else{
+                YoYo.with(Techniques.Shake).duration(500).playOn(siteName);
+                Toast.makeText(getApplicationContext(),
+                        "Enter name of the site!",
+                        Toast.LENGTH_LONG).show();
             }
 
+        return false;
     }
 
 
@@ -90,7 +118,7 @@ public class AddSiteActivity extends AppCompatActivity {
         map.put(RECEIVED_LOTS_NODE,site.getReceivedLots());
         map.put(READY_LOTS_NODE,site.getReadyLots());
         map.put(ISSUE_LOTS_NODE,site.getIssue_lots());
-        map.put(SITE_COLOR_NODE,site.getSiteColor());
+        map.put(SITE_COLOR_NODE,assignSiteColor());
 
         key = sitesRef.push().getKey();
         sitesRef.child(key).setValue(map);
@@ -108,6 +136,13 @@ public class AddSiteActivity extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(),MainActivity.class);
         startActivity(i);
     }
+
+    private int assignSiteColor(){
+        int[] siteColors = siteName.getResources().getIntArray(R.array.siteColors);
+
+       return ThreadLocalRandom.current().nextInt(0,siteColors.length);
+    }
+
 
 
 }

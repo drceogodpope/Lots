@@ -2,7 +2,6 @@ package com.heapdragon.lots;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static com.heapdragon.lots.DataBaseConstants.LOTS_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.READY_LOTS_NODE;
@@ -28,6 +29,8 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
     public static final String TAG = "SiteAdapter";
     protected ArrayList<Site> sites;
     protected SiteAdapter(ArrayList<Site> sites) {
+
+        Collections.shuffle(sites);
         this.sites = sites;
     }
 
@@ -76,20 +79,12 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
             holder.issueButton.setVisibility(View.VISIBLE);
         }
         android.util.Log.d(TAG,site.getName() + site.getSiteColor());
-        switch (site.getSiteColor()){
-            case 0: holder.cardView.setBackgroundColor(
-                    ContextCompat.getColor(holder.cardView.getContext(), R.color.colorCyan));
-                break;
-            case 1: holder.cardView.setBackgroundColor(
-                    ContextCompat.getColor(holder.cardView.getContext(),R.color.colorPink));
-                break;
-            case 2: holder.cardView.setBackgroundColor(
-                    ContextCompat.getColor(holder.cardView.getContext(),R.color.colorPurple));
-                break;
-            case 3: holder.cardView.setBackgroundColor(
-                    ContextCompat.getColor(holder.cardView.getContext(),R.color.colorIndigo));
-                break;
-        }
+
+        int[] siteColors = holder.cardView.getContext().getResources().getIntArray(R.array.siteColors);
+
+        holder.cardView.setBackgroundColor(siteColors[holder.site.getSiteColor()]);
+
+
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,8 +121,9 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
             }
         });
 
-
+        //SETUP FOR COMPLETE LOT LISTENERS//
         DatabaseReference lotRef = FirebaseDatabase.getInstance().getReference().child(LOTS_NODE_PREFIX+holder.site.getId());
+
         lotRef.orderByValue().equalTo(1).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -136,7 +132,8 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
                 sitesRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.hasChild(site.getId())){
+                        if(dataSnapshot.hasChild(site.getId()) && count>0){
+                            Log.d(TAG,"BUG?!");
                             sitesRef.child(holder.site.getId()).child(READY_LOTS_NODE).setValue(count);
                         }
                     }
@@ -146,7 +143,6 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
                 });
                 holder.readyLots.setText(String.valueOf(count));
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
