@@ -44,7 +44,6 @@
 
 
 
-
     <!--Status Colors-->
     <array name="siteColors">
         <item>@color/colorPink</item>
@@ -57,6 +56,14 @@
         <item>@color/colorBlue2</item>
         <item>@color/colorBlue3</item>
         <item>@color/colorIndigo</item>
+        <item>@color/colorPurple</item>
+        <item>@color/colorCyan</item>
+        <item>@color/colorIndigo</item>
+        <item>@color/colorGrey</item>
+        <item>@color/colorChineseRed</item>
+        <item>@color/colorBlue1</item>
+        <item>@color/colorBlue2</item>
+        <item>@color/colorBlue3</item>
         <item>@color/colorGreen1</item>
         <item>@color/colorGreen2</item>
         <item>@color/colorGreen3</item>
