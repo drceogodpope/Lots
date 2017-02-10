@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,8 +24,7 @@ import static com.heapdragon.lots.DataBaseConstants.*;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivityTag";
-    private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference mSitesRef = mRootRef.child(SITES_NODE);
+    private DatabaseReference mSitesRef = FirebaseDatabase.getInstance().getReference().child(SITES_NODE);
     private RecyclerView mSitesRecyclerView;
     private SiteAdapter mSiteAdapter;
     private LinearLayoutManager mLinearLayoutManager;
@@ -46,21 +46,14 @@ public class MainActivity extends AppCompatActivity {
         mSiteAdapter = new SiteAdapter(sites);
         mSitesRecyclerView.setAdapter(mSiteAdapter);
 
+        //LISTENS TO FOR CHANGES IN THE SITE NODE
         mSitesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 sites.clear();
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
                     try{
-                        String name = ds.child(NAME_NODE).getValue().toString();
-                        int numberOfLots = Integer.valueOf(ds.child(TOTAL_LOTS_NODE).getValue().toString());
-                        int incompleteLots = Integer.valueOf(ds.child(INCOMPLETE_LOTS_NODE).getValue().toString());
-                        int issueLots = Integer.valueOf(ds.child(ISSUE_LOTS_NODE).getValue().toString());
-                        int readyLots = Integer.valueOf(ds.child(READY_LOTS_NODE).getValue().toString());
-                        int receivedLots = Integer.valueOf(ds.child(RECEIVED_LOTS_NODE).getValue().toString());
-                        int siteColor = Integer.valueOf(ds.child(SITE_COLOR_NODE).getValue().toString());
-                        String id = ds.getKey();
-                        MainActivity.this.sites.add(new Site(name,numberOfLots,incompleteLots,issueLots,readyLots,receivedLots,siteColor,id));
+                        MainActivity.this.sites.add(createSiteFromNode(ds));
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -71,7 +64,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+
+
+
     }
+
+    private Site createSiteFromNode(DataSnapshot ds){
+        String name = ds.child(NAME_NODE).getValue().toString();
+        int numberOfLots = Integer.valueOf(ds.child(TOTAL_LOTS_NODE).getValue().toString());
+        int incompleteLots = Integer.valueOf(ds.child(INCOMPLETE_LOTS_NODE).getValue().toString());
+        int issueLots = Integer.valueOf(ds.child(ISSUE_LOTS_NODE).getValue().toString());
+        int readyLots = Integer.valueOf(ds.child(READY_LOTS_NODE).getValue().toString());
+        int receivedLots = Integer.valueOf(ds.child(RECEIVED_LOTS_NODE).getValue().toString());
+        int siteColor = Integer.valueOf(ds.child(SITE_COLOR_NODE).getValue().toString());
+        String id = ds.getKey();
+        return new Site(name,numberOfLots,incompleteLots,issueLots,readyLots,receivedLots,siteColor,id);
+    }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

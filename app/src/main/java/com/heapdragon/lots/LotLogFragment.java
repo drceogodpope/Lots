@@ -5,15 +5,15 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 public class LotLogFragment extends SiteLogFragment {
-    private static String TAG = "LotLogFragment";
 
+    private static String TAG = "LotLogFragment";
      public static LotLogFragment newInstance(String key,int lotNumber) {
-        Bundle args = new Bundle();
-        args.putInt("lotNumber",lotNumber);
+         Bundle args = new Bundle();
+         args.putInt("lotNumber",lotNumber);
          args.putString("key",key);
-        LotLogFragment fragment = new LotLogFragment();
-        fragment.setArguments(args);
-        return fragment;
+         LotLogFragment fragment = new LotLogFragment();
+         fragment.setArguments(args);
+         return fragment;
     }
 
     @Override
@@ -22,5 +22,4 @@ public class LotLogFragment extends SiteLogFragment {
         lotNumber = getArguments().getInt("lotNumber");
         Log.d(TAG,String.valueOf(lotNumber));
     }
-
 }

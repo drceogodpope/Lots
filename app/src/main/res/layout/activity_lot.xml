@@ -6,58 +6,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/log_layout"
-        android:layout_above="@+id/status_layout"
-        android:layout_below="@id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </FrameLayout>
 
-    <LinearLayout
-        android:id="@+id/status_layout"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:gravity="top"
-        android:background="@color/colorDarkBackground" android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:text="Ready to Receive"
-            android:padding="50dp"
-            android:id="@+id/ready_button"
-            android:textColor="@color/colorWhite"
+        <FrameLayout
+            android:id="@+id/log_layout"
+            android:layout_weight="1"
+            android:layout_above="@+id/status_layout"
+            android:layout_below="@id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorGreen"
-            android:backgroundTint="@color/colorGreen"/>
-        <Button
-            android:padding="50dp"
-            android:id="@+id/not_ready_button"
-            android:text="Not Ready to Receive"
-            android:textColor="@color/colorWhite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorRed"
-            android:backgroundTint="@color/colorRed"/>
-        <Button
-            android:text="Issue"
-            android:padding="50dp"
-            android:id="@+id/issue_button"
-            android:textColor="@color/colorWhite"
-            android:layout_width="match_parent"
-            android:background="@color/colorYellow"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorYellow"/>
-        <Button
-            android:id="@+id/received_button"
-            android:padding="50dp"
-            android:text="Received"
-            android:textColor="@color/colorWhite"
-            android:layout_width="match_parent"
-            android:background="@color/colorGrey"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorGrey"/>
-    </LinearLayout>
+            android:layout_height="wrap_content">
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/status_layout"
+            android:orientation="vertical"
+            android:layout_weight="3"
+            android:layout_alignParentBottom="true"
+            android:gravity="top"
+            android:background="@color/colorDarkBackground" android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:text="Ready to Receive"
+                android:padding="20dp"
+                android:id="@+id/ready_button"
+                android:textColor="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorGreen"
+                android:backgroundTint="@color/colorGreen"/>
+            <Button
+                android:padding="20dp"
+                android:id="@+id/not_ready_button"
+                android:text="Not Ready to Receive"
+                android:textColor="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorRed"
+                android:backgroundTint="@color/colorRed"/>
+            <Button
+                android:text="Issue"
+                android:padding="20dp"
+                android:id="@+id/issue_button"
+                android:textColor="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:background="@color/colorYellow"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorYellow"/>
+            <Button
+                android:id="@+id/received_button"
+                android:padding="20dp"
+                android:text="Received"
+                android:textColor="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:background="@color/colorGrey"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorGrey"/>
+        </LinearLayout>
+
+
+
+
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
