@@ -4,18 +4,14 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.DisplayMetrics;
 
-/**
- * Created by Francesco on 2017-01-05.
- */
-
-public class Utility {
+class Utility {
     public static int calculateNoOfColumns(Context context,int imageSize) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         return (int) (dpWidth / imageSize);
     }
 
-    public static String capitilizeFirst(String string){
+    static String capitilizeFirst(String string){
             StringBuilder titleCase = new StringBuilder();
             boolean nextTitleCase = true;
             for (char c : string.toCharArray()) {
@@ -33,7 +29,7 @@ public class Utility {
     /**
      * Returns darker version of specified <code>color</code>.
      */
-    public static int darker (int color, float factor) {
+     static int darker (int color, float factor) {
         int a = Color.alpha( color );
         int r = Color.red( color );
         int g = Color.green( color );

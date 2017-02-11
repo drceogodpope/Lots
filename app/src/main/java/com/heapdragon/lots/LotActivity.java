@@ -18,6 +18,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import org.joda.time.DateTime;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.heapdragon.lots.DataBaseConstants.LOG_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.LOG_NUMBER;
 import static com.heapdragon.lots.DataBaseConstants.LOG_STATUS;
@@ -104,7 +108,6 @@ public class LotActivity extends AppCompatActivity {
         mLotsRef.child(String.valueOf(lotNumber)).setValue(status);
         createLog(status);
         changeLotColor(status);
-
     }
 
     private void changeLotColor(int status) {
@@ -114,10 +117,11 @@ public class LotActivity extends AppCompatActivity {
 
     private void createLog(int status) {
         DatabaseReference logRef = mRootRef.child(LOG_NODE_PREFIX+key);
-        String logKey = logRef.push().getKey();
-        logRef.child(logKey).child(LOG_NUMBER).setValue(lotNumber);
-        logRef.child(logKey).child(LOG_TIME_STAMP).setValue(new DateTime().getMillis());
-        logRef.child(logKey).child(LOG_STATUS).setValue(status);
+        Map<String,Object> map = new HashMap<>();
+        map.put(LOG_NUMBER,lotNumber);
+        map.put(LOG_STATUS,status);
+        map.put(LOG_TIME_STAMP,new DateTime().getMillis());
+        logRef.push().setValue(map);
     }
 
     @Override
@@ -127,7 +131,6 @@ public class LotActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-
         super.onStop();
     }
 }

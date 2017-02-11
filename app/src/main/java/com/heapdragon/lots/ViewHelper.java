@@ -12,7 +12,7 @@ public class ViewHelper {
 
     public static void changeColourAnim(int colorFrom, int colorTo, final View view){
         ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
-        colorAnimation.setDuration(1500); // milliseconds
+        colorAnimation.setDuration(250); // milliseconds
         colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animator) {
