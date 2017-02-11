@@ -108,7 +108,6 @@ public class LotActivity extends AppCompatActivity {
         mLotsRef.child(String.valueOf(lotNumber)).setValue(status);
         createLog(status);
         changeLotColor(status);
-
     }
 
     private void changeLotColor(int status) {
@@ -132,7 +131,6 @@ public class LotActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-
         super.onStop();
     }
 }
