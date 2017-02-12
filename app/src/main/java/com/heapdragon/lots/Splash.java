@@ -6,18 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-
-/**
- * Created by Francesco on 2017-02-11.
- */
-
 public class Splash extends Activity {
-
     TextView tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +40,6 @@ public class Splash extends Activity {
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
             }
 
             @Override
