@@ -1,7 +1,9 @@
 package com.heapdragon.lots;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import static com.heapdragon.lots.DataBaseConstants.INCOMPLETE_LOTS_NODE;
@@ -24,8 +27,13 @@ import static com.heapdragon.lots.DataBaseConstants.TOTAL_LOTS_NODE;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +48,11 @@ public class AddSiteActivity extends AppCompatActivity {
     private EditText numberOfLots;
     private CardView siteColorPicker;
     private Button createSiteButton;
+    private ImageButton chooseSiteMapButton;
+    private Uri siteMapUri;
+
+    private StorageReference  mStorage;
+    private static final int GALLERY_INTENT = 2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,10 +60,15 @@ public class AddSiteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_site);
         android.util.Log.d(TAG,"onCreate()");
 
+
+        mStorage = FirebaseStorage.getInstance().getReference();
+        Toast.makeText(getBaseContext(),mStorage.getRoot().getBucket(),Toast.LENGTH_LONG).show();
+
         siteName = (EditText) findViewById(R.id.add_site_activity_name);
         numberOfLots = (EditText) findViewById(R.id.add_site_activity_total_lots);
         createSiteButton = (Button) findViewById(R.id.add_site_activity_create_site_button);
         siteColorPicker = (CardView) findViewById(R.id.colorPicker);
+        chooseSiteMapButton = (ImageButton) findViewById(R.id.choose_site_map_button);
 
         siteColorPicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +86,27 @@ public class AddSiteActivity extends AppCompatActivity {
             }
         });
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        chooseSiteMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseSiteMap();
+            }
+        });
+
+    }
+
+    private void chooseSiteMap() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent,GALLERY_INTENT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+         if(requestCode==GALLERY_INTENT && resultCode == RESULT_OK){
+             siteMapUri = data.getData();
+         }
     }
 
     private void showColorPickerFrag() {
@@ -81,16 +120,26 @@ public class AddSiteActivity extends AppCompatActivity {
                     String name = Utility.capitilizeFirst(siteName.getText().toString());
                     int numLots = Integer.parseInt(numberOfLots.getText().toString());
                     Site site = new Site(name,numLots);
-                    try {
-                        String key = createSiteNode(site);
-                        createLotNode(key,site.getNumberOfLots());
-                        return true;
-                    } catch (NumberFormatException e) {
-                        Toast.makeText(getApplicationContext(),"Check number of lots!",Toast.LENGTH_SHORT).show();
-                        YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLots);
-                        Log.d("", numLots + " is not a number");
-                        return false;
+                    if(numLots<=2000){
+                        try {
+                            String key = createSiteNode(site);
+                            createLotNode(key,site.getNumberOfLots());
+                            setSiteMap(key);
+                            return true;
+                        } catch (NumberFormatException e) {
+                            Toast.makeText(getApplicationContext(),"Check number of lots!",Toast.LENGTH_SHORT).show();
+                            YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLots);
+                            Log.d("", numLots + " is not a number");
+                            return false;
+                        }
                     }
+                    else{
+                        YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLots);
+                        Toast.makeText(getApplicationContext(),
+                                "Enter number of lots. Must be between 1 and 2000!",
+                                Toast.LENGTH_LONG).show();
+                    }
+
                 }else {
                     YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLots);
                     Toast.makeText(getApplicationContext(),
@@ -104,7 +153,31 @@ public class AddSiteActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
 
+
         return false;
+    }
+
+    private boolean setSiteMap(String key) {
+        Toast.makeText(getBaseContext(),"setSiteMap",Toast.LENGTH_SHORT).show();
+        StorageReference filePath = mStorage.child(key);
+        try{
+            filePath.putFile(siteMapUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(getBaseContext(),"Site map uploaded!",Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG,e.toString());
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 
 
@@ -139,8 +212,7 @@ public class AddSiteActivity extends AppCompatActivity {
 
     private int assignSiteColor(){
         int[] siteColors = siteName.getResources().getIntArray(R.array.siteColors);
-
-       return ThreadLocalRandom.current().nextInt(0,siteColors.length);
+        return ThreadLocalRandom.current().nextInt(0,siteColors.length);
     }
 
 

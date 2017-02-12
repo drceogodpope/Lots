@@ -4,7 +4,7 @@
 //    "firebase_url": "https://lots-676e3.firebaseio.com",
     "firebase_url": "https://lotsbeta.firebaseio.com/",
     "project_id": "lots-676e3",
-    "storage_bucket": "lots-676e3.appspot.com"
+    "storage_bucket": "gs://lotsbeta.appspot.com/"
   },
   "client": [
     {
