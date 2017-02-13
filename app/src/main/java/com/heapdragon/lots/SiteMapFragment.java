@@ -1,9 +1,11 @@
 package com.heapdragon.lots;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -25,9 +28,11 @@ import java.net.URI;
 import static com.heapdragon.lots.DataBaseConstants.SITE_MAPS_ROOT;
 
 public class SiteMapFragment extends android.support.v4.app.Fragment {
+
+    private static final String TAG = "SiteMapFragment";
     private LinearLayout linearLayout;
-    private ImageButton addSiteMapButton;
-    private ImageView siteMapImageView;
+    private TouchImageView addSiteMapButton;
+    private TouchImageView siteMapImageView;
     private FirebaseStorage mStorageRef;
     private ProgressBar progressBar;
 
@@ -43,7 +48,6 @@ public class SiteMapFragment extends android.support.v4.app.Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mStorageRef = FirebaseStorage.getInstance();
-
     }
 
     @Nullable
@@ -52,7 +56,7 @@ public class SiteMapFragment extends android.support.v4.app.Fragment {
         View view = inflater.inflate(R.layout.fragment_map,container,false);
         linearLayout = (LinearLayout) view.findViewById(R.id.add_site_map_layout);
         progressBar = (ProgressBar) view.findViewById(R.id.siteMap_progressBar);
-        siteMapImageView = (ImageView) view.findViewById(R.id.site_map_image_view);
+        siteMapImageView = (TouchImageView) view.findViewById(R.id.site_map_image_view);
         return view;
     }
 
@@ -60,24 +64,32 @@ public class SiteMapFragment extends android.support.v4.app.Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         loadSiteMapImage(getArguments().getString("key"));
+        siteMapImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
     }
 
-    private void loadSiteMapImage(String key){
+    private void loadSiteMapImage(String key) {
         StorageReference siteMapRef = mStorageRef.getReference().child(SITE_MAPS_ROOT).child(key);
-
         siteMapRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.with(getContext()).load(uri.toString()).into(siteMapImageView);
+                siteMapImageView.setZoom(1);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                siteMapImageView.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
                 linearLayout.setVisibility(View.VISIBLE);
             }
         });
-
     }
+
+
+
 
 }

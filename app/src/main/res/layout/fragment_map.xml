@@ -12,8 +12,10 @@
         android:layout_centerInParent="true"
         android:id="@+id/siteMap_progressBar"/>
 
-    <ImageView
+    <com.heapdragon.lots.TouchImageView
         android:id="@+id/site_map_image_view"
+        android:visibility="visible"
+        android:src="@drawable/photo_library_grey_96x96"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     <LinearLayout
