@@ -1,5 +1,6 @@
 package com.heapdragon.lots;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,12 +24,17 @@ import static com.heapdragon.lots.DataBaseConstants.READY_LOTS_NODE;
 import static com.heapdragon.lots.DataBaseConstants.RECEIVED_LOTS_NODE;
 import static com.heapdragon.lots.DataBaseConstants.SITES_NODE;
 import static com.heapdragon.lots.DataBaseConstants.SITE_COLOR_NODE;
+import static com.heapdragon.lots.DataBaseConstants.SITE_MAPS_ROOT;
 import static com.heapdragon.lots.DataBaseConstants.TOTAL_LOTS_NODE;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -54,15 +60,28 @@ public class AddSiteActivity extends AppCompatActivity {
     private StorageReference  mStorage;
     private static final int GALLERY_INTENT = 2;
 
+    private ProgressDialog mProgressDialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_site);
         android.util.Log.d(TAG,"onCreate()");
 
-
+        // Check status of Google Play Services
+        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        // Check Google Play Service Available
+        try {
+            if (status != ConnectionResult.SUCCESS) {
+                GooglePlayServicesUtil.getErrorDialog(status, this, 1).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+        }
         mStorage = FirebaseStorage.getInstance().getReference();
-        Toast.makeText(getBaseContext(),mStorage.getRoot().getBucket(),Toast.LENGTH_LONG).show();
+
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage("Creating Site!");
 
         siteName = (EditText) findViewById(R.id.add_site_activity_name);
         numberOfLots = (EditText) findViewById(R.id.add_site_activity_total_lots);
@@ -80,9 +99,7 @@ public class AddSiteActivity extends AppCompatActivity {
         createSiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(createSite()){
-                    startMainActivity();
-                }
+               createSite();
             }
         });
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -158,23 +175,28 @@ public class AddSiteActivity extends AppCompatActivity {
     }
 
     private boolean setSiteMap(String key) {
-        Toast.makeText(getBaseContext(),"setSiteMap",Toast.LENGTH_SHORT).show();
-        StorageReference filePath = mStorage.child(key);
+        mProgressDialog.show();
+        StorageReference filePath = mStorage.child(SITE_MAPS_ROOT).child(key);
         try{
             filePath.putFile(siteMapUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    mProgressDialog.dismiss();
                     Toast.makeText(getBaseContext(),"Site map uploaded!",Toast.LENGTH_SHORT).show();
+                    startMainActivity();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Log.d(TAG,e.toString());
+                    mProgressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(),"Error uploading site map!",Toast.LENGTH_LONG).show();
+                    startMainActivity();
                 }
             });
         }catch (Exception e){
             e.printStackTrace();
-            Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+            startMainActivity();
             return false;
         }
         return true;
