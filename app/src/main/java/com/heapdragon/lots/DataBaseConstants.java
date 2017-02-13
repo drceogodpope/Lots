@@ -27,5 +27,9 @@ public class DataBaseConstants {
     static final String LOG_NUMBER = "number";
     //LOG NODE CONSTANTS
 
+    //STORAGE CONSTANSTS
+        //SITE MAPS ROOT
+        static final String SITE_MAPS_ROOT = "site_maps";
+
 
 }

@@ -21,11 +21,13 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 
 import static com.heapdragon.lots.DataBaseConstants.LOG_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.LOTS_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.NAME_NODE;
 import static com.heapdragon.lots.DataBaseConstants.SITES_NODE;
+import static com.heapdragon.lots.DataBaseConstants.SITE_MAPS_ROOT;
 
 public class SiteActivity extends AppCompatActivity {
 
@@ -109,6 +111,7 @@ public class SiteActivity extends AppCompatActivity {
         mSitesRef.child(key).removeValue();
         mRootRef.child(LOTS_NODE_PREFIX+key).removeValue();
         mRootRef.child(LOG_NODE_PREFIX+key).removeValue();
+        FirebaseStorage.getInstance().getReference().child(SITE_MAPS_ROOT).child(key).delete();
     }
 
     @Override
