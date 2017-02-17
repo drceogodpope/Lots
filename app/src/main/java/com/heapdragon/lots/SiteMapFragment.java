@@ -1,5 +1,6 @@
 package com.heapdragon.lots;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -36,6 +37,8 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.net.URI;
 
 import static android.app.Activity.RESULT_OK;
@@ -50,7 +53,6 @@ public class SiteMapFragment extends android.support.v4.app.Fragment {
     private FirebaseStorage mStorageRef;
     private ProgressBar progressBar;
     private final static int GALLERY_INTENT = 1;
-    private byte[] compressedBitmap;
 
     public static SiteMapFragment newInstance(String key){
         SiteMapFragment siteMapFragment = new SiteMapFragment();
@@ -81,14 +83,12 @@ public class SiteMapFragment extends android.support.v4.app.Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         loadSiteMapImage(getArguments().getString("key"));
-
         addSiteMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 chooseSiteMap();
             }
         });
-
         siteMapImageView.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
@@ -146,22 +146,13 @@ public class SiteMapFragment extends android.support.v4.app.Fragment {
 
 
     private void loadSiteMapImage(String key) {
-        Toast.makeText(getContext(), "loadSiteMap()", Toast.LENGTH_SHORT).show();
         StorageReference siteMapRef = mStorageRef.getReference().child(SITE_MAPS_ROOT).child(key);
         siteMapRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Toast.makeText(getContext(), "glide success", Toast.LENGTH_SHORT).show();
                 Glide.with(getContext()).load(uri).asBitmap().into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(final Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                         Thread compressThread = new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                compressedBitmap = Utility.compressBitmap(resource);
-                            }
-                        });
-                        compressThread.start();
                         siteMapImageView.setImageBitmap(resource);
                     }
                 });
@@ -179,9 +170,23 @@ public class SiteMapFragment extends android.support.v4.app.Fragment {
 
 
     private void startFullScreenActivity() {
-        Intent intent = new Intent(getActivity(),FullScreenActivity.class);
-        intent.putExtra("bitmap",compressedBitmap);
-        startActivity(intent);
+        Intent in1 = new Intent(getActivity(), FullScreenActivity.class);
+        in1.putExtra("image", "bitmap.png");
+        startActivity(in1);
+    }
+
+
+    private boolean saveBitmapToDisk(Bitmap bmp){
+        try {
+            FileOutputStream stream = getActivity().openFileOutput("bitmap.png", Context.MODE_PRIVATE);
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            stream.close();
+        } catch (Exception e) {
+            Log.d(TAG,"catching saveBitmapToDisk()");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
 

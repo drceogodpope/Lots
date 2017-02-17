@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/cardview_dark_background"
+    android:background="@android:color/black"
     android:layout_height="match_parent">
     <com.heapdragon.lots.TouchImageView
         android:id="@+id/fullscreen_touchImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-         android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"/>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:id="@+id/full_screen_activity_progressBar"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
 
 </RelativeLayout>
