@@ -41,9 +41,6 @@
     <color name="colorPurple2">#9C27B0</color>
     <color name="colorPurple3">#7B1FA2</color>
 
-
-
-
     <!--Status Colors-->
     <array name="siteColors">
         <item>@color/colorPink</item>

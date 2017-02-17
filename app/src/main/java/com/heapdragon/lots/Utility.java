@@ -1,8 +1,13 @@
 package com.heapdragon.lots;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.util.DisplayMetrics;
+
+import java.io.ByteArrayOutputStream;
 
 class Utility {
     public static int calculateNoOfColumns(Context context,int imageSize) {
@@ -24,6 +29,16 @@ class Utility {
                 titleCase.append(c);
             }
             return titleCase.toString();
+    }
+
+    public static byte[] compressBitmap(Bitmap bm){
+         ByteArrayOutputStream stream = new ByteArrayOutputStream();
+         bm.compress(Bitmap.CompressFormat.JPEG,100,stream);
+         return stream.toByteArray();
+    }
+
+    public static Bitmap uncompressBitmap(byte[] byteArray){
+        return BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
     }
 
     /**
