@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +32,7 @@ public class SiteLogFragment extends Fragment {
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private String key;
+    private TextView textView;
     protected int lotNumber = 0;
     private ArrayList<SiteLog> logs;
 
@@ -54,6 +56,7 @@ public class SiteLogFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_log, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.log_fragment_recyclerView);
+        textView = (TextView) view.findViewById(R.id.log_fragment_textview);
         linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(new LogAdapter(getLogs(key, lotNumber)));
@@ -83,6 +86,7 @@ public class SiteLogFragment extends Fragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
                 }
                 Collections.sort(logs, new Comparator<SiteLog>() {
                     @Override
@@ -90,6 +94,13 @@ public class SiteLogFragment extends Fragment {
                         return t1.getDateTime().compareTo(siteLog.getDateTime());
                     }
                 });
+                if(logs.size()==0){
+                    textView.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                }else{
+                    textView.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
                 recyclerView.getAdapter().notifyDataSetChanged();
             }
 

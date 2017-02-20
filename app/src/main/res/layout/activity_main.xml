@@ -8,6 +8,17 @@
 
     tools:context="com.heapdragon.lots.MainActivity">
 
+    <TextView
+        android:id="@+id/activity_main_textview"
+        android:layout_width="wrap_content"
+        android:textColor="@color/colorLightGrey"
+        android:layout_height="wrap_content"
+        style="@style/Base.TextAppearance.AppCompat.Medium.Inverse"
+        android:layout_margin="20dp"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:text="No sites found"/>
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -29,4 +40,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/site_activity_sites_recycler_view"/>
+
+    <ProgressBar
+        android:id="@+id/main_activity_progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
 </RelativeLayout>

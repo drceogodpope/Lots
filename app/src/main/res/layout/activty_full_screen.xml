@@ -13,6 +13,4 @@
         android:id="@+id/full_screen_activity_progressBar"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
-
-
 </RelativeLayout>

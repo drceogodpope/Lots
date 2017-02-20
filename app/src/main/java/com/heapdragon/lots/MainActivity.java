@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private SiteAdapter mSiteAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private ArrayList<Site> sites = new ArrayList<>();
+    private ProgressBar pb;
+    private TextView noSitesTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
+        pb = (ProgressBar) findViewById(R.id.main_activity_progressBar);
+        noSitesTextView = (TextView) findViewById(R.id.activity_main_textview);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mSitesRecyclerView = (RecyclerView) findViewById(R.id.site_activity_sites_recycler_view);
         mSitesRecyclerView.setLayoutManager(mLinearLayoutManager);
@@ -58,7 +64,11 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                pb.setVisibility(View.GONE);
                 MainActivity.this.mSiteAdapter.notifyDataSetChanged();
+                if(sites.size()<1){
+                    noSitesTextView.setVisibility(View.VISIBLE);
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
