@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".MainActivity"
+    android:background="@color/colorDarkBackground"
+    app:cardBackgroundColor="@color/colorDarkBackground"
     app:cardCornerRadius="0dp"
-    app:cardBackgroundColor="@android:color/transparent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,11 +13,10 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        app:cardElevation="3dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
         android:id="@+id/site_card"
         app:cardBackgroundColor="@color/colorIndigo"
-        app:cardCornerRadius="50dp"
         android:layout_height="wrap_content">
 
         <LinearLayout

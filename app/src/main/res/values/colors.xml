@@ -10,11 +10,20 @@
 
     <color name="colorGrey">#757575</color>
     <color name="colorLightGrey">#BDBDBD</color>
-    <color name="colorDarkGrey">#3F494F</color>
+    <!--<color name="colorDarkGrey">#3F494F</color>-->
+    <color name="colorDarkGrey">#303030</color>
 
-    <color name="colorGreen">#009688</color>
-    <color name="colorRed">#D0021B</color>
-    <color name="colorYellow">#F8E71C</color>
+
+
+
+    <color name="colorStatusGrey">#6B8896</color>
+
+
+
+
+    <color name="colorGreen">#0F9D58</color>
+    <color name="colorRed">#DB4437</color>
+    <color name="colorYellow">#4285F4</color>
 
     <color name="colorPink">#EC1762</color>
     <color name="colorCyan">#02C4D9</color>
@@ -65,7 +74,7 @@
         <item>@color/colorRed</item>
         <item>@color/colorGreen</item>
         <item>@color/colorYellow</item>
-        <item>@color/colorGrey</item>
+        <item>@color/colorStatusGrey</item>
     </array>
 
 
