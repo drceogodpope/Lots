@@ -92,21 +92,6 @@ public class SiteMapFragment extends android.support.v4.app.Fragment {
                 chooseSiteMap();
             }
         });
-        siteMapImageView.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
-            @Override
-            public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
-                startFullScreenActivity();
-                return true;
-            }
-            @Override
-            public boolean onDoubleTap(MotionEvent motionEvent) {
-                return false;
-            }
-            @Override
-            public boolean onDoubleTapEvent(MotionEvent motionEvent) {
-                return false;
-            }
-        });
     }
 
     // CHOOSE SITE MAP METHODS //
@@ -158,21 +143,6 @@ public class SiteMapFragment extends android.support.v4.app.Fragment {
                     public void onResourceReady(final Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
 
                         saveBitmapToDisk(resource);
-                        siteMapImageView.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
-                            @Override
-                            public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
-                                startFullScreenActivity();
-                                return true;
-                            }
-                            @Override
-                            public boolean onDoubleTap(MotionEvent motionEvent) {
-                                return false;
-                            }
-                            @Override
-                            public boolean onDoubleTapEvent(MotionEvent motionEvent) {
-                                return false;
-                            }
-                        });
                         siteMapImageView.setImageBitmap(resource);
                     }
                 });
@@ -195,6 +165,25 @@ public class SiteMapFragment extends android.support.v4.app.Fragment {
         startActivity(in1);
     }
 
+    private void completedSavingToDish() {
+        siteMapImageView.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
+                startFullScreenActivity();
+                return true;
+            }
+
+            @Override
+            public boolean onDoubleTap(MotionEvent motionEvent) {
+                return false;
+            }
+
+            @Override
+            public boolean onDoubleTapEvent(MotionEvent motionEvent) {
+                return false;
+            }
+        });
+    }
 
     private void saveBitmapToDisk(Bitmap bmp) {
         final Bitmap bmp1 = bmp;
@@ -203,8 +192,9 @@ public class SiteMapFragment extends android.support.v4.app.Fragment {
             public void run() {
                 try {
                     FileOutputStream stream = getActivity().openFileOutput("bitmap.png", Context.MODE_PRIVATE);
-                    bmp1.compress(Bitmap.CompressFormat.PNG, 10, stream);
+                    bmp1.compress(Bitmap.CompressFormat.JPEG, 50, stream);
                     stream.close();
+                    completedSavingToDish();
                 } catch (Exception e) {
                     Log.d(TAG, "catching saveBitmapToDisk()");
                     e.printStackTrace();
