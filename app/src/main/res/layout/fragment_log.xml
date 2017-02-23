@@ -24,8 +24,4 @@
         style="@style/Base.TextAppearance.AppCompat.Medium.Inverse"
         android:layout_margin="20dp"
         android:text="No log info found"/>
-
-
-
-
 </RelativeLayout>
