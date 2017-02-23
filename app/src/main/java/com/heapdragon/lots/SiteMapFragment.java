@@ -92,6 +92,25 @@ public class SiteMapFragment extends android.support.v4.app.Fragment {
                 chooseSiteMap();
             }
         });
+
+        siteMapImageView.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
+                Toast.makeText(getContext(), "One moment!", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            @Override
+            public boolean onDoubleTap(MotionEvent motionEvent) {
+                return false;
+            }
+
+            @Override
+            public boolean onDoubleTapEvent(MotionEvent motionEvent) {
+                return false;
+            }
+        });
+
     }
 
     // CHOOSE SITE MAP METHODS //
@@ -141,7 +160,6 @@ public class SiteMapFragment extends android.support.v4.app.Fragment {
                 Glide.with(getContext()).load(uri).asBitmap().into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(final Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-
                         saveBitmapToDisk(resource);
                         siteMapImageView.setImageBitmap(resource);
                     }
@@ -192,7 +210,7 @@ public class SiteMapFragment extends android.support.v4.app.Fragment {
             public void run() {
                 try {
                     FileOutputStream stream = getActivity().openFileOutput("bitmap.png", Context.MODE_PRIVATE);
-                    bmp1.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+                    bmp1.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     stream.close();
                     completedSavingToDish();
                 } catch (Exception e) {
@@ -202,16 +220,4 @@ public class SiteMapFragment extends android.support.v4.app.Fragment {
             }
         }).start();
     }
-
-
-
-
-
 }
-
-//
-//    ExecutorService executor = Executors.newFixedThreadPool(1);
-//executor.submit(runnable1);
-//        executor.submit(runnable2);
-//        executor.shutdown();
-//        executor.awaitTermination(10, TimeUnit.SECONDS);
