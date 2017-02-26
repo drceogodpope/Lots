@@ -2,10 +2,13 @@ package com.heapdragon.lots;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -13,7 +16,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import static com.heapdragon.lots.DataBaseConstants.INCOMPLETE_LOTS_NODE;
@@ -33,8 +38,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -56,12 +59,10 @@ public class AddSiteActivity extends AppCompatActivity {
     private Button createSiteButton;
     private ImageButton chooseSiteMapButton;
     private Uri siteMapUri;
-
     private StorageReference  mStorage;
     private static final int GALLERY_INTENT = 2;
-
     private ProgressDialog mProgressDialog;
-
+    private FrameLayout fl;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,20 +80,29 @@ public class AddSiteActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
         mStorage = FirebaseStorage.getInstance().getReference();
-
+        fl = (FrameLayout) findViewById(R.id.colorFrag_layout);
+        fl.setVisibility(View.GONE);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        int id = View.generateViewId();
+        Log.d(TAG,"ID: "+String.valueOf(id));
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_in)
+                .add(R.id.colorFrag_layout,ColorChooserFrag.newInstance())
+                .commit();
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage("Creating Site!");
 
         siteName = (EditText) findViewById(R.id.add_site_activity_name);
         numberOfLots = (EditText) findViewById(R.id.add_site_activity_total_lots);
-        createSiteButton = (Button) findViewById(R.id.add_site_activity_create_site_button);
+        createSiteButton = (Button) findViewById(R.id.create_button);
         siteColorPicker = (CardView) findViewById(R.id.colorPicker);
         chooseSiteMapButton = (ImageButton) findViewById(R.id.choose_site_map_button);
 
         siteColorPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showColorPickerFrag();
+                if(fl.getVisibility()==View.GONE)showColorPickerFrag();
+                else hideColorPickerFrag();
             }
         });
 
@@ -103,7 +113,6 @@ public class AddSiteActivity extends AppCompatActivity {
             }
         });
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
         chooseSiteMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,6 +121,7 @@ public class AddSiteActivity extends AppCompatActivity {
         });
 
     }
+
 
     private void chooseSiteMap() {
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -122,12 +132,18 @@ public class AddSiteActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
          if(requestCode==GALLERY_INTENT && resultCode == RESULT_OK){
+             Toast.makeText(this, "good", Toast.LENGTH_SHORT).show();
              siteMapUri = data.getData();
+             chooseSiteMapButton.setBackgroundColor(getResources().getColor(R.color.colorBlue1));
          }
     }
 
     private void showColorPickerFrag() {
+        fl.setVisibility(View.VISIBLE);
+    }
 
+    private void hideColorPickerFrag() {
+        fl.setVisibility(View.GONE);
     }
 
     private boolean createSite() {
@@ -137,7 +153,7 @@ public class AddSiteActivity extends AppCompatActivity {
                     String name = Utility.capitilizeFirst(siteName.getText().toString());
                     int numLots = Integer.parseInt(numberOfLots.getText().toString());
                     Site site = new Site(name,numLots);
-                    if(numLots<=2000){
+                    if(numLots<=2000&&numLots>0){
                         try {
                             String key = createSiteNode(site);
                             createLotNode(key,site.getNumberOfLots());
@@ -169,8 +185,6 @@ public class AddSiteActivity extends AppCompatActivity {
                         "Enter name of the site!",
                         Toast.LENGTH_LONG).show();
             }
-
-
         return false;
     }
 
@@ -236,7 +250,5 @@ public class AddSiteActivity extends AppCompatActivity {
         int[] siteColors = siteName.getResources().getIntArray(R.array.siteColors);
         return ThreadLocalRandom.current().nextInt(0,siteColors.length);
     }
-
-
 
 }
