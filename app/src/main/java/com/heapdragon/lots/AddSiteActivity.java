@@ -116,7 +116,14 @@ public class AddSiteActivity extends AppCompatActivity {
         chooseSiteMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                chooseSiteMap();
+                if(siteMapUri==null){
+                    chooseSiteMap();
+                }
+                else {
+                    siteMapUri=null;
+                    Toast.makeText(AddSiteActivity.this, "Site map un-chosen!", Toast.LENGTH_SHORT).show();
+                    chooseSiteMapButton.setImageResource(R.drawable.photo_library_grey_96x96);
+                }
             }
         });
 
@@ -132,9 +139,9 @@ public class AddSiteActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
          if(requestCode==GALLERY_INTENT && resultCode == RESULT_OK){
-             Toast.makeText(this, "good", Toast.LENGTH_SHORT).show();
+             Toast.makeText(this, "Site map chosen!", Toast.LENGTH_SHORT).show();
              siteMapUri = data.getData();
-             chooseSiteMapButton.setBackgroundColor(getResources().getColor(R.color.colorBlue1));
+             chooseSiteMapButton.setImageResource(R.drawable.insert_photo_white_96x96);
          }
     }
 
