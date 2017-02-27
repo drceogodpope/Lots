@@ -12,9 +12,14 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorSquareV
 
     private static final String TAG = "ColorAdapter";
     private int[] colors;
+    private OnColorTouchedListener fragment;
 
     ColorAdapter(int[] colors){
         this.colors = colors;
+    }
+
+    public interface OnColorTouchedListener {
+         void onColorTouched(int color);
     }
 
     @Override
@@ -26,13 +31,16 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorSquareV
     }
 
 
+
     @Override
     public void onBindViewHolder(final ColorSquareViewHolder holder, final int position) {
         holder.background.setBackgroundColor(colors[position]);
         holder.background.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(holder.background.getContext(), String.valueOf(holder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
+                if(fragment!=null){
+                    fragment.onColorTouched(holder.getAdapterPosition());
+                }
             }
         });
         Log.d(TAG,"binding + " + String.valueOf(position));
@@ -49,6 +57,10 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorSquareV
             super(itemView);
             background = (RelativeLayout) itemView.findViewById(R.id.colorSquare);
         }
+    }
+
+    public void setFragment(OnColorTouchedListener fragment){
+        this.fragment = fragment;
     }
 
 }

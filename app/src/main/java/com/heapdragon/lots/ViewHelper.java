@@ -22,4 +22,17 @@ public class ViewHelper {
         });
         colorAnimation.start();
     }
+
+    public static void changeColourTimeAnim(int colorFrom, int colorTo, final View view,int durationMilli){
+        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        colorAnimation.setDuration(durationMilli); // milliseconds
+        colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator) {
+                view.setBackgroundColor((int) animator.getAnimatedValue());
+            }
+
+        });
+        colorAnimation.start();
+    }
 }

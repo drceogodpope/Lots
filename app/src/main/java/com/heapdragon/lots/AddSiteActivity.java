@@ -48,7 +48,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class AddSiteActivity extends AppCompatActivity {
+public class AddSiteActivity extends AppCompatActivity implements ColorChooserFrag.OnColorChosenListener {
 
     private static final String TAG = "AddSiteActivityTAG";
 
@@ -63,6 +63,10 @@ public class AddSiteActivity extends AppCompatActivity {
     private static final int GALLERY_INTENT = 2;
     private ProgressDialog mProgressDialog;
     private FrameLayout fl;
+    private int siteColor;
+    private int[] siteColors;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,9 +86,8 @@ public class AddSiteActivity extends AppCompatActivity {
         mStorage = FirebaseStorage.getInstance().getReference();
         fl = (FrameLayout) findViewById(R.id.colorFrag_layout);
         fl.setVisibility(View.GONE);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
-        int id = View.generateViewId();
-        Log.d(TAG,"ID: "+String.valueOf(id));
         fragmentManager.beginTransaction()
                 .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_in)
                 .add(R.id.colorFrag_layout,ColorChooserFrag.newInstance())
@@ -126,7 +129,9 @@ public class AddSiteActivity extends AppCompatActivity {
                 }
             }
         });
-
+        siteColor = assignSiteColor();
+        siteColors = siteName.getResources().getIntArray(R.array.siteColors);
+        siteColorPicker.setBackgroundColor(siteColors[siteColor]);
     }
 
 
@@ -234,7 +239,7 @@ public class AddSiteActivity extends AppCompatActivity {
         map.put(RECEIVED_LOTS_NODE,site.getReceivedLots());
         map.put(READY_LOTS_NODE,site.getReadyLots());
         map.put(ISSUE_LOTS_NODE,site.getIssue_lots());
-        map.put(SITE_COLOR_NODE,assignSiteColor());
+        map.put(SITE_COLOR_NODE,siteColor);
 
         key = sitesRef.push().getKey();
         sitesRef.child(key).setValue(map);
@@ -258,4 +263,11 @@ public class AddSiteActivity extends AppCompatActivity {
         return ThreadLocalRandom.current().nextInt(0,siteColors.length);
     }
 
+    @Override
+    public void onColorChosen(int color) {
+        siteColor = color;
+        siteColorPicker.setBackgroundColor(siteColors[color]);
+        fl.setVisibility(View.GONE);
+        Toast.makeText(this, "onColorChosen", Toast.LENGTH_SHORT).show();
+    }
 }
