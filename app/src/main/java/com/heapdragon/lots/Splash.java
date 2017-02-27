@@ -45,7 +45,7 @@ public class Splash extends Activity {
             @Override
             public void onAnimationEnd(Animation animation) {
 //                tv.startAnimation(animOut);
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
             }
 

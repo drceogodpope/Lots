@@ -210,7 +210,7 @@ public class SiteMapFragment extends android.support.v4.app.Fragment {
             public void run() {
                 try {
                     FileOutputStream stream = getActivity().openFileOutput("bitmap.png", Context.MODE_PRIVATE);
-                    bmp1.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    bmp1.compress(Bitmap.CompressFormat.JPEG, 20, stream);
                     stream.close();
                     completedSavingToDish();
                 } catch (Exception e) {

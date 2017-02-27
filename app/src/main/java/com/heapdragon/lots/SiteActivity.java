@@ -3,6 +3,7 @@ package com.heapdragon.lots;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -27,9 +29,10 @@ import static com.heapdragon.lots.DataBaseConstants.LOG_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.LOTS_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.NAME_NODE;
 import static com.heapdragon.lots.DataBaseConstants.SITES_NODE;
+import static com.heapdragon.lots.DataBaseConstants.SITE_COLOR_NODE;
 import static com.heapdragon.lots.DataBaseConstants.SITE_MAPS_ROOT;
 
-public class SiteActivity extends AppCompatActivity {
+public class SiteActivity extends AppCompatActivity implements ColorChooserFrag.OnColorChosenListener {
 
     private static final String TAG = "SiteActivityTAG";
 
@@ -37,20 +40,23 @@ public class SiteActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private TextView mToolbarTitle;
     private String key;
+    private Toolbar toolbar;
     private DatabaseReference mSitesRef;
     private DatabaseReference mRootRef;
+    private FrameLayout colorPickerFragLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"onCreate()");
         setContentView(R.layout.activity_site);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar()!=null){
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
-
+        colorPickerFragLayout = (FrameLayout) findViewById(R.id.colorPickerFragLayout);
+        colorPickerFragLayout.setVisibility(View.GONE);
         mRootRef = FirebaseDatabase.getInstance().getReference();
         mSitesRef = mRootRef.child(SITES_NODE);
         mToolbarTitle = (TextView) findViewById(R.id.site_activity_toolbar_title);
@@ -86,6 +92,27 @@ public class SiteActivity extends AppCompatActivity {
         toolbar.setBackgroundColor((getIntent().getIntExtra("color",0)));
         getWindow().setStatusBarColor(Utility.darker(getIntent().getIntExtra("color",0),0.8f));
         mViewPager.setCurrentItem(getIntent().getIntExtra("adapterPage",0));
+
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_in)
+                .add(R.id.colorPickerFragLayout,ColorChooserFrag.newInstance())
+                .commit();
+
+        toolbar.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if(colorPickerFragLayout.getVisibility()==View.VISIBLE){
+                    colorPickerFragLayout.setVisibility(View.GONE);
+                }
+                else {
+                    colorPickerFragLayout.setVisibility(View.VISIBLE);
+                }
+
+                  return false;
+            }
+        });
     }
 
     @Override
@@ -120,4 +147,12 @@ public class SiteActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onColorChosen(int color) {
+        int[] siteColors = getResources().getIntArray(R.array.siteColors);
+        tabLayout.setBackgroundColor(siteColors[color]);
+        getWindow().setStatusBarColor(Utility.darker(siteColors[color],0.8f));
+        toolbar.setBackgroundColor(siteColors[color]);
+        mSitesRef.child(key).child(SITE_COLOR_NODE).setValue(color);
+    }
 }

@@ -34,40 +34,63 @@
     <color name="colorBlue2">#1E88E5</color>
     <color name="colorBlue3">#1976D2</color>
 
-    <color name="colorGreen1">#8BC34A</color>
-    <color name="colorGreen2">#7CB342</color>
-    <color name="colorGreen3">#689F38</color>
+    <color name="colorGreen1">#56B85A</color>
+    <color name="colorGreen2">#4CAA50</color>
+    <color name="colorGreen3">#409944</color>
+    <color name="colorGreen4">#348839</color>
+    <color name="colorGreen5">#1D6923</color>
 
-    <color name="colorGold1">#FFB300</color>
-    <color name="colorGold2">#FFA000</color>
-    <color name="colorGold3">#FF8F00</color>
+    <color name="colorRed1">#F54D3D</color>
+    <color name="colorRed2">#E8423C</color>
+    <color name="colorRed3">#D83635</color>
+    <color name="colorRed4">#CD2E2D</color>
+    <color name="colorRed5">#BF1F1E</color>
+
+
+    <color name="colorGold1">#FFC904</color>
+    <color name="colorGold2">#FFBC00</color>
+    <color name="colorGold3">#FFAA00</color>
+    <color name="colorGold4">#FF9A00</color>
+    <color name="colorGold5">#FF7B00</color>
 
     <color name="colorBrown1">#8D6E63</color>
     <color name="colorBrown2">#795548</color>
     <color name="colorBrown3">#6D4C41</color>
 
-    <color name="colorPurple1">#AB47BC</color>
-    <color name="colorPurple2">#9C27B0</color>
-    <color name="colorPurple3">#7B1FA2</color>
+    <color name="colorPurple1">#A62CB9</color>
+    <color name="colorPurple2">#9928B3</color>
+    <color name="colorPurple3">#8622AC</color>
+    <color name="colorPurple4">#751CA4</color>
+    <color name="colorPurple5">#541397</color>
+
 
     <!--Status Colors-->
     <array name="siteColors">
-        <item>@color/colorPink</item>
-        <item>@color/colorPurple1</item>
-        <item>@color/colorPurple2</item>
-        <item>@color/colorPurple3</item>
-        <item>@color/colorChineseRed</item>
+        <item>@color/colorRed1</item>
+        <item>@color/colorRed2</item>
+        <item>@color/colorRed3</item>
+        <item>@color/colorRed4</item>
+        <item>@color/colorRed5</item>
         <item>@color/colorCyan</item>
         <item>@color/colorBlue1</item>
         <item>@color/colorBlue2</item>
         <item>@color/colorBlue3</item>
         <item>@color/colorIndigo</item>
+        <item>@color/colorPurple1</item>
+        <item>@color/colorPurple2</item>
+        <item>@color/colorPurple3</item>
+        <item>@color/colorPurple4</item>
+        <item>@color/colorPurple5</item>
         <item>@color/colorGreen1</item>
         <item>@color/colorGreen2</item>
         <item>@color/colorGreen3</item>
+        <item>@color/colorGreen4</item>
+        <item>@color/colorGreen5</item>
         <item>@color/colorGold1</item>
         <item>@color/colorGold2</item>
         <item>@color/colorGold3</item>
+        <item>@color/colorGold4</item>
+        <item>@color/colorGold5</item>
     </array>
 
     <array name="statusColors">

@@ -28,7 +28,11 @@
             </intent-filter>
 
         </activity>
+        <activity android:name=".LoginActivity"
+            android:windowSoftInputMode="stateAlwaysVisible" />
+        />
         <activity android:name=".FullScreenActivity"/>
+
     </application>
 
 </manifest>

@@ -20,30 +20,47 @@
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+            <LinearLayout
+                android:orientation="vertical"
+                android:animateLayoutChanges="true"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:id="@+id/site_activity_toolbar_title"
+                android:background="@color/colorDarkBackground"
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorPrimary"
+                    app:popupTheme="@style/AppTheme.PopupOverlay">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/site_activity_toolbar_title"
+                        android:layout_height="wrap_content"
+                        style="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
+                        android:text="Site Name"/>
+                </android.support.v7.widget.Toolbar>
+                <FrameLayout
+                    android:layout_gravity="center"
+                    android:padding="20dp"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/colorPickerFragLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </FrameLayout>
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/site_activity_tab_layout"
+                    android:layout_below="@id/appbar"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
-                    android:text="Site Name"/>
-            </android.support.v7.widget.Toolbar>
-            <android.support.design.widget.TabLayout
-                android:id="@+id/site_activity_tab_layout"
-                android:layout_below="@id/appbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                app:tabMode="fixed"
-                app:tabTextColor="@android:color/white"
-                app:tabSelectedTextColor="@android:color/white"
-                app:tabGravity="center">
-            </android.support.design.widget.TabLayout>
+                    android:background="?attr/colorPrimary"
+                    app:tabMode="fixed"
+                    app:tabTextColor="@android:color/white"
+                    app:tabSelectedTextColor="@android:color/white"
+                    app:tabGravity="center">
+                </android.support.design.widget.TabLayout>
+            </LinearLayout>
+
+
         </android.support.design.widget.AppBarLayout>
 
 
