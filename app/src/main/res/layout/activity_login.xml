@@ -43,4 +43,5 @@
         android:outlineProvider="paddedBounds"
         android:id="@+id/login_activity_editText" />
 
+
 </LinearLayout>

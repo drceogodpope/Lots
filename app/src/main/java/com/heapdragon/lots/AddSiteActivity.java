@@ -66,7 +66,6 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
     private int siteColor;
     private int[] siteColors;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -263,11 +262,11 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
         return ThreadLocalRandom.current().nextInt(0,siteColors.length);
     }
 
+    // O
     @Override
     public void onColorChosen(int color) {
         siteColor = color;
         siteColorPicker.setBackgroundColor(siteColors[color]);
         fl.setVisibility(View.GONE);
-        Toast.makeText(this, "onColorChosen", Toast.LENGTH_SHORT).show();
     }
 }

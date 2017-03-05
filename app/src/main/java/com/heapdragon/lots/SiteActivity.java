@@ -154,5 +154,6 @@ public class SiteActivity extends AppCompatActivity implements ColorChooserFrag.
         getWindow().setStatusBarColor(Utility.darker(siteColors[color],0.8f));
         toolbar.setBackgroundColor(siteColors[color]);
         mSitesRef.child(key).child(SITE_COLOR_NODE).setValue(color);
+        colorPickerFragLayout.setVisibility(View.GONE);
     }
 }
