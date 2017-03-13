@@ -21,6 +21,7 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -128,8 +129,11 @@ public class SiteActivity extends AppCompatActivity implements ColorChooserFrag.
             case R.id.delete_site:
                 android.util.Log.d(TAG,LOTS_NODE_PREFIX+key);
                 deleteSite();
-                Intent intent = new Intent(this,MainActivity.class);
-                startActivity(intent);
+                onBackPressed();
+                break;
+            case R.id.delete_site_map:
+                deleteSiteMap();
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -138,7 +142,16 @@ public class SiteActivity extends AppCompatActivity implements ColorChooserFrag.
         mSitesRef.child(key).removeValue();
         mRootRef.child(LOTS_NODE_PREFIX+key).removeValue();
         mRootRef.child(LOG_NODE_PREFIX+key).removeValue();
-        FirebaseStorage.getInstance().getReference().child(SITE_MAPS_ROOT).child(key).delete();
+        deleteSiteMap();
+    }
+
+    private void deleteSiteMap(){
+        FirebaseStorage.getInstance().getReference().child(SITE_MAPS_ROOT).child(key).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                mViewPager.getAdapter().notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
