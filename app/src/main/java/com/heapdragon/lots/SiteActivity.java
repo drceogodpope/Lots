@@ -1,10 +1,12 @@
 package com.heapdragon.lots;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -20,11 +22,14 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+
+import java.io.IOException;
 
 import static com.heapdragon.lots.DataBaseConstants.LOG_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.LOTS_NODE_PREFIX;
@@ -128,11 +133,42 @@ public class SiteActivity extends AppCompatActivity implements ColorChooserFrag.
         switch (item.getItemId()){
             case R.id.delete_site:
                 android.util.Log.d(TAG,LOTS_NODE_PREFIX+key);
-                deleteSite();
-                onBackPressed();
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int choice) {
+                        switch (choice) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                deleteSite();
+                                onBackPressed();
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                break;
+                        }
+                    }
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(SiteActivity.this);
+                builder.setMessage("Delete site? This can not be undone!")
+                        .setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
                 break;
             case R.id.delete_site_map:
-                deleteSiteMap();
+
+                DialogInterface.OnClickListener dialogClickListener2 = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int choice) {
+                        switch (choice) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                deleteSiteMap();
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                break;
+                        }
+                    }
+                };
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(SiteActivity.this);
+                builder1.setMessage("Delete map? This can not be undone!")
+                        .setPositiveButton("Yes", dialogClickListener2)
+                        .setNegativeButton("No", dialogClickListener2).show();
 
         }
         return super.onOptionsItemSelected(item);
