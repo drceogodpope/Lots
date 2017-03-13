@@ -115,7 +115,6 @@ public class SiteActivity extends AppCompatActivity implements ColorChooserFrag.
                 else {
                     colorPickerFragLayout.setVisibility(View.VISIBLE);
                 }
-
                   return false;
             }
         });
@@ -169,7 +168,6 @@ public class SiteActivity extends AppCompatActivity implements ColorChooserFrag.
                 builder1.setMessage("Delete map? This can not be undone!")
                         .setPositiveButton("Yes", dialogClickListener2)
                         .setNegativeButton("No", dialogClickListener2).show();
-
         }
         return super.onOptionsItemSelected(item);
     }

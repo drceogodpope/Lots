@@ -23,7 +23,6 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
     private static final String TAG = "LotAdapter";
     private ArrayList<Lot> lots;
     private String key;
-    private int[] statusColors;
 
 
     public LotAdapter(ArrayList<Lot> lots,String key) {
@@ -40,7 +39,6 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
             super(itemView);
             dot = (FloatingActionButton) itemView.findViewById(R.id.lot_dot_dot);
             lotNumber = (TextView) itemView.findViewById(R.id.lot_dot_number);
-            statusColors = dot.getContext().getResources().getIntArray(R.array.statusColors);
         }
     }
 
