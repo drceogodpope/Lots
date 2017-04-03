@@ -14,10 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-/**
- * Created by Francesco on 2017-01-04.
- */
-
 public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
 
     private static final String TAG = "LotAdapter";
