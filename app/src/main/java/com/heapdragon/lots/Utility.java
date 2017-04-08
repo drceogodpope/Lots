@@ -31,6 +31,15 @@ class Utility {
             return titleCase.toString();
     }
 
+
+
+        public static int calculateNoOfColumns(Context context) {
+            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+            float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+            return (int) (dpWidth / 100);
+        }
+
+
     public static byte[] compressBitmap(Bitmap bm){
          ByteArrayOutputStream stream = new ByteArrayOutputStream();
          bm.compress(Bitmap.CompressFormat.JPEG,100,stream);
