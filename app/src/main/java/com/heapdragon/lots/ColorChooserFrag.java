@@ -39,7 +39,7 @@ public class ColorChooserFrag extends Fragment implements ColorAdapter.OnColorTo
         colorRecyclerView = (RecyclerView) view.findViewById(R.id.site_color_chooser_recyclerView);
         ColorAdapter adapter = new ColorAdapter(siteColors);
         colorRecyclerView.setAdapter(adapter);
-        gridLayoutManager = new GridLayoutManager(getContext(),5);
+        gridLayoutManager = new GridLayoutManager(getContext(),Utility.calculateNoOfColumns(getContext()));
         colorRecyclerView.setLayoutManager(gridLayoutManager);
         adapter.setFragment(this);
         return view;

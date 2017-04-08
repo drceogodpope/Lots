@@ -72,16 +72,6 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
         setContentView(R.layout.activity_add_site);
         android.util.Log.d(TAG,"onCreate()");
 
-        // Check status of Google Play Services
-        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-        // Check Google Play Service Available
-        try {
-            if (status != ConnectionResult.SUCCESS) {
-                GooglePlayServicesUtil.getErrorDialog(status, this, 1).show();
-            }
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
-        }
         mStorage = FirebaseStorage.getInstance().getReference();
         fl = (FrameLayout) findViewById(R.id.colorFrag_layout);
         fl.setVisibility(View.GONE);

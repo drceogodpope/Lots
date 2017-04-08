@@ -12,7 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -75,7 +78,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
+        // Check status of Google Play Services
+        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        // Check Google Play Service Available
+        try {
+            if (status != ConnectionResult.SUCCESS) {
+                GooglePlayServicesUtil.getErrorDialog(status, this, 1).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+        }
     }
 
     private Site createSiteFromNode(DataSnapshot ds){

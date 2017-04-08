@@ -18,21 +18,25 @@
         <activity
             android:name=".SiteActivity"
             android:label="@string/title_activity_site"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".AddSiteActivity"/>
-        <activity android:name=".LotActivity"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AddSiteActivity" />
+        <activity android:name=".LotActivity" />
         <activity android:name=".Splash">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"
+        <activity
+            android:name=".LoginActivity"
             android:windowSoftInputMode="stateAlwaysVisible" />
         />
-        <activity android:name=".FullScreenActivity"/>
-
+        <activity android:name=".FullScreenActivity" />
+        <activity
+            android:name=".AddUserActivity"
+            android:label="@string/title_activity_add_user"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

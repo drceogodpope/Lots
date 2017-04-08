@@ -26,10 +26,4 @@ public class Lot {
     public long getStatus() {
         return status;
     }
-
-    public void setStatus(long status) {
-        if(status>=0 && status<4){
-            this.status = status;
-        }
-    }
 }
