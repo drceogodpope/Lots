@@ -12,15 +12,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
+class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
 
     private ArrayList<SiteLog> logs;
 
-    public LogAdapter(ArrayList<SiteLog> logs){
+    LogAdapter(ArrayList<SiteLog> logs){
         this.logs = logs;
     }
 
-    protected class LogCardHolder extends RecyclerView.ViewHolder {
+    class LogCardHolder extends RecyclerView.ViewHolder {
         protected FloatingActionButton logDot;
         protected TextView logNumber;
         protected TextView logTitle;
@@ -28,13 +28,14 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
         protected TextView logTimeStamp;
         protected SiteLog siteLog;
 
-        public LogCardHolder(View itemView) {
+        LogCardHolder(View itemView) {
             super(itemView);
             logDot = (FloatingActionButton) itemView.findViewById(R.id.log_dot);
             logNumber = (TextView) itemView.findViewById(R.id.log_number);
             logTitle = (TextView) itemView.findViewById(R.id.log_title);
             logUser = (TextView) itemView.findViewById(R.id.log_user);
             logTimeStamp = (TextView) itemView.findViewById(R.id.log_time_stamp);
+            logUser.setVisibility(View.GONE);
         }
     }
 

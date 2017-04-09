@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -15,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
     private Context context;
     private FirebaseAuth.AuthStateListener authStateListener;
 
-    public AuthBox(final Context context){
+     AuthBox(final Context context){
         auth = FirebaseAuth.getInstance();
         this.context = context;
 
