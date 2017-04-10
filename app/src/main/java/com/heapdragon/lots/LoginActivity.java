@@ -1,5 +1,6 @@
 package com.heapdragon.lots;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,14 +12,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity{
+
+    private AuthBox authBox;
     private TextView usernameField;
     private EditText passwordField;
-    private AuthBox authBox;
     private Button loginButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
         authBox = new AuthBox(this);
         usernameField = (EditText) findViewById(R.id.username_field);
@@ -43,8 +46,20 @@ public class LoginActivity extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
-        authBox.setOnStateListener();
+        authBox.setAuthStateListener();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        authBox.unsetAuthStateListener();
+    }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), Splash.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("EXIT", true);
+        startActivity(intent);
+    }
 }

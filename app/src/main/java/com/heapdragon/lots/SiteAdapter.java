@@ -137,7 +137,7 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
                 sitesRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.hasChild(site.getId()) && count>0){
+                        if(dataSnapshot.hasChild(site.getId()) && count>=0){
                             Log.d(TAG,"BUG?!");
                             sitesRef.child(holder.site.getId()).child(READY_LOTS_NODE).setValue(count);
                         }
