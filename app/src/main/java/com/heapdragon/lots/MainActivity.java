@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Layout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import static com.heapdragon.lots.DataBaseConstants.*;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivityTag";
+    private static final String TAG = "MainActivity";
     private DatabaseReference mSitesRef = FirebaseDatabase.getInstance().getReference().child(SITES_NODE);
     private RecyclerView mSitesRecyclerView;
     private SiteAdapter mSiteAdapter;
@@ -153,5 +154,11 @@ public class MainActivity extends AppCompatActivity {
         ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG,"onStop()");
     }
 }

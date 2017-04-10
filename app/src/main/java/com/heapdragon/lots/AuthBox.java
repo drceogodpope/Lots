@@ -19,20 +19,22 @@ class AuthBox {
      AuthBox(final Context context){
         auth = FirebaseAuth.getInstance();
         this.context = context;
+            authStateListener = new FirebaseAuth.AuthStateListener() {
+                @Override
+                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                    Log.d(TAG,"onAuthStateChanged()");
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    if(user != null){
+                        Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                        startMainActivity();
+                    }
+                    else {
+                        Log.d(TAG, "onAuthStateChanged:signed_out");
+                    }
+                }
+            };
 
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null){
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    startMainActivity();
-                }
-                else {
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-            }
-        };
+
     }
 
     void startSignIn(String username,String password){
@@ -53,11 +55,7 @@ class AuthBox {
         context.startActivity(new Intent(context,MainActivity.class));
     }
 
-    private void startLoginActivity() {
-        context.startActivity(new Intent(context,LoginActivity.class));
-    }
-
-    void setOnStateListener(){
+    void setAuthStateListener(){
         auth.addAuthStateListener(authStateListener);
     }
     void unsetAuthStateListener(){
