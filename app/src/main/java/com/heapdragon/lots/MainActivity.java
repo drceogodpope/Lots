@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
@@ -62,6 +63,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 tryLoadingSites();
+            }
+        });
+
+
+        //TESTVIEW//
+        RelativeLayout rootview = (RelativeLayout) findViewById(R.id.activity_main);
+        rootview.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                startActivity(new Intent(MainActivity.this,TestViewActivity.class));
+                return false;
             }
         });
     }

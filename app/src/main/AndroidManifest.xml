@@ -37,6 +37,8 @@
             android:name=".AddUserActivity"
             android:label="@string/title_activity_add_user"
             android:theme="@style/AppTheme"/>
+
+        <activity android:name=".TestViewActivity"/>
     </application>
 
 </manifest>

@@ -48,7 +48,7 @@ public class LotActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lot);
 
-        key = getIntent().getStringExtra("key");
+        key = getIntent().getStringExtra("siteKey");
         lotNumber = getIntent().getIntExtra("lotNumber",-1);
         mLotsRef = mRootRef.child(LOTS_NODE_PREFIX+key);
 
@@ -92,8 +92,16 @@ public class LotActivity extends AppCompatActivity {
         mSitesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String name = (dataSnapshot.child(key).child(NAME_NODE).getValue()).toString();
-                siteName.setText( name + " - " + lotNumber);
+                try{
+                    Log.d(TAG,"SITE KEY: " + key);
+                    Log.d(TAG,"SITE NAME: " + dataSnapshot.child(key).child(NAME_NODE).getValue().toString());
+
+                    String name = (dataSnapshot.child(key).child(NAME_NODE).getValue()).toString();
+                    siteName.setText( name + " - " + lotNumber);
+                }catch (Exception e){
+                    Log.d(TAG,e.toString());
+                }
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
