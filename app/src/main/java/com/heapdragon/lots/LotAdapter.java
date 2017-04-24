@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
@@ -18,23 +17,27 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
 
     private static final String TAG = "LotAdapter";
     private ArrayList<Lot> lots;
-    private String key;
+    private String siteKey;
 
 
-    public LotAdapter(ArrayList<Lot> lots,String key) {
+    public LotAdapter(ArrayList<Lot> lots,String siteKey) {
         Log.d(TAG,"LotAdapter()");
         this.lots = lots;
-        this.key = key;
+        this.siteKey = siteKey;
     }
 
     public class LotDotHolder extends RecyclerView.ViewHolder {
-        protected FloatingActionButton dot;
-        protected TextView lotNumber;
-        protected Lot lot;
-        public LotDotHolder(View itemView) {
+        FloatingActionButton innerDot;
+        FloatingActionButton outterDot;
+        TextView lotNumber;
+        Lot lot;
+        LotDotHolder(View itemView) {
             super(itemView);
-            dot = (FloatingActionButton) itemView.findViewById(R.id.lot_dot_dot);
+            innerDot = (FloatingActionButton) itemView.findViewById(R.id.inner_dot);
+            outterDot = (FloatingActionButton) itemView.findViewById(R.id.outter_dot);
             lotNumber = (TextView) itemView.findViewById(R.id.lot_dot_number);
+            innerDot.setSize(FloatingActionButton.SIZE_MINI);
+            outterDot.setSize(FloatingActionButton.SIZE_NORMAL);
         }
     }
 
@@ -49,28 +52,45 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
         Log.d(TAG,"onBindViewHolder()");
         final int lotNumber = (int) lots.get(position).getNumber();
         holder.lot = lots.get(position);
-        switch ((int)holder.lot.getStatus()){
+        switch ((int)holder.lot.getPrimaryStatus()){
             case 0:
                 Log.d(TAG,"SET DOT COLOR TO RED");
-                holder.dot.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.dot.getContext(),R.color.colorRed)));
+                holder.innerDot.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.innerDot.getContext(),R.color.colorRed)));
                 break;
             case 1:
-                holder.dot.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.dot.getContext(),R.color.colorGreen)));
+                holder.innerDot.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.innerDot.getContext(),R.color.colorGreen)));
                 break;
             case 2:
-                holder.dot.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.dot.getContext(),R.color.colorYellow)));
+                holder.innerDot.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.innerDot.getContext(),R.color.colorYellow)));
                 break;
             default:
-                holder.dot.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.dot.getContext(),R.color.colorGrey)));
+                holder.innerDot.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.innerDot.getContext(),R.color.colorGrey)));
         }
+
+        switch ((int)holder.lot.getSecondaryStatus()){
+            case 0:
+                Log.d(TAG,"SET DOT COLOR TO RED");
+                holder.outterDot.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.innerDot.getContext(),R.color.colorRed)));
+                break;
+            case 2:
+                holder.outterDot.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.innerDot.getContext(),R.color.colorGreen)));
+                break;
+            case 1:
+                holder.outterDot.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.innerDot.getContext(),R.color.colorYellow)));
+                break;
+            default:
+                holder.outterDot.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.innerDot.getContext(),R.color.colorGrey)));
+        }
+
+
         holder.lotNumber.setText(String.valueOf(lotNumber));
-        holder.dot.setOnClickListener(new View.OnClickListener() {
+        holder.innerDot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Context context = holder.dot.getContext();
+                Context context = holder.innerDot.getContext();
                 Intent intent = new Intent(context,LotActivity.class);
-                intent.putExtra("key",key);
-                intent.putExtra("status",holder.lot.getStatus());
+                intent.putExtra("siteKey", siteKey);
+                intent.putExtra("status",holder.lot.getPrimaryStatus());
                 intent.putExtra("lotNumber",lotNumber);
                 context.startActivity(intent);
             }

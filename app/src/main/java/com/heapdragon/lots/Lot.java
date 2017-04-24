@@ -6,24 +6,39 @@ package com.heapdragon.lots;
 
 public class Lot {
 
+    // PRIMARY STATUSES
     public static final int NOT_READY = 0;
     public static final int READY = 1;
     public static final int ISSUE = 2;
     public static final int RECEIVED = 3;
 
-    private long number;
-    private long status;  // 0-not ready,1-ready,2-issue,3-received
+    // SECONDARY STATUSES
+    public static final int NOTHING = 0;
+    public static final int MATERIAL_ORDERED = 1;
+    public static final int ARCH_IN_SHIPPING = 2;
+    public static final int ARCH_IN_PRODUCTION = 3;
+    public static final int ARCH_REQUIRED = 4;
 
-    public Lot(long number, long status){
+
+    private long number;
+    private long primaryStatus;
+    private long secondaryStatus;
+
+    public Lot(long number, long primaryStatus, long secondaryStatus){
         this.number = number;
-        this.status = status;
+        this.primaryStatus = primaryStatus;
+        this.secondaryStatus = secondaryStatus;
     }
 
     public long getNumber() {
         return number;
     }
 
-    public long getStatus() {
-        return status;
+    public long getPrimaryStatus() {
+        return primaryStatus;
+    }
+
+    public long getSecondaryStatus() {
+        return secondaryStatus;
     }
 }

@@ -24,6 +24,8 @@ import android.widget.Toast;
 import static com.heapdragon.lots.DataBaseConstants.INCOMPLETE_LOTS_NODE;
 import static com.heapdragon.lots.DataBaseConstants.ISSUE_LOTS_NODE;
 import static com.heapdragon.lots.DataBaseConstants.LOTS_NODE_PREFIX;
+import static com.heapdragon.lots.DataBaseConstants.LOTS_PRIMARY_STATUS_PREFIX;
+import static com.heapdragon.lots.DataBaseConstants.LOTS_SECONDARY_STATUS_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.NAME_NODE;
 import static com.heapdragon.lots.DataBaseConstants.READY_LOTS_NODE;
 import static com.heapdragon.lots.DataBaseConstants.RECEIVED_LOTS_NODE;
@@ -238,7 +240,8 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
     private void createLotNode(String key,int numLots) {
         DatabaseReference lotRef = mRootRef.child(LOTS_NODE_PREFIX+key).getRef();
         for(int i = 1; i<=numLots;i++){
-            lotRef.child(String.valueOf(i)).setValue(0);
+            lotRef.child(String.valueOf(i)).child(LOTS_PRIMARY_STATUS_PREFIX).setValue(0);
+            lotRef.child(String.valueOf(i)).child(LOTS_SECONDARY_STATUS_PREFIX).setValue(0);
         }
     }
 

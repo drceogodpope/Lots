@@ -1,10 +1,6 @@
 package com.heapdragon.lots;
 
-/**
- * Created by Francesco on 2016-12-27.
- */
-
-public class DataBaseConstants {
+ class DataBaseConstants {
     //SITES NODE CONSTANTS
     static final String SITES_NODE = "sites";
     static final String NAME_NODE = "name";
@@ -18,6 +14,8 @@ public class DataBaseConstants {
 
     //LOTS NODE CONSTANTS
     static final String LOTS_NODE_PREFIX = "lots_";
+    static final String LOTS_PRIMARY_STATUS_PREFIX = "primary_status";
+    static final String LOTS_SECONDARY_STATUS_PREFIX = "secondary_status";
     //LOTS NODE CONSTANTS
 
     //LOG NODE CONSTANTS

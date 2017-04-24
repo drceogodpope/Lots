@@ -25,23 +25,24 @@ import static com.heapdragon.lots.DataBaseConstants.LOTS_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.READY_LOTS_NODE;
 import static com.heapdragon.lots.DataBaseConstants.SITES_NODE;
 
-public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHolder> {
+class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHolder> {
     public static final String TAG = "SiteAdapter";
-    protected ArrayList<Site> sites;
-    protected SiteAdapter(ArrayList<Site> sites) {
+    private ArrayList<Site> sites;
+
+    SiteAdapter(ArrayList<Site> sites) {
 
         Collections.shuffle(sites);
         this.sites = sites;
     }
 
-    public class SiteCardViewHolder extends RecyclerView.ViewHolder {
-        protected CardView cardView;
-        protected ImageButton issueButton;
-        protected TextView readyLots;
-        protected TextView siteName;
-        protected TextView totalLots;
-        protected TextView mapButton;
-        protected TextView lotsButton;
+    class SiteCardViewHolder extends RecyclerView.ViewHolder {
+        CardView cardView;
+        ImageButton issueButton;
+        TextView readyLots;
+        TextView siteName;
+        TextView totalLots;
+        TextView mapButton;
+        TextView lotsButton;
         protected Site site;
 
         public SiteCardViewHolder(View itemView) {
@@ -128,6 +129,12 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
         });
 
         //SETUP FOR COMPLETE LOT LISTENERS//
+        setReadyLots(holder,site);
+    }
+
+    private void setReadyLots(SiteCardViewHolder holder1,Site site1){
+        final SiteCardViewHolder holder = holder1;
+        final Site site = site1;
         DatabaseReference lotRef = FirebaseDatabase.getInstance().getReference().child(LOTS_NODE_PREFIX+holder.site.getId());
         lotRef.orderByValue().equalTo(1).addValueEventListener(new ValueEventListener() {
             @Override
@@ -138,7 +145,6 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHo
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot.hasChild(site.getId()) && count>=0){
-                            Log.d(TAG,"BUG?!");
                             sitesRef.child(holder.site.getId()).child(READY_LOTS_NODE).setValue(count);
                         }
                     }

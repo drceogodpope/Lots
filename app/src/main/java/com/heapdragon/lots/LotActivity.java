@@ -2,9 +2,7 @@ package com.heapdragon.lots;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -27,6 +25,7 @@ import static com.heapdragon.lots.DataBaseConstants.LOG_NUMBER;
 import static com.heapdragon.lots.DataBaseConstants.LOG_STATUS;
 import static com.heapdragon.lots.DataBaseConstants.LOG_TIME_STAMP;
 import static com.heapdragon.lots.DataBaseConstants.LOTS_NODE_PREFIX;
+import static com.heapdragon.lots.DataBaseConstants.LOTS_PRIMARY_STATUS_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.NAME_NODE;
 import static com.heapdragon.lots.DataBaseConstants.SITES_NODE;
 
@@ -37,7 +36,6 @@ public class LotActivity extends AppCompatActivity {
     private DatabaseReference mSitesRef = mRootRef.child(SITES_NODE);
     private DatabaseReference mLotsRef;
     private String key;
-    private int oldStatus;
     private int lotNumber;
     private Button readyButton;
     private Button notReadyButton;
@@ -53,7 +51,6 @@ public class LotActivity extends AppCompatActivity {
         key = getIntent().getStringExtra("key");
         lotNumber = getIntent().getIntExtra("lotNumber",-1);
         mLotsRef = mRootRef.child(LOTS_NODE_PREFIX+key);
-        oldStatus = getIntent().getIntExtra("status",0);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -70,32 +67,33 @@ public class LotActivity extends AppCompatActivity {
         readyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setStatus(Lot.READY);
+                setPrimaryStatus(Lot.READY);
             }
         });
         issueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setStatus(Lot.ISSUE);
+                setPrimaryStatus(Lot.ISSUE);
             }
         });
         notReadyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setStatus(Lot.NOT_READY);
+                setPrimaryStatus(Lot.NOT_READY);
             }
         });
         receivedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setStatus(Lot.RECEIVED);
+                setPrimaryStatus(Lot.RECEIVED);
             }
         });
 
         mSitesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                siteName.setText((dataSnapshot.child(key).child(NAME_NODE).getValue()) + " - " + lotNumber);
+                String name = (dataSnapshot.child(key).child(NAME_NODE).getValue()).toString();
+                siteName.setText( name + " - " + lotNumber);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -104,8 +102,8 @@ public class LotActivity extends AppCompatActivity {
         });
     }
 
-    private void setStatus(int status){
-        mLotsRef.child(String.valueOf(lotNumber)).setValue(status);
+    private void setPrimaryStatus(int status){
+        mLotsRef.child(String.valueOf(lotNumber)).child(LOTS_PRIMARY_STATUS_PREFIX).setValue(status);
         createLog(status);
         changeLotColor(status);
     }
