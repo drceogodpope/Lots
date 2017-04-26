@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -57,7 +58,6 @@ public class LotDot extends RelativeLayout {
         innerParams.addRule(CENTER_IN_PARENT);
         outterParams.addRule(CENTER_IN_PARENT);
         numberParams.addRule(CENTER_IN_PARENT);
-
 
 
         outterDot.setElevation(0);
