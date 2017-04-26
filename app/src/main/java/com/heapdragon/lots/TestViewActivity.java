@@ -20,6 +20,5 @@ public class TestViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_layout);
         root = (RelativeLayout) findViewById(R.id.testview_root);
-        lotDot = (LotDot) findViewById(R.id.lotDot);
     }
 }

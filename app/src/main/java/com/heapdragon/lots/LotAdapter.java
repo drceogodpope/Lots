@@ -2,7 +2,6 @@ package com.heapdragon.lots;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 
@@ -37,6 +35,8 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
             innerDot = (ResizableFAB) itemView.findViewById(R.id.inside_bitch);
             outterDot = (ResizableFAB) itemView.findViewById(R.id.outter_dot);
             number = (TextView) itemView.findViewById(R.id.lot_dot_number);
+            outterDot.setMultiplier(1.6f);
+            innerDot.setMultiplier(1.5f);
         }
 
 
@@ -51,15 +51,17 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
     @Override
     public void onBindViewHolder(final LotDotHolder holder, int position) {
         Log.d(TAG,"onBindViewHolder()");
-        final int lotNumber = (int) lots.get(position).getNumber();
         holder.lot = lots.get(position);
+        final int lotNumber = (int) lots.get(holder.getAdapterPosition()).getNumber();
+        holder.innerDot.setDotColor(R.color.colorPink);
         holder.number.setText(String.valueOf(lotNumber));
-//        holder.innerDot.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startLotActivity(holder,lotNumber);
-//            }
-//        });
+
+        holder.innerDot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startLotActivity(holder,lotNumber);
+            }
+        });
     }
 
     private void startLotActivity(LotDotHolder holder,int lotNumber){

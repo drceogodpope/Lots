@@ -1,7 +1,9 @@
 package com.heapdragon.lots;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
 /**
@@ -10,11 +12,11 @@ import android.util.AttributeSet;
 
 public class ResizableFAB extends FloatingActionButton {
 
-    private float multiplier;
 
-    public ResizableFAB(Context context,Float multiplier) {
-            super(context);
-            this.multiplier = multiplier;
+    private Float multiplier;
+
+    public ResizableFAB(Context context) {
+        super(context);
     }
 
     public ResizableFAB(Context context, AttributeSet attrs) {
@@ -24,13 +26,19 @@ public class ResizableFAB extends FloatingActionButton {
     public ResizableFAB(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
+    public void setDotColor(int color){
+        this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this.getContext(),color)));
+    }
+
+    public void setMultiplier(Float multiplier) {
+        this.multiplier = multiplier;
+    }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-            int width = getMeasuredWidth();
-            int height = getMeasuredHeight();
-            setMeasuredDimension((int) (width * multiplier), (int) (height * multiplier));
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int width = getMeasuredWidth();
+        int height = getMeasuredHeight();
+        setMeasuredDimension((int) (width * multiplier), (int) (height * multiplier));
     }
-
 }
