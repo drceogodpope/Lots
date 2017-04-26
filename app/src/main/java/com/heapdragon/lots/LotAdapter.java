@@ -28,14 +28,18 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
     }
 
     public class LotDotHolder extends RecyclerView.ViewHolder {
-        LotDot lotDot;
-        Lot lot;
-        RelativeLayout root;
+        private ResizableFAB innerDot;
+        private ResizableFAB outterDot;
+        private TextView number;
+        private Lot lot;
         LotDotHolder(View itemView) {
             super(itemView);
-            root = (RelativeLayout) itemView.findViewById(R.id.lot_fragment_root);
-            lotDot = new LotDot(itemView.getContext());
+            innerDot = (ResizableFAB) itemView.findViewById(R.id.inside_bitch);
+            outterDot = (ResizableFAB) itemView.findViewById(R.id.outter_dot);
+            number = (TextView) itemView.findViewById(R.id.lot_dot_number);
         }
+
+
     }
 
     @Override
@@ -48,17 +52,18 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
     public void onBindViewHolder(final LotDotHolder holder, int position) {
         Log.d(TAG,"onBindViewHolder()");
         final int lotNumber = (int) lots.get(position).getNumber();
-        holder.root.addView(holder.lotDot);
-        holder.lotDot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startLotActivity(holder,lotNumber);
-            }
-        });
+        holder.lot = lots.get(position);
+        holder.number.setText(String.valueOf(lotNumber));
+//        holder.innerDot.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startLotActivity(holder,lotNumber);
+//            }
+//        });
     }
 
     private void startLotActivity(LotDotHolder holder,int lotNumber){
-        Context context = holder.lotDot.getContext();
+        Context context = holder.innerDot.getContext();
                 Intent intent = new Intent(context,LotActivity.class);
                 intent.putExtra("siteKey", siteKey);
                 intent.putExtra("status",holder.lot.getPrimaryStatus());

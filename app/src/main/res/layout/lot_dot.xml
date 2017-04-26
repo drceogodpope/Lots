@@ -5,32 +5,32 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--app:fabSize="normal"-->
-        <!--android:id="@+id/outter_dot"-->
-        <!--android:layout_margin="10dp"-->
-        <!--android:clickable="true"-->
-        <!--app:elevation="5dp"-->
-        <!--android:layout_centerInParent="true"/>-->
+    <com.heapdragon.lots.ResizableFAB
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="normal"
+        android:id="@+id/outter_dot"
+        android:layout_margin="10dp"
+        android:clickable="true"
+        app:elevation="5dp"
+        android:layout_centerInParent="true"/>
 
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/inner_dot"-->
-        <!--app:fabSize="mini"-->
-        <!--android:layout_margin="10dp"-->
-        <!--android:clickable="true"-->
-        <!--app:elevation="5dp"-->
-        <!--android:layout_centerInParent="true" />-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:text="99"-->
-        <!--style="@style/Base.TextAppearance.AppCompat.Large"-->
-        <!--android:id="@+id/lot_dot_number"-->
-        <!--android:textColor="@color/colorWhite"-->
-        <!--android:elevation="6dp"-->
-        <!--android:layout_height="wrap_content"/>-->
+    <com.heapdragon.lots.ResizableFAB
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/inside_bitch"
+        app:fabSize="mini"
+        android:layout_margin="10dp"
+        android:clickable="true"
+        app:elevation="5dp"
+        android:layout_centerInParent="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="99"
+        style="@style/Base.TextAppearance.AppCompat.Large"
+        android:id="@+id/lot_dot_number"
+        android:textColor="@color/colorWhite"
+        android:elevation="6dp"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>
