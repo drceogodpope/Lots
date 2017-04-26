@@ -4,16 +4,8 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-
-/**
- * Created by Francesco on 2017-04-24.
- */
 
 public class LotDot extends RelativeLayout {
 
