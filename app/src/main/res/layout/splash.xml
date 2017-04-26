@@ -11,6 +11,6 @@
         android:id="@+id/splash_text"
         android:layout_centerInParent="true"
         style="@style/Base.TextAppearance.AppCompat.Large"
-        android:text="lots v1.0"/>
+        android:text="Lots v1.2"/>
 
 </RelativeLayout>
