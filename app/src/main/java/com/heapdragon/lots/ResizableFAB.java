@@ -17,6 +17,7 @@ public class ResizableFAB extends FloatingActionButton {
 
     public ResizableFAB(Context context) {
         super(context);
+        multiplier = 1.5f;
     }
 
     public ResizableFAB(Context context, AttributeSet attrs) {
@@ -25,9 +26,13 @@ public class ResizableFAB extends FloatingActionButton {
 
     public ResizableFAB(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        multiplier = 1.5f;
+
     }
     public void setDotColor(int color){
         this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this.getContext(),color)));
+        multiplier = 1.5f;
+
     }
 
     public void setMultiplier(Float multiplier) {

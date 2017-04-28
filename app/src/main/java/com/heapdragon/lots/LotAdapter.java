@@ -35,8 +35,7 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
             innerDot = (ResizableFAB) itemView.findViewById(R.id.inside_bitch);
             outterDot = (ResizableFAB) itemView.findViewById(R.id.outter_dot);
             number = (TextView) itemView.findViewById(R.id.lot_dot_number);
-            outterDot.setMultiplier(1.6f);
-            innerDot.setMultiplier(1.5f);
+
         }
 
 
