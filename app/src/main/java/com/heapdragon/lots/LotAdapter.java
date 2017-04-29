@@ -20,24 +20,20 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
     private String siteKey;
 
 
-    public LotAdapter(ArrayList<Lot> lots,String siteKey) {
+    LotAdapter(ArrayList<Lot> lots, String siteKey) {
         Log.d(TAG,"LotAdapter()");
         this.lots = lots;
         this.siteKey = siteKey;
     }
 
-    public class LotDotHolder extends RecyclerView.ViewHolder {
-        private FloatingActionButton innerDot;
-        private FloatingActionButton outterDot;
-        private TextView number;
-        private Lot lot;
-
-
-
+    static class LotDotHolder extends RecyclerView.ViewHolder {
+        FloatingActionButton innerDot;
+        TextView number;
+        String siteKey;
+        Lot lot;
         LotDotHolder(View itemView) {
             super(itemView);
             innerDot = (FloatingActionButton) itemView.findViewById(R.id.inside_bitch);
-            outterDot = (FloatingActionButton) itemView.findViewById(R.id.outter_dot);
             number = (TextView) itemView.findViewById(R.id.lot_dot_number);
             innerDot.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -46,6 +42,16 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
                 }
             });
         }
+
+        private void startLotActivity(LotDotHolder holder,int lotNumber){
+            Context context = holder.innerDot.getContext();
+            Intent intent = new Intent(context,LotActivity.class);
+            intent.putExtra("siteKey", siteKey);
+            intent.putExtra("status",holder.lot.getPrimaryStatus());
+            intent.putExtra("lotNumber",lotNumber);
+            context.startActivity(intent);
+        }
+
     }
 
     @Override
@@ -58,21 +64,11 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
     public void onBindViewHolder(final LotDotHolder holder, int position) {
         Log.d(TAG,"onBindViewHolder()");
         holder.lot = lots.get(position);
-        final int lotNumber = (int) lots.get(holder.getAdapterPosition()).getNumber();
-        holder.number.setText(String.valueOf(lotNumber));
+        holder.siteKey = siteKey;
+        holder.number.setText(String.valueOf(holder.lot.getNumber()));
         holder.innerDot.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.innerDot.getContext(),R.color.colorRed)));
-
-
     }
 
-    private void startLotActivity(LotDotHolder holder,int lotNumber){
-        Context context = holder.innerDot.getContext();
-                Intent intent = new Intent(context,LotActivity.class);
-                intent.putExtra("siteKey", siteKey);
-                intent.putExtra("status",holder.lot.getPrimaryStatus());
-                intent.putExtra("lotNumber",lotNumber);
-                context.startActivity(intent);
-    }
 
     @Override
     public int getItemCount() {return lots.size();}
