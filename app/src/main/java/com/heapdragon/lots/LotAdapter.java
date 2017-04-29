@@ -2,6 +2,7 @@ package com.heapdragon.lots;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -26,19 +27,25 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
     }
 
     public class LotDotHolder extends RecyclerView.ViewHolder {
-        private ResizableFAB innerDot;
-        private ResizableFAB outterDot;
+        private FloatingActionButton innerDot;
+        private FloatingActionButton outterDot;
         private TextView number;
         private Lot lot;
+
+
+
         LotDotHolder(View itemView) {
             super(itemView);
-            innerDot = (ResizableFAB) itemView.findViewById(R.id.inside_bitch);
-            outterDot = (ResizableFAB) itemView.findViewById(R.id.outter_dot);
+            innerDot = (FloatingActionButton) itemView.findViewById(R.id.inside_bitch);
+            outterDot = (FloatingActionButton) itemView.findViewById(R.id.outter_dot);
             number = (TextView) itemView.findViewById(R.id.lot_dot_number);
-
+            innerDot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startLotActivity(LotDotHolder.this,(int)lot.getNumber());
+                }
+            });
         }
-
-
     }
 
     @Override
@@ -52,15 +59,10 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
         Log.d(TAG,"onBindViewHolder()");
         holder.lot = lots.get(position);
         final int lotNumber = (int) lots.get(holder.getAdapterPosition()).getNumber();
-        holder.innerDot.setDotColor(R.color.colorPink);
         holder.number.setText(String.valueOf(lotNumber));
+        holder.innerDot.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.innerDot.getContext(),R.color.colorRed)));
 
-        holder.innerDot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startLotActivity(holder,lotNumber);
-            }
-        });
+
     }
 
     private void startLotActivity(LotDotHolder holder,int lotNumber){

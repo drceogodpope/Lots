@@ -47,7 +47,7 @@ public class LotsFragment extends android.support.v4.app.Fragment {
         Log.d(TAG,"onCreateView()");
         View view = inflater.inflate(R.layout.fragment_lots,container,false);
         recyclerView = (RecyclerView) view.findViewById(R.id.lots_fragment_recyclerView);
-        gridLayoutManager = new GridLayoutManager(getContext(),Utility.calculateNoOfColumns(this.getContext()));
+        gridLayoutManager = new GridLayoutManager(getContext(),5);
         gridLayoutManager.setAutoMeasureEnabled(true);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(new LotAdapter(getLots(key),key));
