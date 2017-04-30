@@ -3,8 +3,6 @@
     android:id="@+id/colorSquare"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="100dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp"
+    android:layout_width="match_parent"
     android:layout_height="100dp">
 </RelativeLayout>
