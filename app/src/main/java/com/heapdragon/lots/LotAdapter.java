@@ -27,13 +27,16 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
     }
 
     static class LotDotHolder extends RecyclerView.ViewHolder {
-        FloatingActionButton innerDot;
+        LotDot outterdot;
+        LotDot innerDot;
         TextView number;
         String siteKey;
         Lot lot;
         LotDotHolder(View itemView) {
             super(itemView);
-            innerDot = (FloatingActionButton) itemView.findViewById(R.id.inside_bitch);
+            innerDot = (LotDot) itemView.findViewById(R.id.inner_shit);
+            outterdot = (LotDot) itemView.findViewById(R.id.outter_shit);
+
             number = (TextView) itemView.findViewById(R.id.lot_dot_number);
             innerDot.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -42,7 +45,6 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
                 }
             });
         }
-
         private void startLotActivity(LotDotHolder holder,int lotNumber){
             Context context = holder.innerDot.getContext();
             Intent intent = new Intent(context,LotActivity.class);
@@ -51,7 +53,6 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
             intent.putExtra("lotNumber",lotNumber);
             context.startActivity(intent);
         }
-
     }
 
     @Override
@@ -62,11 +63,44 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
 
     @Override
     public void onBindViewHolder(final LotDotHolder holder, int position) {
-        Log.d(TAG,"onBindViewHolder()");
+        Log.d(TAG, "onBindViewHolder()");
         holder.lot = lots.get(position);
         holder.siteKey = siteKey;
         holder.number.setText(String.valueOf(holder.lot.getNumber()));
-        holder.innerDot.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.innerDot.getContext(),R.color.colorRed)));
+
+        switch ((int)holder.lot.getPrimaryStatus()){
+            case Lot.NOT_READY:
+                    holder.innerDot.setColor(R.color.colorRed);
+                break;
+            case Lot.READY:
+                holder.innerDot.setColor(R.color.colorGreen);
+                break;
+            case Lot.ISSUE:
+                holder.innerDot.setColor(R.color.colorYellow);
+                break;
+            default:
+                holder.innerDot.setColor(R.color.colorGrey);
+
+        }
+
+        switch ((int)holder.lot.getSecondaryStatus()){
+            case Lot.MATERIAL_ORDERED:
+                holder.outterdot.setColor(R.color.colorPink);
+                break;
+            case Lot.ARCH_IN_PRODUCTION:
+                holder.outterdot.setColor(R.color.colorAmber);
+                break;
+            case Lot.ARCH_IN_SHIPPING:
+                holder.outterdot.setColor(R.color.colorBlack);
+            case Lot.ARCH_REQUIRED:
+                holder.outterdot.setColor(R.color.colorCyan);
+                break;
+            default:
+                holder.outterdot.setBackgroundTintList(holder.innerDot.getColorStateListe());
+
+        }
+
+
     }
 
 
