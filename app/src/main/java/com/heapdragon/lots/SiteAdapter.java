@@ -30,12 +30,11 @@ class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHolder> {
     private ArrayList<Site> sites;
 
     SiteAdapter(ArrayList<Site> sites) {
-
         Collections.shuffle(sites);
         this.sites = sites;
     }
 
-    class SiteCardViewHolder extends RecyclerView.ViewHolder {
+    static class SiteCardViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         ImageButton issueButton;
         TextView readyLots;
@@ -43,10 +42,12 @@ class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHolder> {
         TextView totalLots;
         TextView mapButton;
         TextView lotsButton;
+        int[] siteColors;
         protected Site site;
 
         public SiteCardViewHolder(View itemView) {
             super(itemView);
+            siteColors = itemView.getContext().getResources().getIntArray(R.array.siteColors);
             cardView = (CardView) itemView.findViewById(R.id.site_card);
             issueButton = (ImageButton) itemView.findViewById(R.id.site_card_issue_image);
             readyLots = (TextView) itemView.findViewById(R.id.site_card_total_ready);
@@ -54,6 +55,41 @@ class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHolder> {
             totalLots = (TextView) itemView.findViewById(R.id.site_card_total_lots);
             mapButton = (TextView) itemView.findViewById(R.id.site_card_map_button);
             lotsButton = (TextView) itemView.findViewById(R.id.site_card_lot_button);
+
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(cardView.getContext(),SiteActivity.class);
+                    intent.putExtra("key",site.getId());
+                    intent.putExtra("name",siteName.getText().toString());
+                    intent.putExtra("color",((ColorDrawable)cardView.getBackground()).getColor());
+                    cardView.getContext().startActivity(intent);
+                }
+            });
+
+            mapButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(cardView.getContext(),SiteActivity.class);
+                    intent.putExtra("key",site.getId());
+                    intent.putExtra("name",siteName.getText().toString());
+                    intent.putExtra("color",((ColorDrawable)cardView.getBackground()).getColor());
+                    intent.putExtra("adapterPage",1);
+                    cardView.getContext().startActivity(intent);
+                }
+            });
+
+            lotsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(cardView.getContext(),SiteActivity.class);
+                    intent.putExtra("key",site.getId());
+                    intent.putExtra("name",siteName.getText().toString());
+                    intent.putExtra("color",((ColorDrawable)cardView.getBackground()).getColor());
+                    intent.putExtra("adapterPage",2);
+                    cardView.getContext().startActivity(intent);
+                }
+            });
         }
     }
 
@@ -81,52 +117,15 @@ class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHolder> {
         }
         android.util.Log.d(TAG,site.getName() + site.getSiteColor());
 
-        int[] siteColors = holder.cardView.getContext().getResources().getIntArray(R.array.siteColors);
 
         try {
-            holder.cardView.setBackgroundColor(siteColors[holder.site.getSiteColor()]);
+            holder.cardView.setBackgroundColor(holder.siteColors[holder.site.getSiteColor()]);
         }
         catch (Exception e){
             e.printStackTrace();
-            holder.cardView.setBackgroundColor(siteColors[0]);
+            holder.cardView.setBackgroundColor(holder.siteColors[0]);
         }
 
-
-
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(holder.cardView.getContext(),SiteActivity.class);
-                intent.putExtra("key",site.getId());
-                intent.putExtra("name",holder.siteName.getText().toString());
-                intent.putExtra("color",((ColorDrawable)holder.cardView.getBackground()).getColor());
-                holder.cardView.getContext().startActivity(intent);
-            }
-        });
-
-        holder.mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(holder.cardView.getContext(),SiteActivity.class);
-                intent.putExtra("key",site.getId());
-                intent.putExtra("name",holder.siteName.getText().toString());
-                intent.putExtra("color",((ColorDrawable)holder.cardView.getBackground()).getColor());
-                intent.putExtra("adapterPage",1);
-                holder.cardView.getContext().startActivity(intent);
-            }
-        });
-
-        holder.lotsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(holder.cardView.getContext(),SiteActivity.class);
-                intent.putExtra("key",site.getId());
-                intent.putExtra("name",holder.siteName.getText().toString());
-                intent.putExtra("color",((ColorDrawable)holder.cardView.getBackground()).getColor());
-                intent.putExtra("adapterPage",2);
-                holder.cardView.getContext().startActivity(intent);
-            }
-        });
 
         //SETUP FOR COMPLETE LOT LISTENERS//
         setReadyLots(holder,site);
@@ -136,7 +135,7 @@ class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHolder> {
         final SiteCardViewHolder holder = holder1;
         final Site site = site1;
         DatabaseReference lotRef = FirebaseDatabase.getInstance().getReference().child(LOTS_NODE_PREFIX+holder.site.getId());
-        lotRef.orderByValue().equalTo(1).addValueEventListener(new ValueEventListener() {
+        lotRef.orderByValue().equalTo(Lot.READY).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final long count = dataSnapshot.getChildrenCount();

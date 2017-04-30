@@ -67,15 +67,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //TESTVIEW//
-        RelativeLayout rootview = (RelativeLayout) findViewById(R.id.activity_main);
-        rootview.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                startActivity(new Intent(MainActivity.this,TestViewActivity.class));
-                return false;
-            }
-        });
+
     }
 
     private Site createSiteFromNode(DataSnapshot ds){
