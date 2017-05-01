@@ -8,16 +8,29 @@
 
     tools:context="com.heapdragon.lots.MainActivity">
 
-    <TextView
-        android:id="@+id/activity_main_textview"
-        android:layout_width="wrap_content"
-        android:textColor="@color/colorLightGrey"
-        android:layout_height="wrap_content"
-        style="@style/Base.TextAppearance.AppCompat.Medium.Inverse"
-        android:layout_margin="20dp"
-        android:visibility="gone"
+    <LinearLayout
         android:layout_centerInParent="true"
-        android:text="No sites found"/>
+        android:id="@+id/no_site_layout"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/activity_main_textview"
+            android:layout_width="wrap_content"
+            android:textColor="@color/colorLightGrey"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            style="@style/Base.TextAppearance.AppCompat.Medium.Inverse"
+            android:text="Add new site"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/note_add_grey_96x96"/>
+
+    </LinearLayout>
+
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
