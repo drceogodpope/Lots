@@ -8,19 +8,20 @@
 
     <com.heapdragon.lots.LotDot
         android:id="@+id/inner_shit"
-        android:layout_width="50dp"
+        android:layout_width="match_parent"
         android:elevation="10dp"
         android:layout_centerInParent="true"
-        android:layout_height="50dp"
+        android:layout_height="match_parent"
         android:layout_margin="10dp"
         android:background="@drawable/circle"
         />
     <com.heapdragon.lots.LotDot
         android:id="@+id/outter_shit"
-        android:layout_width="55dp"
+        android:layout_width="match_parent"
         android:layout_centerInParent="true"
+        android:layout_margin="5dp"
         android:elevation="5dp"
-        android:layout_height="55dp"
+        android:layout_height="match_parent"
         android:background="@drawable/circle2"
         />
     <TextView
@@ -32,7 +33,4 @@
         android:textColor="@color/colorWhite"
         android:elevation="16dp"
         android:layout_height="wrap_content"/>
-
-
-
 </RelativeLayout>

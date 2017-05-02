@@ -56,8 +56,8 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
     }
 
     @Override
-    public LotDotHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.lot_dot,parent,false);
+    public LotDotHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+        final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.lot_dot,parent,false);
         return new LotDotHolder(itemView);
     }
 
