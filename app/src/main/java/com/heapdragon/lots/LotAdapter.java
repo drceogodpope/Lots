@@ -41,9 +41,10 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
             innerDot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startLotActivity(LotDotHolder.this,(int)lot.getNumber());
+                    startEnhancedLotActivity(LotDotHolder.this,(int)lot.getNumber());
                 }
             });
+
         }
         private void startLotActivity(LotDotHolder holder,int lotNumber){
             Context context = holder.innerDot.getContext();
@@ -53,6 +54,15 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
             intent.putExtra("lotNumber",lotNumber);
             context.startActivity(intent);
         }
+
+        private void startEnhancedLotActivity(LotDotHolder holder,int lotNumber){
+            Context context = holder.innerDot.getContext();
+            Intent intent = new Intent(context,EnhancedLotActivity.class);
+            intent.putExtra("siteKey", siteKey);
+            intent.putExtra("lotNumber",lotNumber);
+            context.startActivity(intent);
+        }
+
     }
 
     @Override

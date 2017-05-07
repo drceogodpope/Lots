@@ -36,6 +36,7 @@ public class SiteLogFragment extends Fragment {
     private LinearLayout noLogsLayout;
     protected int lotNumber = 0;
     private ArrayList<SiteLog> logs;
+    private TextView logText;
 
     public static SiteLogFragment newInstance(String key) {
         Bundle args = new Bundle();
@@ -58,6 +59,7 @@ public class SiteLogFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_log, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.log_fragment_recyclerView);
         noLogsLayout = (LinearLayout) view.findViewById(R.id.no_logs_layout);
+        logText = (TextView) view.findViewById(R.id.log_text);
         linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(new LogAdapter(getLogs(key, lotNumber)));
@@ -98,9 +100,11 @@ public class SiteLogFragment extends Fragment {
                 if(logs.size()==0){
                     noLogsLayout.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
+                    logText.setVisibility(View.GONE);
                 }else{
                     noLogsLayout.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.VISIBLE);
+                    logText.setVisibility(View.VISIBLE);
                 }
                 recyclerView.getAdapter().notifyDataSetChanged();
             }

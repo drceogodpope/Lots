@@ -6,11 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log:"
+        android:layout_alignParentTop="true"
+        android:id="@+id/log_text"
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_margin="10dp"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/log_fragment_recyclerView"
         android:layout_width="match_parent"
         android:elevation="5dp"
+        android:layout_below="@+id/log_text"
         android:background="@color/colorDarkBackground"
+        android:nestedScrollingEnabled="false"
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
 

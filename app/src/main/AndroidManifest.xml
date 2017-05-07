@@ -38,6 +38,8 @@
             android:label="@string/title_activity_add_user"
             android:theme="@style/AppTheme"/>
 
+        <activity android:name=".EnhancedLotActivity"/>
+
         <activity android:name=".TestViewActivity"/>
     </application>
 

@@ -20,7 +20,7 @@ class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
         this.logs = logs;
     }
 
-    class LogCardHolder extends RecyclerView.ViewHolder {
+    static class LogCardHolder extends RecyclerView.ViewHolder {
         protected FloatingActionButton logDot;
         protected TextView logNumber;
         protected TextView logTitle;

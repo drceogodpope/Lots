@@ -33,8 +33,7 @@ class LotDot extends View{
     }
 
     @Override
-    protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec)
-    {
+    protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
         final int width = getDefaultSize(getSuggestedMinimumWidth(),widthMeasureSpec);
         setMeasuredDimension(width, width);
     }
