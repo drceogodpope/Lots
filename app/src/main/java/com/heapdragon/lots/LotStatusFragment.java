@@ -1,5 +1,4 @@
 package com.heapdragon.lots;
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,18 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import org.joda.time.DateTime;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import static com.heapdragon.lots.DataBaseConstants.LOG_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.LOG_NUMBER;
 import static com.heapdragon.lots.DataBaseConstants.LOG_STATUS;
@@ -26,15 +21,18 @@ import static com.heapdragon.lots.DataBaseConstants.LOG_TIME_STAMP;
 import static com.heapdragon.lots.DataBaseConstants.LOTS_NODE_PREFIX;
 
 public abstract class LotStatusFragment extends Fragment {
+
+    //MEMBER VARIABLES
     protected String key;
     protected String nodeKey;
     protected int lotNumber;
-    protected TextView status;
-    protected LotDot innerDot,outterDot;
-    protected TextView number;
-    protected TextView b0,b1,b2,b3;
     protected DatabaseReference statusRef;
 
+    //VIEWS
+    protected TextView status;
+    protected LotDot innerDot, outerDot;
+    protected TextView number;
+    protected TextView b0,b1,b2,b3;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +47,7 @@ public abstract class LotStatusFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_lot_status_e, container, false);
         status = (TextView) view.findViewById(R.id.status);
         innerDot = (LotDot) view.findViewById(R.id.inner_dot);
-        outterDot = (LotDot) view.findViewById(R.id.outter_dot);
+        outerDot = (LotDot) view.findViewById(R.id.outter_dot);
         number = (TextView) view.findViewById(R.id.status_dot_number);
         b0 = (TextView) view.findViewById(R.id.b0);
         b1 = (TextView) view.findViewById(R.id.b1);
@@ -67,7 +65,6 @@ public abstract class LotStatusFragment extends Fragment {
         number.setText(String.valueOf(lotNumber));
         setButtons(statusRef);
     }
-
 
     private void addFirebaseListener(){
         statusRef.addValueEventListener(new ValueEventListener() {

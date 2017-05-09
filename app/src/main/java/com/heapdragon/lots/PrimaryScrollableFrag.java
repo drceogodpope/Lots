@@ -12,10 +12,6 @@ import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 
-/**
- * Created by Francesco on 2017-05-04.
- */
-
 public class PrimaryScrollableFrag extends ScrollableParentFrag {
 
     public static PrimaryScrollableFrag newInstance(Bundle args){

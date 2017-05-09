@@ -3,18 +3,6 @@ package com.heapdragon.lots;
 import android.view.View;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import org.joda.time.DateTime;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.heapdragon.lots.DataBaseConstants.LOG_NODE_PREFIX;
-import static com.heapdragon.lots.DataBaseConstants.LOG_NUMBER;
-import static com.heapdragon.lots.DataBaseConstants.LOG_STATUS;
-import static com.heapdragon.lots.DataBaseConstants.LOG_TIME_STAMP;
-import static com.heapdragon.lots.DataBaseConstants.LOTS_PRIMARY_STATUS_PREFIX;
 
 
 /**
@@ -31,7 +19,7 @@ public class LotPrimaryStatusFragment extends LotStatusFragment {
 
     @Override
     protected void changeLotDot(int value1) {
-        outterDot.setVisibility(View.GONE);
+        outerDot.setVisibility(View.INVISIBLE);
         switch (value1){
             case Lot.ISSUE:
                 innerDot.setColor(R.color.colorBlue);
@@ -54,10 +42,10 @@ public class LotPrimaryStatusFragment extends LotStatusFragment {
     @Override
     protected void setButtons(final DatabaseReference statusRef) {
 
-        b0.setText("Ready\n");
-        b1.setText("Not Ready\n");
-        b2.setText("Received\n");
-        b3.setText("Issue\n");
+        b0.setText("Ready to Receive");
+        b1.setText("Not Ready to Receive");
+        b2.setText("Materials Received");
+        b3.setText("New Lot Issue");
 
 
         b0.setOnClickListener(new View.OnClickListener() {

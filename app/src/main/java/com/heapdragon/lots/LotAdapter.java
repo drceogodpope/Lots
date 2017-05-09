@@ -80,7 +80,7 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
 
         switch ((int)holder.lot.getPrimaryStatus()){
             case Lot.NOT_READY:
-                    holder.innerDot.setColor(R.color.colorRed);
+                holder.innerDot.setColor(R.color.colorRed);
                 break;
             case Lot.READY:
                 holder.innerDot.setColor(R.color.colorGreen);
@@ -98,12 +98,13 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
                 holder.outterdot.setColor(R.color.colorPink);
                 break;
             case Lot.ARCH_IN_PRODUCTION:
-                holder.outterdot.setColor(R.color.colorAmber);
+                holder.outterdot.setColor(R.color.colorOrange);
                 break;
             case Lot.ARCH_IN_SHIPPING:
-                holder.outterdot.setColor(R.color.colorBlack);
+                holder.outterdot.setColor(R.color.colorPurple1);
+                break;
             case Lot.ARCH_REQUIRED:
-                holder.outterdot.setColor(R.color.colorCyan);
+                holder.outterdot.setColor(R.color.colorGold2);
                 break;
             default:
                 holder.outterdot.setBackgroundTintList(holder.innerDot.getColorStateListe());
