@@ -1,10 +1,19 @@
 package com.heapdragon.lots;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.google.firebase.database.DatabaseReference;
 
 public class LotSecondaryStatusFragment extends LotStatusFragment {
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.statusLevel = DataBaseConstants.LOTS_SECONDARY_STATUS_PREFIX;
+    }
+
     @Override
     protected void changeLotDot(int value1) {
         innerDot.setColor(R.color.colorDarkBackground);

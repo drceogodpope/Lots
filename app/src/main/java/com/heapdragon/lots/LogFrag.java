@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,30 +20,20 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
+import static com.heapdragon.lots.DataBaseConstants.LOG_FIELD_UPDATED;
 import static com.heapdragon.lots.DataBaseConstants.LOG_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.LOG_NUMBER;
 import static com.heapdragon.lots.DataBaseConstants.LOG_STATUS;
 import static com.heapdragon.lots.DataBaseConstants.LOG_TIME_STAMP;
 
-public class SiteLogFragment extends Fragment {
+public abstract class LogFrag extends Fragment {
 
-    private final String TAG = "SiteLogFragment";
-
+    private static final String TAG = "LogFrag";
     private RecyclerView recyclerView;
-    private LinearLayoutManager linearLayoutManager;
     private String key;
     private LinearLayout noLogsLayout;
-    protected int lotNumber = 0;
     private ArrayList<SiteLog> logs;
-    private TextView logText;
-
-    public static SiteLogFragment newInstance(String key) {
-        Bundle args = new Bundle();
-        args.putString("key", key);
-        SiteLogFragment fragment = new SiteLogFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,14 +48,13 @@ public class SiteLogFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_log, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.log_fragment_recyclerView);
         noLogsLayout = (LinearLayout) view.findViewById(R.id.no_logs_layout);
-        logText = (TextView) view.findViewById(R.id.log_text);
-        linearLayoutManager = new LinearLayoutManager(view.getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(new LogAdapter(getLogs(key, lotNumber)));
+        recyclerView.setAdapter(new LogAdapter(getLogs(key)));
         return view;
     }
 
-    private ArrayList<SiteLog> getLogs(String key, final int lotID) {
+    protected ArrayList<SiteLog> getLogs(String key) {
         Log.d(TAG, "getLogs()");
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference logRef = rootRef.child(LOG_NODE_PREFIX + key).getRef();
@@ -74,41 +62,11 @@ public class SiteLogFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 logs.clear();
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Log.d(TAG, String.valueOf(ds.child(LOG_NUMBER).getValue()));
-                    try {
-                        long lotNumber = (long) ds.child(LOG_NUMBER).getValue();
-                        Log.d(TAG, "Fragment's Lot Number = " + String.valueOf(lotID) +
-                                "Lot Number retrieved = " + String.valueOf(lotNumber));
-                        if (lotID == 0 || (int) lotNumber == lotID) {
-                            DateTime dateTime = new DateTime(ds.child(LOG_TIME_STAMP).getValue());
-                            long status = (long) ds.child(LOG_STATUS).getValue();
-                            SiteLog siteLog = new SiteLog(dateTime, lotNumber, (int) status);
-                            logs.add(siteLog);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }
-                Collections.sort(logs, new Comparator<SiteLog>() {
-                    @Override
-                    public int compare(SiteLog siteLog, SiteLog t1) {
-                        return t1.getDateTime().compareTo(siteLog.getDateTime());
-                    }
-                });
-                if(logs.size()==0){
-                    noLogsLayout.setVisibility(View.VISIBLE);
-                    recyclerView.setVisibility(View.GONE);
-                    logText.setVisibility(View.GONE);
-                }else{
-                    noLogsLayout.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.VISIBLE);
-                    logText.setVisibility(View.VISIBLE);
-                }
+                traverseLogs(dataSnapshot);
+                checkIfLogsExist();
+                orderLogs();
                 recyclerView.getAdapter().notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(getContext(), "Something went wrong... Try again", Toast.LENGTH_SHORT).show();
@@ -116,6 +74,48 @@ public class SiteLogFragment extends Fragment {
         });
         return logs;
     }
+
+    protected void traverseLogs(DataSnapshot dataSnapshot){
+        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+            if(checkField(ds)) addSiteLog(ds);
+        }
+    }
+
+    // OVERRIDE ME TO FILTER PRIMARY/SECONDARY LOGS
+    protected void addSiteLog(DataSnapshot ds){
+        String logKey = ds.getKey();
+        long lotNumber = (long) ds.child(LOG_NUMBER).getValue();
+        DateTime dateTime = new DateTime(ds.child(LOG_TIME_STAMP).getValue());
+        long status = (long) ds.child(LOG_STATUS).getValue();
+        logs.add(new SiteLog(dateTime, lotNumber, (int) status,logKey,LogFrag.this.key));
+    }
+
+    abstract boolean checkField(DataSnapshot ds);
+
+    private void checkIfLogsExist(){
+        if(logs.size()==0){
+            noLogsLayout.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }else{
+            noLogsLayout.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void orderLogs(){
+        Collections.sort(logs, new Comparator<SiteLog>() {
+            @Override
+            public int compare(SiteLog siteLog, SiteLog t1) {
+                return t1.getDateTime().compareTo(siteLog.getDateTime());
+            }
+        });
+    }
+
+
+
+
+
+
 
 }
 

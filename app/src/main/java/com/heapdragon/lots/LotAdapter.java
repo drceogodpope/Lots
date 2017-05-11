@@ -2,9 +2,6 @@ package com.heapdragon.lots;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,15 +43,6 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
             });
 
         }
-        private void startLotActivity(LotDotHolder holder,int lotNumber){
-            Context context = holder.innerDot.getContext();
-            Intent intent = new Intent(context,LotActivity.class);
-            intent.putExtra("siteKey", siteKey);
-            intent.putExtra("status",holder.lot.getPrimaryStatus());
-            intent.putExtra("lotNumber",lotNumber);
-            context.startActivity(intent);
-        }
-
         private void startEnhancedLotActivity(LotDotHolder holder,int lotNumber){
             Context context = holder.innerDot.getContext();
             Intent intent = new Intent(context,EnhancedLotActivity.class);
@@ -107,7 +95,7 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
                 holder.outterdot.setColor(R.color.colorGold2);
                 break;
             default:
-                holder.outterdot.setBackgroundTintList(holder.innerDot.getColorStateListe());
+                holder.outterdot.setBackgroundTintList(holder.innerDot.getColorStateList());
 
         }
 

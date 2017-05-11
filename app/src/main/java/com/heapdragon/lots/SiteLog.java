@@ -13,18 +13,26 @@ public class SiteLog implements Comparator<SiteLog>{
     private final String ISSUE = "Issue";
     private final String RECEIVED = "Received";
 
+    public static final long PRIMARY = 0;
+    public static final long SECONDARY = 0;
+
+
     private DateTime dateTime;
     private int lotNumber;
     private String user;
     private int status;
     private String title;
+    private String logKey;
+    private String siteKey;
 
-    public SiteLog(DateTime dateTime,long lotNumber,int status) {
+    public SiteLog(DateTime dateTime,long lotNumber,int status,String logKey,String siteKey) {
         this.dateTime = dateTime;
         this.lotNumber = (int)lotNumber;
         this.status = status;
         user = "User Name"; // change later
         title = "Lot " + String.valueOf(lotNumber) + " - " + getStatusString(status);
+        this.logKey = logKey;
+        this.siteKey = siteKey;
     }
 
     private String getStatusString(int status) {
@@ -70,4 +78,11 @@ public class SiteLog implements Comparator<SiteLog>{
         return siteLog.getDateTime().compareTo(t1.getDateTime());
     }
 
+    public String getLogKey() {
+        return logKey;
+    }
+
+    public String getSiteKey() {
+        return siteKey;
+    }
 }

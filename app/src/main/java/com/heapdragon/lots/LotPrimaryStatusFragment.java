@@ -1,5 +1,7 @@
 package com.heapdragon.lots;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.google.firebase.database.DatabaseReference;
@@ -11,6 +13,12 @@ import com.google.firebase.database.DatabaseReference;
 
 public class LotPrimaryStatusFragment extends LotStatusFragment {
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.statusLevel = DataBaseConstants.LOTS_PRIMARY_STATUS_PREFIX;
+    }
 
     @Override
     protected void setNodeKey() {

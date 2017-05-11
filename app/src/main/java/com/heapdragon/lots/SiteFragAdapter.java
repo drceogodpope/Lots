@@ -21,7 +21,7 @@ public class SiteFragAdapter extends FragmentPagerAdapter {
             case 1: // Fragment # 0 - This will show FirstFragment different title
                 return SiteMapFragment.newInstance(key);
             case 2: // Fragment # 1 - This will show SecondFragment
-                return SiteLogFragment.newInstance(key);
+                return SiteLogFrag.newInstance(key);
             default:
                 return null;
         }

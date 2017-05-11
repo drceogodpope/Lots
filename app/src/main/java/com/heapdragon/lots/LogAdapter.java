@@ -3,12 +3,15 @@ package com.heapdragon.lots;
 import android.content.res.ColorStateList;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -18,7 +21,7 @@ class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
 
     LogAdapter(ArrayList<SiteLog> logs){
         this.logs = logs;
-    }
+   }
 
     static class LogCardHolder extends RecyclerView.ViewHolder {
         protected FloatingActionButton logDot;
@@ -27,6 +30,7 @@ class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
         protected TextView logUser;
         protected TextView logTimeStamp;
         protected SiteLog siteLog;
+        protected CardView logCard;
 
         LogCardHolder(View itemView) {
             super(itemView);
@@ -36,7 +40,24 @@ class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
             logUser = (TextView) itemView.findViewById(R.id.log_user);
             logTimeStamp = (TextView) itemView.findViewById(R.id.log_time_stamp);
             logUser.setVisibility(View.GONE);
+            logCard = (CardView) itemView.findViewById(R.id.log_card);
+
+            logCard.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    deleteSite(siteLog.getSiteKey(),siteLog.getLogKey());
+                    return false;
+                }
+            });
         }
+
+        private void deleteSite(String siteKey,String logKey){
+            DatabaseReference logRef = FirebaseDatabase.getInstance().getReference().
+                    child(DataBaseConstants.LOG_NODE_PREFIX+siteKey).child(logKey);
+            logRef.removeValue();
+
+        }
+
     }
 
     @Override

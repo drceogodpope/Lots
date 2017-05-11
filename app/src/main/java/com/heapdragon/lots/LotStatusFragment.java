@@ -2,6 +2,7 @@ package com.heapdragon.lots;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,22 +12,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import org.joda.time.DateTime;
-import java.util.HashMap;
-import java.util.Map;
-import static com.heapdragon.lots.DataBaseConstants.LOG_NODE_PREFIX;
-import static com.heapdragon.lots.DataBaseConstants.LOG_NUMBER;
-import static com.heapdragon.lots.DataBaseConstants.LOG_STATUS;
-import static com.heapdragon.lots.DataBaseConstants.LOG_TIME_STAMP;
 import static com.heapdragon.lots.DataBaseConstants.LOTS_NODE_PREFIX;
 
 public abstract class LotStatusFragment extends Fragment {
+
+    private static final String TAG = "LotStatusFragment";
 
     //MEMBER VARIABLES
     protected String key;
     protected String nodeKey;
     protected int lotNumber;
     protected DatabaseReference statusRef;
+    protected DatabaseBitch databaseBitch;
+    protected String statusLevel;
 
     //VIEWS
     protected TextView status;
@@ -40,6 +38,7 @@ public abstract class LotStatusFragment extends Fragment {
         key = getArguments().getString("key");
         nodeKey = getArguments().getString("nodeKey");
         lotNumber = getArguments().getInt("lotNumber");
+        databaseBitch = new DatabaseBitch();
     }
 
     @Override
@@ -70,9 +69,15 @@ public abstract class LotStatusFragment extends Fragment {
         statusRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                long value = (long)dataSnapshot.getValue();
-                int value1 = (int) value;
-                changeLotDot(value1);
+                try{
+                    long value = (long)dataSnapshot.getValue();
+                    int value1 = (int) value;
+                    changeLotDot(value1);
+                }
+                catch (Exception e){
+                    Log.d(TAG,e.toString());
+                }
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -83,16 +88,7 @@ public abstract class LotStatusFragment extends Fragment {
 
     protected void setStatus(int status){
         statusRef.setValue(status);
-        createLog(status);
-    }
-
-    protected void createLog(int status) {
-        DatabaseReference logRef = FirebaseDatabase.getInstance().getReference().child(LOG_NODE_PREFIX+key);
-        Map<String,Object> map = new HashMap<>();
-        map.put(LOG_NUMBER,lotNumber);
-        map.put(LOG_STATUS,status);
-        map.put(LOG_TIME_STAMP,new DateTime().getMillis());
-        logRef.push().setValue(map);
+        databaseBitch.createLog(status,key,lotNumber,statusLevel);
     }
 
     protected abstract void changeLotDot(int value1);

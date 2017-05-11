@@ -44,7 +44,7 @@ class LotDot extends View{
         super.onSizeChanged(w, w, oldw, oldh);
     }
 
-    public ColorStateList getColorStateListe(){
+    public ColorStateList getColorStateList(){
         return this.getBackgroundTintList();
     }
 

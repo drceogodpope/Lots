@@ -1,24 +1,23 @@
 package com.heapdragon.lots;
 
-/**
- * Created by Francesco on 2016-12-21.
- */
-
 public class Lot {
 
     // PRIMARY STATUSES
-    public static final int NOT_READY = 0;
-    public static final int READY = 1;
-    public static final int ISSUE = 2;
-    public static final int RECEIVED = 3;
+    static final int NOT_READY = 0;
+    static final int READY = 1;
+    static final int ISSUE = 2;
+    static final int RECEIVED = 3;
 
     // SECONDARY STATUSES
     public static final int NOTHING = 0;
-    public static final int MATERIAL_ORDERED = 1;
-    public static final int ARCH_IN_SHIPPING = 2;
-    public static final int ARCH_IN_PRODUCTION = 3;
-    public static final int ARCH_REQUIRED = 4;
+    static final int MATERIAL_ORDERED = 1;
+    static final int ARCH_IN_SHIPPING = 2;
+    static final int ARCH_IN_PRODUCTION = 3;
+    static final int ARCH_REQUIRED = 4;
 
+    //STATUS LEVELS
+    static final int PRIMARY = 0;
+    static final int SECONDARY = 1;
 
     private long number;
     private long primaryStatus;

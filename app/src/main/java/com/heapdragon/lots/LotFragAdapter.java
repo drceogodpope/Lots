@@ -32,7 +32,7 @@ class LotFragAdapter extends FragmentPagerAdapter {
             case 1: // Fragment # 0 - This will show FirstFragment different title
                 return SecondaryScrollableFrag.newInstance(bundle);
             case 2: // Fragment # 1 - This will show SecondFragment
-                return LotLogFragment.newInstance(key);
+                return SiteLogFrag.newInstance(key);
             default:
                 return null;
         }

@@ -54,7 +54,7 @@ public class PrimaryScrollableFrag extends ScrollableParentFrag {
         args.putInt("lotNumber", lotNumber);
         LotPrimaryStatusFragment primaryStatusFrag = new LotPrimaryStatusFragment();
         primaryStatusFrag.setArguments(args);
-        Fragment lotLogFrag = LotLogFragment.newInstance(key,lotNumber);
+        Fragment lotLogFrag = PrimaryLogFrag.newInstance(key,lotNumber);
         frags.add(primaryStatusFrag);
         frags.add(lotLogFrag);
         return frags;
