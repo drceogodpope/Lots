@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.DisplayMetrics;
+import android.view.View;
 
 import java.io.ByteArrayOutputStream;
 
@@ -33,10 +34,17 @@ class Utility {
 
 
 
-        public static int calculateNoOfColumns(Context context) {
-            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-            float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-            return (int) (dpWidth / 100);
+    public static int calculateNoOfColumns(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        return (int) (dpWidth / 100);
+    }
+
+    public static int calculateNoOfColumnsFromView(Context context,View view) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        int viewWidth = view.getWidth();
+        return (int) (dpWidth / 100);
         }
 
 

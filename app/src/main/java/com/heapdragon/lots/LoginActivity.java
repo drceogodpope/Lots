@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+// Delegates FireBase Authorization to the Authbox
+
 public class LoginActivity extends AppCompatActivity{
 
     private AuthBox authBox;

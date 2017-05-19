@@ -33,18 +33,20 @@
     <color name="colorBlue1">#42A5F5</color>
     <color name="colorBlue2">#1E88E5</color>
     <color name="colorBlue3">#1976D2</color>
+    <color name="colorBlue">#4f92f2</color>
+
 
     <color name="colorGreen1">#56B85A</color>
     <color name="colorGreen2">#4CAA50</color>
     <color name="colorGreen3">#409944</color>
     <color name="colorGreen4">#348839</color>
-    <color name="colorGreen5">#1D6923</color>
+    <color name="colorGreen5">#1DA665</color>
 
     <color name="colorRed1">#F54D3D</color>
     <color name="colorRed2">#E8423C</color>
     <color name="colorRed3">#D83635</color>
     <color name="colorRed4">#CD2E2D</color>
-    <color name="colorRed5">#BF1F1E</color>
+    <color name="colorRed5">#DD4f44</color>
 
 
     <color name="colorGold1">#FFC904</color>
@@ -62,6 +64,9 @@
     <color name="colorPurple3">#8622AC</color>
     <color name="colorPurple4">#751CA4</color>
     <color name="colorPurple5">#541397</color>
+
+    <color name="colorOrange">#FF6226</color>
+
 
 
     <!--Status Colors-->
@@ -86,7 +91,6 @@
         <item>@color/colorGreen3</item>
         <item>@color/colorGreen4</item>
         <item>@color/colorGreen5</item>
-        <item>@color/colorGold1</item>
         <item>@color/colorGold2</item>
         <item>@color/colorGold3</item>
         <item>@color/colorGold4</item>
@@ -96,7 +100,7 @@
     <array name="statusColors">
         <item>@color/colorRed</item>
         <item>@color/colorGreen</item>
-        <item>@color/colorYellow</item>
+        <item>@color/colorBlue</item>
         <item>@color/colorStatusGrey</item>
     </array>
 

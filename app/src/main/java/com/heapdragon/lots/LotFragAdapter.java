@@ -1,27 +1,33 @@
 package com.heapdragon.lots;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-public class SiteFragAdapter extends FragmentPagerAdapter {
+class LotFragAdapter extends FragmentPagerAdapter {
 
-    private String key;
+    private  String key;
+    private  int lotNumber;
 
-    public SiteFragAdapter(FragmentManager fm,String key) {
+     LotFragAdapter(FragmentManager fm,String key,int lotNumber) {
         super(fm);
+        this.lotNumber = lotNumber;
         this.key = key;
     }
 
     @Override
     public Fragment getItem(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putString("key",key);
+        bundle.putInt("lotNumber",lotNumber);
+
         switch (position) {
             case 0: // Fragment # 0 - This will show FirstFragment
-                return LotsFragment.newInstance(key);
+                return PrimaryScrollableFrag.newInstance(bundle);
             case 1: // Fragment # 0 - This will show FirstFragment different title
-                return SiteMapFragment.newInstance(key);
+                return SecondaryScrollableFrag.newInstance(bundle);
             case 2: // Fragment # 1 - This will show SecondFragment
-                return SiteLogFrag.newInstance(key);
             default:
                 return null;
         }
@@ -30,19 +36,16 @@ public class SiteFragAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position){
-            case 0: return "Lots";
-            case 1:return "Map";
-            default:return "Log";
+            case 0: return "Status 1";
+            case 1:return "Status 2";
+            default:return "Issue";
         }
     }
 
     @Override
-    public int getItemPosition(Object object) {
-        return POSITION_NONE;
-    }
-
-    @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 }
+
+

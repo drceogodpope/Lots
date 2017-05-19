@@ -20,7 +20,6 @@
             android:label="@string/title_activity_site"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AddSiteActivity" />
-        <activity android:name=".LotActivity" />
         <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,6 +36,10 @@
             android:name=".AddUserActivity"
             android:label="@string/title_activity_add_user"
             android:theme="@style/AppTheme"/>
+
+        <activity android:name=".EnhancedLotActivity"/>
+
+        <activity android:name=".TestViewActivity"/>
     </application>
 
 </manifest>

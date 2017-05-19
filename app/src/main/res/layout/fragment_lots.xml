@@ -9,6 +9,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
+        android:layout_gravity="center"
         android:id="@+id/lots_fragment_recyclerView"
         android:layout_height="match_parent">
 

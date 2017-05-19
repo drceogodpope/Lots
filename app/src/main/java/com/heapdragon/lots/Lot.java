@@ -1,29 +1,43 @@
 package com.heapdragon.lots;
 
-/**
- * Created by Francesco on 2016-12-21.
- */
-
 public class Lot {
 
-    public static final int NOT_READY = 0;
-    public static final int READY = 1;
-    public static final int ISSUE = 2;
-    public static final int RECEIVED = 3;
+    // PRIMARY STATUSES
+    static final int NOT_READY = 0;
+    static final int READY = 1;
+    static final int ISSUE = 2;
+    static final int RECEIVED = 3;
+
+    // SECONDARY STATUSES
+    public static final int NOTHING = 0;
+    static final int MATERIAL_ORDERED = 1;
+    static final int ARCH_IN_SHIPPING = 2;
+    static final int ARCH_IN_PRODUCTION = 3;
+    static final int ARCH_REQUIRED = 4;
+
+    //STATUS LEVELS
+    static final int PRIMARY = 0;
+    static final int SECONDARY = 1;
 
     private long number;
-    private long status;  // 0-not ready,1-ready,2-issue,3-received
+    private long primaryStatus;
+    private long secondaryStatus;
 
-    public Lot(long number, long status){
+    public Lot(long number, long primaryStatus, long secondaryStatus){
         this.number = number;
-        this.status = status;
+        this.primaryStatus = primaryStatus;
+        this.secondaryStatus = secondaryStatus;
     }
 
     public long getNumber() {
         return number;
     }
 
-    public long getStatus() {
-        return status;
+    public long getPrimaryStatus() {
+        return primaryStatus;
+    }
+
+    public long getSecondaryStatus() {
+        return secondaryStatus;
     }
 }

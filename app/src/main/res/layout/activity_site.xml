@@ -40,8 +40,8 @@
                         android:text="Site Name"/>
                 </android.support.v7.widget.Toolbar>
                 <FrameLayout
+                    android:layout_margin="5dp"
                     android:layout_gravity="center"
-                    android:padding="20dp"
                     android:background="@android:color/transparent"
                     android:id="@+id/colorPickerFragLayout"
                     android:layout_width="match_parent"

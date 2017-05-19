@@ -15,7 +15,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
@@ -34,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mSitesRef = FirebaseDatabase.getInstance().getReference().child(SITES_NODE);
     private RecyclerView mSitesRecyclerView;
     private SiteAdapter mSiteAdapter;
+    private LinearLayout noSitesLayout;
     private LinearLayoutManager mLinearLayoutManager;
     private ArrayList<Site> sites = new ArrayList<>();
     private ProgressBar pb;
-    private TextView noSitesTextView;
     private View connectionFrag;
 
     @Override
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
         pb = (ProgressBar) findViewById(R.id.main_activity_progressBar);
-        noSitesTextView = (TextView) findViewById(R.id.activity_main_textview);
+        noSitesLayout = (LinearLayout) findViewById(R.id.no_site_layout);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mSitesRecyclerView = (RecyclerView) findViewById(R.id.site_activity_sites_recycler_view);
         connectionFrag = findViewById(R.id.connection_frag);
@@ -64,6 +66,14 @@ public class MainActivity extends AppCompatActivity {
                 tryLoadingSites();
             }
         });
+
+        noSitesLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,AddSiteActivity.class));
+            }
+        });
+
     }
 
     private Site createSiteFromNode(DataSnapshot ds){
@@ -136,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     pb.setVisibility(View.GONE);
                     MainActivity.this.mSiteAdapter.notifyDataSetChanged();
                     if(sites.size()<1){
-                        noSitesTextView.setVisibility(View.VISIBLE);
+                        noSitesLayout.setVisibility(View.VISIBLE);
                     }
                 }
                 @Override

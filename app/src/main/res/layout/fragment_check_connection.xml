@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:id="@+id/connection_icon"
         android:layout_centerInParent="true"
@@ -9,11 +10,12 @@
         android:layout_height="wrap_content"
         android:src="@drawable/signal_wifi_statusbar_connected_no_internet_grey_96x89"/>
     <TextView
-        android:layout_below="@id/connection_icon"
+        android:layout_above="@id/connection_icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorLightGrey"
         android:textAlignment="center"
         android:layout_margin="10dp"
-        style="@style/Base.TextAppearance.AppCompat.Medium"
+        style="@style/Base.TextAppearance.AppCompat.Medium.Inverse"
         android:text="Check Connection"/>
 </RelativeLayout>
