@@ -11,7 +11,7 @@ public class LotSecondaryStatusFragment extends LotStatusFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.statusLevel = DataBaseConstants.LOTS_SECONDARY_STATUS_PREFIX;
+        this.statusLevel = SiteLog.SECONDARY;
     }
 
     @Override

@@ -5,16 +5,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-/**
- * Created by Francesco on 2017-05-02.
- */
-
 class LotFragAdapter extends FragmentPagerAdapter {
 
     private  String key;
     private  int lotNumber;
 
-    public LotFragAdapter(FragmentManager fm,String key,int lotNumber) {
+     LotFragAdapter(FragmentManager fm,String key,int lotNumber) {
         super(fm);
         this.lotNumber = lotNumber;
         this.key = key;
@@ -46,7 +42,6 @@ class LotFragAdapter extends FragmentPagerAdapter {
             default:return "Issue";
         }
     }
-
 
     @Override
     public int getCount() {

@@ -22,7 +22,6 @@ public class EnhancedLotActivity extends AppCompatActivity {
     private final static String TAG = "EnhancedLotActivity";
     private String key;
     private int lotNumber;
-
     private TextView toolbarTitle;
 
     @Override

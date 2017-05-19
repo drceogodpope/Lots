@@ -13,8 +13,8 @@ public class SiteLog implements Comparator<SiteLog>{
     private final String ISSUE = "Issue";
     private final String RECEIVED = "Received";
 
-    public static final long PRIMARY = 0;
-    public static final long SECONDARY = 0;
+    static final long PRIMARY = 0L;
+    static final long SECONDARY = 1L;
 
 
     private DateTime dateTime;
@@ -24,8 +24,9 @@ public class SiteLog implements Comparator<SiteLog>{
     private String title;
     private String logKey;
     private String siteKey;
+    private long priority;
 
-    public SiteLog(DateTime dateTime,long lotNumber,int status,String logKey,String siteKey) {
+    public SiteLog(DateTime dateTime,long lotNumber,int status,String logKey,String siteKey,long priority) {
         this.dateTime = dateTime;
         this.lotNumber = (int)lotNumber;
         this.status = status;
@@ -33,6 +34,7 @@ public class SiteLog implements Comparator<SiteLog>{
         title = "Lot " + String.valueOf(lotNumber) + " - " + getStatusString(status);
         this.logKey = logKey;
         this.siteKey = siteKey;
+        this.priority = priority;
     }
 
     private String getStatusString(int status) {
@@ -48,7 +50,7 @@ public class SiteLog implements Comparator<SiteLog>{
         }
     }
 
-    public DateTime getDateTime() {
+    DateTime getDateTime() {
         return dateTime;
     }
 
@@ -56,7 +58,7 @@ public class SiteLog implements Comparator<SiteLog>{
         return lotNumber;
     }
 
-    public String getUser() {
+    String getUser() {
         return user;
     }
 
@@ -68,7 +70,7 @@ public class SiteLog implements Comparator<SiteLog>{
         return title;
     }
 
-    public String getTimeStamp(){
+    String getTimeStamp(){
         DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/dd/yyyy HH:mm:ss");
         return dateTime.toString(dtf);
     }
@@ -78,11 +80,11 @@ public class SiteLog implements Comparator<SiteLog>{
         return siteLog.getDateTime().compareTo(t1.getDateTime());
     }
 
-    public String getLogKey() {
+    String getLogKey() {
         return logKey;
     }
 
-    public String getSiteKey() {
+    String getSiteKey() {
         return siteKey;
     }
 }

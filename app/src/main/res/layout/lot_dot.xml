@@ -9,7 +9,7 @@
     <com.heapdragon.lots.LotDot
         android:id="@+id/inner_shit"
         android:layout_width="match_parent"
-        android:elevation="10dp"
+        android:elevation="6dp"
         android:layout_centerInParent="true"
         android:layout_height="match_parent"
         android:layout_margin="10dp"

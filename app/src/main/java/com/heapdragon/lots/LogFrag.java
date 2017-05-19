@@ -27,13 +27,17 @@ import static com.heapdragon.lots.DataBaseConstants.LOG_NUMBER;
 import static com.heapdragon.lots.DataBaseConstants.LOG_STATUS;
 import static com.heapdragon.lots.DataBaseConstants.LOG_TIME_STAMP;
 
-public abstract class LogFrag extends Fragment {
+interface Loggable{
+    void queryLogs(DataSnapshot dataSnapshot,ArrayList<SiteLog> logs);
+}
 
-    private static final String TAG = "LogFrag";
-    private RecyclerView recyclerView;
-    private String key;
-    private LinearLayout noLogsLayout;
-    private ArrayList<SiteLog> logs;
+public abstract class LogFrag extends Fragment implements Loggable {
+
+    protected static final String TAG = "LogFrag";
+    protected RecyclerView recyclerView;
+    protected String key;
+    protected LinearLayout noLogsLayout;
+    protected ArrayList<SiteLog> logs;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,8 +66,8 @@ public abstract class LogFrag extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 logs.clear();
-                traverseLogs(dataSnapshot);
-                checkIfLogsExist();
+                queryLogs(dataSnapshot,logs);
+                checkLogsEmpty();
                 orderLogs();
                 recyclerView.getAdapter().notifyDataSetChanged();
             }
@@ -75,25 +79,8 @@ public abstract class LogFrag extends Fragment {
         return logs;
     }
 
-    protected void traverseLogs(DataSnapshot dataSnapshot){
-        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-            if(checkField(ds)) addSiteLog(ds);
-        }
-    }
-
-    // OVERRIDE ME TO FILTER PRIMARY/SECONDARY LOGS
-    protected void addSiteLog(DataSnapshot ds){
-        String logKey = ds.getKey();
-        long lotNumber = (long) ds.child(LOG_NUMBER).getValue();
-        DateTime dateTime = new DateTime(ds.child(LOG_TIME_STAMP).getValue());
-        long status = (long) ds.child(LOG_STATUS).getValue();
-        logs.add(new SiteLog(dateTime, lotNumber, (int) status,logKey,LogFrag.this.key));
-    }
-
-    abstract boolean checkField(DataSnapshot ds);
-
-    private void checkIfLogsExist(){
-        if(logs.size()==0){
+    private void checkLogsEmpty(){
+        if(logs.isEmpty()){
             noLogsLayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         }else{

@@ -17,7 +17,6 @@ public abstract class ScrollableParentFrag extends Fragment{
 
     protected String key;
     protected int lotNumber;
-    protected LinearLayout root;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

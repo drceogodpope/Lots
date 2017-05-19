@@ -6,18 +6,12 @@ import android.view.View;
 
 import com.google.firebase.database.DatabaseReference;
 
-
-/**
- * Created by Francesco on 2017-05-04.
- */
-
 public class LotPrimaryStatusFragment extends LotStatusFragment {
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.statusLevel = DataBaseConstants.LOTS_PRIMARY_STATUS_PREFIX;
+        this.statusLevel = SiteLog.PRIMARY;
     }
 
     @Override

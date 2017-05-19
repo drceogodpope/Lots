@@ -24,7 +24,7 @@ public abstract class LotStatusFragment extends Fragment {
     protected int lotNumber;
     protected DatabaseReference statusRef;
     protected DatabaseBitch databaseBitch;
-    protected String statusLevel;
+    protected long statusLevel;
 
     //VIEWS
     protected TextView status;
