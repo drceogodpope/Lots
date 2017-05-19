@@ -31,23 +31,37 @@ public class SiteLog implements Comparator<SiteLog>{
         this.lotNumber = (int)lotNumber;
         this.status = status;
         user = "User Name"; // change later
-        title = "Lot " + String.valueOf(lotNumber) + " - " + getStatusString(status);
+        title = "Lot " + String.valueOf(lotNumber) + " - " + getStatusString(status,priority);
         this.logKey = logKey;
         this.siteKey = siteKey;
         this.priority = priority;
     }
 
-    private String getStatusString(int status) {
-        switch (status){
-            case 0:
-                return NOT_READY;
-            case 1:
-                return READY;
-            case 2:
-                return ISSUE;
-            default:
-            return RECEIVED;
+    private String getStatusString(int status,long priority) {
+        if(priority==PRIMARY){
+            switch (status){
+                case 0:
+                    return NOT_READY;
+                case 1:
+                    return READY;
+                case 2:
+                    return ISSUE;
+                default:
+                    return RECEIVED;
+            }
         }
+        switch (status){
+
+            case 1:
+                return "Material Ordered";
+            case 2:
+                return "Arch in Shipping";
+            case 3:
+                return "Arch in Production";
+            default:
+                return "Arch Required";
+        }
+
     }
 
     DateTime getDateTime() {

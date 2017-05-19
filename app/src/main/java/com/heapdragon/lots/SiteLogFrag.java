@@ -13,10 +13,6 @@ import static com.heapdragon.lots.DataBaseConstants.LOG_NUMBER;
 import static com.heapdragon.lots.DataBaseConstants.LOG_STATUS;
 import static com.heapdragon.lots.DataBaseConstants.LOG_TIME_STAMP;
 
-/**
- * Created by Francesco on 2017-05-11.
- */
-
 public class SiteLogFrag extends LogFrag {
 
     public static LogFrag newInstance(String key) {
