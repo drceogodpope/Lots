@@ -28,7 +28,6 @@ class LotFragAdapter extends FragmentPagerAdapter {
             case 1: // Fragment # 0 - This will show FirstFragment different title
                 return SecondaryScrollableFrag.newInstance(bundle);
             case 2: // Fragment # 1 - This will show SecondFragment
-                return SiteLogFrag.newInstance(key);
             default:
                 return null;
         }
@@ -45,7 +44,7 @@ class LotFragAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 }
 

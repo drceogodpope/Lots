@@ -84,6 +84,10 @@ public class SiteLog implements Comparator<SiteLog>{
         return logKey;
     }
 
+    public long getPriority() {
+        return priority;
+    }
+
     String getSiteKey() {
         return siteKey;
     }

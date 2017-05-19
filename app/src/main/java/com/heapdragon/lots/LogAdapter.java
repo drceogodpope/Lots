@@ -67,24 +67,44 @@ class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
     @Override
     public void onBindViewHolder(final LogCardHolder holder, int position) {
         holder.siteLog = logs.get(position);
-        holder.innerDot.setVisibility(View.INVISIBLE);
         holder.logNumber.setText(String.valueOf(holder.siteLog.getLotNumber()));
         holder.logTitle.setText(holder.siteLog.getTitle());
         holder.logUser.setText(holder.siteLog.getUser());
         holder.logTimeStamp.setText(String.valueOf(holder.siteLog.getTimeStamp()));
-        switch (holder.siteLog.getStatus()){
-            case 0:
-                holder.outerDot.setColor(R.color.colorRed);
-                break;
-            case 1:
-                holder.outerDot.setColor(R.color.colorGreen);
-                break;
-            case 2:
-                holder.outerDot.setColor(R.color.colorYellow);
-                break;
-            default:
-                holder.outerDot.setColor(R.color.colorGrey);
+
+        if(holder.siteLog.getPriority() == SiteLog.PRIMARY){
+            holder.innerDot.setVisibility(View.INVISIBLE);
+            switch (holder.siteLog.getStatus()){
+                case 0:
+                    holder.outerDot.setColor(R.color.colorRed);
+                    break;
+                case 1:
+                    holder.outerDot.setColor(R.color.colorGreen);
+                    break;
+                case 2:
+                    holder.outerDot.setColor(R.color.colorYellow);
+                    break;
+                default:
+                    holder.outerDot.setColor(R.color.colorGrey);
+            }
+        }else{
+            holder.innerDot.setVisibility(View.VISIBLE);
+            holder.innerDot.setColor(R.color.colorDarkBackground);
+            switch (holder.siteLog.getStatus()) {
+                case Lot.MATERIAL_ORDERED:
+                    holder.outerDot.setColor(R.color.colorPink);
+                    break;
+                case Lot.ARCH_IN_SHIPPING:
+                    holder.outerDot.setColor(R.color.colorPurple1);
+                    break;
+                case Lot.ARCH_IN_PRODUCTION:
+                    holder.outerDot.setColor(R.color.colorOrange);
+                    break;
+                default:
+                    holder.outerDot.setColor(R.color.colorGold2);
+            }
         }
+
         holder.logCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
