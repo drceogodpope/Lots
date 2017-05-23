@@ -97,12 +97,5 @@ public abstract class LogFrag extends Fragment implements Loggable {
             }
         });
     }
-
-
-
-
-
-
-
 }
 

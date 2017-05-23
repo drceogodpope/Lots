@@ -1,44 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:animateLayoutChanges="true"
-    android:gravity="top"
-    android:background="@color/colorDarkBackground"
-    android:layout_height="match_parent">
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <RelativeLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:animateLayoutChanges="true"
+        android:gravity="top"
+        android:background="@color/colorDarkBackground"
+        android:layout_height="wrap_content">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-            <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/site_activity_toolbar_title"
-                android:layout_height="wrap_content"
-                style="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
-                android:text="Add Site"/>
-        </android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.AppBarLayout>
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/site_activity_toolbar_title"
+                    android:layout_height="wrap_content"
+                    style="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:text="Add Site"/>
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
 
 
         <LinearLayout
+            android:descendantFocusability="beforeDescendants"
+            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:layout_below="@id/appbar"
             android:animateLayoutChanges="true"
-            android:layout_margin="16dp"
             android:id="@+id/add_site_linearLayout"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_below="@+id/appbar"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Site Name"
+                style="@style/Base.TextAppearance.AppCompat.Large"/>
             <EditText
                 android:id="@+id/add_site_activity_name"
                 android:layout_width="match_parent"
@@ -46,58 +59,85 @@
                 android:layout_marginBottom="10dp"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorLightGrey"
-                android:hint="Site name"
+                android:hint="Example Site Name"
                 android:layout_height="wrap_content" />
 
-            <EditText
-                android:id="@+id/add_site_activity_total_lots"
-                android:layout_width="match_parent"
-                android:textColor="@color/colorWhite"
+            <TextView
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:hint="Number of lots"
-                android:inputType="number"
-                android:textColorHint="@color/colorLightGrey"
-                android:layout_height="wrap_content" />
-            <EditText
-                android:id="@+id/add_site_activity_model_numbers"
                 android:layout_width="match_parent"
-                android:textColor="@color/colorWhite"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:hint="Model Numbers"
-                android:inputType="number"
-                android:textColorHint="@color/colorLightGrey"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Lot Range"
+                style="@style/Base.TextAppearance.AppCompat.Large"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/n_lots"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="1"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textColorHint="@color/colorLightGrey"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    style="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_height="match_parent"
+                    android:text="TO" />
+                <EditText
+                    android:id="@+id/m_lots"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/colorWhite"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="2000"
+                    android:textAlignment="center"
+                    android:inputType="number"
+                    android:textColorHint="@color/colorLightGrey"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:gravity="center"
-                android:layout_height="wrap_content">
+                android:gravity="center">
+
                 <android.support.v7.widget.CardView
                     android:id="@+id/colorPicker"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    app:cardCornerRadius="5dp"
-                    app:cardBackgroundColor="@color/colorAmber"
-                    android:padding="10dp"
                     android:layout_margin="10dp"
-                    android:background="@color/colorAmber"/>
+                    android:background="@color/colorAmber"
+                    android:padding="10dp"
+                    app:cardBackgroundColor="@color/colorAmber"
+                    app:cardCornerRadius="5dp" />
+
                 <ImageButton
-                    android:layout_width="wrap_content"
                     android:id="@+id/choose_site_map_button"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/photo_library_grey_96x96"/>
+                    android:src="@drawable/photo_library_grey_96x96"
+                    android:contentDescription="Add Site Map" />
             </LinearLayout>
 
             <FrameLayout
                 android:id="@+id/colorFrag_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></FrameLayout>
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:layout_marginTop="10dp"
@@ -117,4 +157,5 @@
 
 
 
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

@@ -2,9 +2,11 @@ package com.heapdragon.lots;
 
 public class Site{
     private final static String TAG = "Site";
-    public static int totalSites = 0;
+
     private String id;
     private String name;
+    private int n;
+    private int m;
     private int numberOfLots;
     private int incompleteLots;
     private int receivedLots;
@@ -12,15 +14,15 @@ public class Site{
     private int issue_lots;
     private int siteColor;
 
-    public Site(String name,int numberOfLots){
+    public Site(String name,int n,int m){
         this.name = name;
-        this.numberOfLots = numberOfLots;
+        this.numberOfLots = (m-n)+1;
         this.incompleteLots = numberOfLots;
         this.receivedLots = 0;
         this.readyLots = 0;
         this.issue_lots = 0;
-        this.siteColor = totalSites%4;
-        totalSites++;
+        this.n = n;
+        this.m = m;
     }
 
     public Site(String name, int numberOfLots, int incompleteLots, int issueLots, int readyLots, int receivedLots, int siteColor,String id) {
@@ -34,61 +36,36 @@ public class Site{
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getN() {
+        return n;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public int getM() {
+        return m;
     }
 
+    public String getName() {return name;}
+    public void setId(String id) {this.id = id;}
     public String getId() {
         return id;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
-    public int getNumberOfLots() {
+    int getNumberOfLots() {
         return numberOfLots;
     }
-
-    public void setNumberOfLots(int numberOfLots) {
-        this.numberOfLots = numberOfLots;
-    }
-
-    public int getIncompleteLots() {
+    int getIncompleteLots() {
         return incompleteLots;
     }
-
-    public void setIncompleteLots(int incompleteLots) {
-        this.incompleteLots = incompleteLots;
-    }
-
-    public int getReceivedLots() {
+    int getReceivedLots() {
         return receivedLots;
     }
-
-    public void setReceivedLots(int receivedLots) {
-        this.receivedLots = receivedLots;
-    }
-
-    public int getReadyLots() {
+    int getReadyLots() {
         return readyLots;
     }
-
-    public void setReadyLots(int readyLots) {
-        this.readyLots = readyLots;
-    }
-
-    public int getIssue_lots() {
+    int getIssue_lots() {
         return issue_lots;
     }
-
-    public void setIssue_lots(int issue_lots) {
-        this.issue_lots = issue_lots;
-    }
-
-    public int getSiteColor() {return siteColor;}
+    int getSiteColor() {return siteColor;}
 }
