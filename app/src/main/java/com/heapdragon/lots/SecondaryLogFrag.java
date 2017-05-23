@@ -1,19 +1,9 @@
 package com.heapdragon.lots;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import com.google.firebase.database.DataSnapshot;
-
 import org.joda.time.DateTime;
-
 import java.util.ArrayList;
-
 import static com.heapdragon.lots.DataBaseConstants.LOG_FIELD_UPDATED;
 import static com.heapdragon.lots.DataBaseConstants.LOG_NUMBER;
 import static com.heapdragon.lots.DataBaseConstants.LOG_STATUS;

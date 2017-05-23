@@ -4,6 +4,8 @@ package com.heapdragon.lots;
     //SITES NODE CONSTANTS
         static final String SITES_NODE = "sites";
         static final String NAME_NODE = "name";
+        static final String SITE_N_LOT = "n";
+        static final String SITE_M_LOT = "m";
         static final String TOTAL_LOTS_NODE = "total_lots";
         static final String INCOMPLETE_LOTS_NODE = "incomplete_lots";
         static final String RECEIVED_LOTS_NODE = "received_lots";
