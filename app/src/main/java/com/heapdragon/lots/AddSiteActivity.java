@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -66,6 +67,7 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
         siteColors = siteName.getResources().getIntArray(R.array.siteColors);
         siteColor = ThreadLocalRandom.current().nextInt(0,siteColors.length);
         siteColorPicker.setBackgroundColor(siteColors[siteColor]);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         //INIT OBJECTS//
 
         //CREATE DYNAMIC VIEWS//
@@ -127,7 +129,7 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
     private boolean checkLotRange(){
         int nLots = Integer.parseInt(numberOfLotsN.getText().toString());
         int mLots = Integer.parseInt(numberOfLotsM.getText().toString());
-        if(mLots>nLots && mLots-nLots+1<=2000 && nLots>0){
+        if(mLots>nLots && mLots-nLots+1<=2000 && nLots>0 &mLots<9999){
                 return true;
         }
         else {

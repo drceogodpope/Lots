@@ -16,7 +16,7 @@ public class Site{
 
     public Site(String name,int n,int m){
         this.name = name;
-        this.numberOfLots = m-n;
+        this.numberOfLots = (m-n)+1;
         this.incompleteLots = numberOfLots;
         this.receivedLots = 0;
         this.readyLots = 0;
