@@ -76,32 +76,32 @@ class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
             holder.innerDot.setVisibility(View.INVISIBLE);
             switch (holder.siteLog.getStatus()){
                 case 0:
-                    holder.outerDot.setColor(R.color.colorRed);
+                    holder.outerDot.setColor(R.color.colorNotReady);
                     break;
                 case 1:
-                    holder.outerDot.setColor(R.color.colorGreen);
+                    holder.outerDot.setColor(R.color.colorReady);
                     break;
                 case 2:
-                    holder.outerDot.setColor(R.color.colorYellow);
+                    holder.outerDot.setColor(R.color.colorIssue);
                     break;
                 default:
-                    holder.outerDot.setColor(R.color.colorGrey);
+                    holder.outerDot.setColor(R.color.colorReceived);
             }
         }else{
             holder.innerDot.setVisibility(View.VISIBLE);
             holder.innerDot.setColor(R.color.colorDarkBackground);
             switch (holder.siteLog.getStatus()) {
                 case Lot.MATERIAL_ORDERED:
-                    holder.outerDot.setColor(R.color.colorPink);
+                    holder.outerDot.setColor(R.color.colorMaterialOrdered);
                     break;
                 case Lot.ARCH_IN_SHIPPING:
-                    holder.outerDot.setColor(R.color.colorPurple1);
+                    holder.outerDot.setColor(R.color.colorArchInShipping);
                     break;
                 case Lot.ARCH_IN_PRODUCTION:
-                    holder.outerDot.setColor(R.color.colorOrange);
+                    holder.outerDot.setColor(R.color.colorArchInProduction);
                     break;
                 default:
-                    holder.outerDot.setColor(R.color.colorGold2);
+                    holder.outerDot.setColor(R.color.colorArchRequired);
             }
         }
 

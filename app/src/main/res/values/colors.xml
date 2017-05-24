@@ -105,6 +105,18 @@
     </array>
 
 
+    <!--STATUS COLORS-->
+    <color name = "colorReady">@color/colorGreen</color>
+    <color name = "colorNotReady">@color/colorRed</color>
+    <color name = "colorReceived">@color/colorBlueGrey</color>
+    <color name = "colorIssue">@color/colorIndigo</color>
+
+    <color name = "colorMaterialOrdered">@color/colorGold2</color>
+    <color name = "colorArchInShipping">@color/colorPurple1</color>
+    <color name = "colorArchInProduction">@color/colorBlue1</color>
+    <color name = "colorArchRequired">@color/colorNotReady</color>
+    <!--STATUS COLORS-->
+
 
 
     <!--System Colors-->

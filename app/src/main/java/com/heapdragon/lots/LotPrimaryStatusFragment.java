@@ -3,6 +3,7 @@ package com.heapdragon.lots;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 
@@ -24,26 +25,29 @@ public class LotPrimaryStatusFragment extends LotStatusFragment {
         outerDot.setVisibility(View.INVISIBLE);
         switch (value1){
             case Lot.ISSUE:
-                innerDot.setColor(R.color.colorBlue);
+                innerDot.setColor(R.color.colorIssue);
                 status.setText("Issue");
                 break;
             case Lot.READY:
-                innerDot.setColor(R.color.colorGreen);
+                innerDot.setColor(R.color.colorReady);
                 status.setText("Ready");
                 break;
             case Lot.RECEIVED:
-                innerDot.setColor(R.color.colorGrey);
+                innerDot.setColor(R.color.colorReceived);
                 status.setText("Received");
                 break;
             default:
-                innerDot.setColor(R.color.colorRed);
+                innerDot.setColor(R.color.colorNotReady);
                 status.setText("Not Ready");
         }
     }
 
     @Override
     protected void setButtons(final DatabaseReference statusRef) {
-
+        b0.setBackgroundColor(getResources().getColor(R.color.colorReady));
+        b1.setBackgroundColor(getResources().getColor(R.color.colorNotReady));
+        b2.setBackgroundColor(getResources().getColor(R.color.colorReceived));
+        b3.setBackgroundColor(getResources().getColor(R.color.colorIssue));
         b0.setText("Ready to Receive");
         b1.setText("Not Ready to Receive");
         b2.setText("Materials Received");
@@ -71,7 +75,9 @@ public class LotPrimaryStatusFragment extends LotStatusFragment {
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setStatus(Lot.ISSUE);
+                //UNCOMMENT ME FOR FINAL BUILD
+//                setStatus(Lot.ISSUE);
+                Toast.makeText(getContext(),"Feature not available ... yet",Toast.LENGTH_SHORT).show();
             }
         });
     }
