@@ -1,5 +1,7 @@
 package com.heapdragon.lots;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -105,19 +107,41 @@ class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
             }
         }
 
-        holder.logCard.setOnClickListener(new View.OnClickListener() {
+        holder.logCard.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View view){
+            public boolean onLongClick(View view){
                 Log.d(TAG,String.valueOf(holder.getAdapterPosition()));
                 if(holder.getAdapterPosition()>-1){
-                    logs.remove(holder.getAdapterPosition());
-                    notifyItemRemoved(holder.getAdapterPosition());
-                    DatabaseReference logRef = FirebaseDatabase.getInstance().getReference().child(DataBaseConstants.LOG_NODE_PREFIX+holder.siteLog.getSiteKey()).child(holder.siteLog.getLogKey());
-                    logRef.removeValue();
+                    showDialogInterface(holder);
+                    return false;
                 }
+                return true;
             }
         });
     }
+
+    private void showDialogInterface(final LogCardHolder holder){
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int choice) {
+                switch (choice) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        logs.remove(holder.getAdapterPosition());
+                        notifyItemRemoved(holder.getAdapterPosition());
+                        DatabaseReference logRef = FirebaseDatabase.getInstance().getReference().child(DataBaseConstants.LOG_NODE_PREFIX+holder.siteLog.getSiteKey()).child(holder.siteLog.getLogKey());
+                        logRef.removeValue();
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(holder.logNumber.getContext());
+        builder.setMessage("Do you wish to delete this log? This can not be undone!")
+                .setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+    }
+
     @Override
     public int getItemCount() {
         return logs.size();

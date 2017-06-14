@@ -146,16 +146,12 @@
                 android:gravity="center"
                 android:clickable="true"
                 android:layout_gravity="center"
-                android:textColor="@color/colorLightGrey"
+                android:textColor="@color/colorWhite"
                 android:layout_height="wrap_content"
                 android:background="@color/colorGrey"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:text="Create Site"/>
         </LinearLayout>
-
-
-
-
 
     </RelativeLayout>
 </ScrollView>

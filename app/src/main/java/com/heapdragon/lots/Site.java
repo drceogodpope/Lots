@@ -25,7 +25,7 @@ public class Site{
         this.m = m;
     }
 
-    public Site(String name, int numberOfLots, int incompleteLots, int issueLots, int readyLots, int receivedLots, int siteColor,String id) {
+    public Site(String name, int numberOfLots, int incompleteLots, int issueLots, int readyLots, int receivedLots, int siteColor,String id,int n,int m) {
         this.name = name;
         this.numberOfLots = numberOfLots;
         this.incompleteLots = incompleteLots;
@@ -33,14 +33,15 @@ public class Site{
         this.readyLots = readyLots;
         this.receivedLots = receivedLots;
         this.siteColor = siteColor;
+        this.n = n;
+        this.m = m;
         this.id = id;
     }
 
-    public int getN() {
+    int getN() {
         return n;
     }
-
-    public int getM() {
+    int getM() {
         return m;
     }
 

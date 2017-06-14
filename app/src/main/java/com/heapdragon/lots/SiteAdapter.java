@@ -106,7 +106,7 @@ class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.SiteCardViewHolder> {
         holder.site = site;
         Log.d(TAG,String.valueOf("CARD CORNER RADIUS: "+holder.cardView.getRadius()));
         holder.siteName.setText(site.getName());
-        holder.totalLots.setText(String.valueOf(site.getNumberOfLots()));
+        holder.totalLots.setText("Lots " +String.valueOf(site.getN())+" to " + String.valueOf(site.getM()));
         holder.cardView.setPreventCornerOverlap(false);
         holder.readyLots.setText(String.valueOf(site.getReadyLots()));
         if(site.getIssue_lots()<1){

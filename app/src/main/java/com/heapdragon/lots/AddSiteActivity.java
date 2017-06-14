@@ -129,17 +129,37 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
     private boolean checkLotRange(){
         int nLots = Integer.parseInt(numberOfLotsN.getText().toString());
         int mLots = Integer.parseInt(numberOfLotsM.getText().toString());
-        if(mLots>nLots && mLots-nLots+1<=2000 && nLots>0 &mLots<9999){
-                return true;
-        }
-        else {
+        if(mLots<nLots){
             YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLotsN);
             YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLotsM);
             Toast.makeText(getApplicationContext(),
-                    "Enter a valid Range. Total number of lots in range must not exceed 2000!",
+                    "Enter a valid range!",
                     Toast.LENGTH_LONG).show();
             return false;
         }
+        if(mLots-nLots+1>2000){
+            YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLotsN);
+            YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLotsM);
+            Toast.makeText(getApplicationContext(),
+                    "Number of lots in range must not exceed 2000!",
+                    Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if(nLots<=0){
+            YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLotsN);
+            Toast.makeText(getApplicationContext(),
+                    "Lower bound of range must be greater than 0!",
+                    Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if(mLots>9999){
+            YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLotsM);
+            Toast.makeText(getApplicationContext(),
+                    "Upper bound of range must not exceed 9999!",
+                    Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 
 
@@ -158,16 +178,11 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
         siteColorPicker.setBackgroundColor(siteColors[color]);
         fl.setVisibility(View.GONE);
     }
-
     private void showColorPickerFrag() {
         fl.setVisibility(View.VISIBLE);
     }
-
     private void hideColorPickerFrag() {
         fl.setVisibility(View.GONE);
-    }
-    private int assignSiteColor(){
-        return ThreadLocalRandom.current().nextInt(0,siteColors.length);
     }
     //COLOR PICKER METHODS
 

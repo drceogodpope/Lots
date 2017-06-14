@@ -81,8 +81,11 @@ public class MainActivity extends AppCompatActivity {
         int readyLots = Integer.valueOf(ds.child(READY_LOTS_NODE).getValue().toString());
         int receivedLots = Integer.valueOf(ds.child(RECEIVED_LOTS_NODE).getValue().toString());
         int siteColor = Integer.valueOf(ds.child(SITE_COLOR_NODE).getValue().toString());
+        int n = Integer.valueOf(ds.child(SITE_N_LOT).getValue().toString());
+        int m = Integer.valueOf(ds.child(SITE_M_LOT).getValue().toString());
+
         String id = ds.getKey();
-        return new Site(name,numberOfLots,incompleteLots,issueLots,readyLots,receivedLots,siteColor,id);
+        return new Site(name,numberOfLots,incompleteLots,issueLots,readyLots,receivedLots,siteColor,id,n,m);
     }
 
     @Override
