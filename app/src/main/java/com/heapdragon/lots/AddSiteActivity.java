@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class AddSiteActivity extends AppCompatActivity implements ColorChooserFrag.OnColorChosenListener{
@@ -34,6 +37,7 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
     private FrameLayout fl;
     private int siteColor;
     private int[] siteColors;
+    private LotIntervalFragment lotIntervalFragment;
 
     private MapUploaderBitch dbBitch;
 
@@ -48,7 +52,7 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_site);
+        setContentView(R.layout.activity_add_site_e);
 
         //VIEWS//
         siteName = (EditText) findViewById(R.id.add_site_activity_name);
@@ -72,6 +76,7 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
 
         //CREATE DYNAMIC VIEWS//
         addColorChooserFrag();
+        addLotIntervalFragment();
         //CREATE DYNAMIC VIEWS//
 
 
@@ -79,16 +84,22 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
         createSiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(checkSiteName()&&checkLotRange()){
-                    String name = Utility.capitilizeFirst(siteName.getText().toString());
-                    int n = Integer.valueOf(numberOfLotsN.getText().toString());
-                    int m =  Integer.valueOf(numberOfLotsM.getText().toString());
-                    Site site = new Site(name,n,m);
+//                if(checkSiteName()&&checkLotRange()){
+//                    String name = Utility.capitilizeFirst(siteName.getText().toString());
+//                    int n = Integer.valueOf(numberOfLotsN.getText().toString());
+//                    int m =  Integer.valueOf(numberOfLotsM.getText().toString());
+//                    Site site = new Site(name,n,m);
+//
+//                    String siteKey = dbBitch.createSiteNode(site,siteColor);
+//                    dbBitch.createLotNode(siteKey,n,m);
+//                    dbBitch.setSiteMap(siteKey,AddSiteActivity.this,siteMapUri);
+//                }
 
-                    String siteKey = dbBitch.createSiteNode(site,siteColor);
-                    dbBitch.createLotNode(siteKey,n,m);
-                    dbBitch.setSiteMap(siteKey,AddSiteActivity.this,siteMapUri);
+                if(lotIntervalFragment!=null){
+
+                   lotIntervalFragment.validateLotIntervals(lotIntervalFragment.getLotIntervals());
                 }
+
             }
         });
         siteColorPicker.setOnClickListener(new View.OnClickListener() {
@@ -168,6 +179,14 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
         fragmentManager.beginTransaction()
                 .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_in)
                 .add(R.id.colorFrag_layout,ColorChooserFrag.newInstance())
+                .commit();
+    }
+    private void addLotIntervalFragment(){
+        lotIntervalFragment = LotIntervalFragment.newInstance();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_in)
+                .add(R.id.lot_numbers_frame,lotIntervalFragment)
                 .commit();
     }
 

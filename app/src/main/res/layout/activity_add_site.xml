@@ -46,93 +46,124 @@
             android:layout_below="@+id/appbar"
             android:layout_centerHorizontal="true">
 
-            <TextView
-                android:layout_marginTop="20dp"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Site Name"
-                style="@style/Base.TextAppearance.AppCompat.Large"/>
-            <EditText
-                android:id="@+id/add_site_activity_name"
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/colorWhite"
-                android:textColorHint="@color/colorLightGrey"
-                android:hint="Example Site Name"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Lot Range"
-                style="@style/Base.TextAppearance.AppCompat.Large"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="2"
+                app:cardUseCompatPadding="true"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@color/colorDarkBackground"
                 android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/n_lots"
+                <LinearLayout
+                    android:layout_margin="10dp"
                     android:layout_width="match_parent"
-                    android:textColor="@color/colorWhite"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="1"
-                    android:layout_weight="1"
-                    android:inputType="number"
-                    android:textAlignment="center"
-                    android:textColorHint="@color/colorLightGrey"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center"
-                    style="@style/Base.TextAppearance.AppCompat.Large"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:layout_height="match_parent"
-                    android:text="TO" />
-                <EditText
-                    android:id="@+id/m_lots"
-                    android:layout_width="match_parent"
-                    android:textColor="@color/colorWhite"
-                    android:layout_weight="1"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="2000"
-                    android:textAlignment="center"
-                    android:inputType="number"
-                    android:textColorHint="@color/colorLightGrey"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Site Name"
+                        style="@style/Base.TextAppearance.AppCompat.Large"/>
+                    <EditText
+                        android:id="@+id/add_site_activity_name"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/colorWhite"
+                        android:textColorHint="@color/colorLightGrey"
+                        android:hint="Example Site Name"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
 
-            <LinearLayout
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:gravity="center">
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/colorPicker"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                app:cardUseCompatPadding="true"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@color/colorDarkBackground"
+                android:layout_height="wrap_content">
+                <LinearLayout
                     android:layout_margin="10dp"
-                    android:background="@color/colorAmber"
-                    android:padding="10dp"
-                    app:cardBackgroundColor="@color/colorAmber"
-                    app:cardCornerRadius="5dp" />
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Lot Range"
+                        style="@style/Base.TextAppearance.AppCompat.Large"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/n_lots"
+                            android:layout_width="match_parent"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:text="1"
+                            android:layout_weight="1"
+                            android:inputType="number"
+                            android:textAlignment="center"
+                            android:textColorHint="@color/colorLightGrey"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_gravity="center"
+                            style="@style/Base.TextAppearance.AppCompat.Large"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_height="match_parent"
+                            android:text="TO" />
+                        <EditText
+                            android:id="@+id/m_lots"
+                            android:layout_width="match_parent"
+                            android:textColor="@color/colorWhite"
+                            android:layout_weight="1"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:text="2000"
+                            android:textAlignment="center"
+                            android:inputType="number"
+                            android:textColorHint="@color/colorLightGrey"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
-                <ImageButton
-                    android:id="@+id/choose_site_map_button"
-                    android:layout_width="wrap_content"
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                app:cardUseCompatPadding="true"
+                app:cardBackgroundColor="@color/colorDarkBackground"
+                app:cardElevation="3dp"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/photo_library_grey_96x96"
-                    android:contentDescription="Add Site Map" />
-            </LinearLayout>
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/colorPicker"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@color/colorAmber"
+                        app:cardBackgroundColor="@color/colorAmber"
+                        app:cardCornerRadius="5dp" />
+
+                    <ImageButton
+                        android:id="@+id/choose_site_map_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/photo_library_grey_96x96"
+                        android:contentDescription="Add Site Map" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
             <FrameLayout
                 android:id="@+id/colorFrag_layout"
@@ -143,6 +174,8 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/create_button"
                 android:layout_width="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:gravity="center"
                 android:clickable="true"
                 android:layout_gravity="center"
