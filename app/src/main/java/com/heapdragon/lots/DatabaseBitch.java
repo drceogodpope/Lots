@@ -4,12 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +23,6 @@ import com.google.firebase.storage.UploadTask;
 
 import org.joda.time.DateTime;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -35,10 +36,14 @@ import static com.heapdragon.lots.DataBaseConstants.LOG_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.LOG_NUMBER;
 import static com.heapdragon.lots.DataBaseConstants.LOG_STATUS;
 import static com.heapdragon.lots.DataBaseConstants.LOG_TIME_STAMP;
+import static com.heapdragon.lots.DataBaseConstants.LOTS_ARCH_ORDERED;
+import static com.heapdragon.lots.DataBaseConstants.LOTS_ARCH_STATUS;
 import static com.heapdragon.lots.DataBaseConstants.LOTS_NODE_PREFIX;
-import static com.heapdragon.lots.DataBaseConstants.LOTS_PRIMARY_STATUS_PREFIX;
-import static com.heapdragon.lots.DataBaseConstants.LOTS_SECONDARY_STATUS_PREFIX;
+import static com.heapdragon.lots.DataBaseConstants.LOTS_MATERIAL_ORDERED;
+import static com.heapdragon.lots.DataBaseConstants.LOTS_ARCH_LOT;
 import static com.heapdragon.lots.DataBaseConstants.NAME_NODE;
+import static com.heapdragon.lots.DataBaseConstants.RANGES;
+import static com.heapdragon.lots.DataBaseConstants.RANGES_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.READY_LOTS_NODE;
 import static com.heapdragon.lots.DataBaseConstants.RECEIVED_LOTS_NODE;
 import static com.heapdragon.lots.DataBaseConstants.SITES_NODE;
@@ -47,12 +52,10 @@ import static com.heapdragon.lots.DataBaseConstants.SITE_MAPS_ROOT;
 import static com.heapdragon.lots.DataBaseConstants.SITE_M_LOT;
 import static com.heapdragon.lots.DataBaseConstants.SITE_N_LOT;
 import static com.heapdragon.lots.DataBaseConstants.TOTAL_LOTS_NODE;
-import static java.security.AccessController.getContext;
 
 class DatabaseBitch {
 
     private static final String TAG = "DatabaseBitch";
-
     void createLog(int status, String siteKey,int lotNumber,long priorityLevel) {
          DatabaseReference logRef = FirebaseDatabase.getInstance().getReference().child(LOG_NODE_PREFIX+siteKey);
          Map<String,Object> map = new HashMap<>();
@@ -78,14 +81,12 @@ class DatabaseBitch {
                     long priority = (long)ds.child(LOG_FIELD_UPDATED).getValue();
                     logs.add(new SiteLog(dateTime, lotNumber, (int) status,logKey,key,priority));
                 }
-
                 Collections.sort(logs, new Comparator<SiteLog>() {
                     @Override
                     public int compare(SiteLog siteLog, SiteLog t1) {
                         return t1.getDateTime().compareTo(siteLog.getDateTime());
                     }
                 });
-
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -114,11 +115,110 @@ class DatabaseBitch {
         return key;
     }
 
+    String createSiteNode2(Site site,int siteColor){
+        DatabaseReference sitesRef = FirebaseDatabase.getInstance().getReference().child(SITES_NODE).getRef();
+        String key;
+        Map<String,Object> map = new HashMap<>();
+        map.put(NAME_NODE,site.getName());
+        map.put(RANGES,site.getLotIntervals());
+        map.put(SITE_COLOR_NODE,siteColor);
+        key = sitesRef.push().getKey();
+        sitesRef.child(key).setValue(map);
+        return key;
+    }
+
+    void getSites(final ArrayList<Site> sites, final SiteAdapter2 adapter, final ProgressBar pb, final View noFragsView, final RecyclerView rv){
+        DatabaseReference sitesRef = FirebaseDatabase.getInstance().getReference().child(SITES_NODE).getRef();
+        sites.clear();
+        sitesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                pb.setVisibility(View.GONE);
+
+                if(dataSnapshot.getChildrenCount()<1){
+                    noFragsView.setVisibility(View.VISIBLE);
+
+                }
+                else {
+                    rv.setVisibility(View.VISIBLE);
+                }
+                for(DataSnapshot ds:dataSnapshot.getChildren()){
+                    String name = ds.child(NAME_NODE).getValue().toString();
+                    int siteColor = Integer.valueOf(ds.child(SITE_COLOR_NODE).getValue().toString());
+                    String key = ds.getKey();
+                    Log.d(TAG,name);
+                    ArrayList<LotInterval> lotIntervals = new ArrayList<>();
+                    for(DataSnapshot ds1:ds.child(RANGES).getChildren()){
+                        long n = (long)ds1.child("n").getValue();
+                        long m = (long)ds1.child("m").getValue();
+                        LotInterval lotInterval = new LotInterval(n,m);
+                        Log.d(TAG,lotInterval.toString());
+                        lotIntervals.add(new LotInterval(n,m));
+                    }
+                    sites.add(new Site(name,lotIntervals,siteColor,key));
+                }
+                adapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+        Log.d(TAG,"sites.size() = "+String.valueOf(sites.size()));
+    }
+
+    void createIntervalsNode(ArrayList<LotInterval> lotIntervals,String key){
+        DatabaseReference sitesRef = FirebaseDatabase.getInstance().getReference().child(RANGES_PREFIX+key).getRef();
+        for(int i = 0; i<lotIntervals.size();i++){
+            sitesRef.child(String.valueOf(i)).setValue(lotIntervals.get(i));
+        }
+    }
+
+    Site getSite(String key){
+        DatabaseReference siteRef = FirebaseDatabase.getInstance().getReference().child(SITES_NODE).child(key).getRef();
+        final ArrayList<LotInterval> lotIntervals = new ArrayList<>();
+        final String[] name = new String[1];
+        final int[] siteColor = new int[1];
+        final String[] id = new String[1];
+        siteRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                name[0] = dataSnapshot.child(NAME_NODE).getValue().toString();
+                siteColor[0] = Integer.valueOf(dataSnapshot.child(SITE_COLOR_NODE).getValue().toString());
+                id[0] = dataSnapshot.getKey();
+                for(DataSnapshot ds1:dataSnapshot.child(RANGES).getChildren()){
+                    long n = (long)ds1.child("n").getValue();
+                    long m = (long)ds1.child("m").getValue();
+                    lotIntervals.add(new LotInterval(n,m));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        return new Site(name[0],lotIntervals,siteColor[0],id[0]);
+    }
+
      void createLotNode(String siteKey,int n,int m) {
         DatabaseReference lotRef = FirebaseDatabase.getInstance().getReference().child(LOTS_NODE_PREFIX+siteKey).getRef();
-        for(int i=n; i<=m;i++){
-            lotRef.child(String.valueOf(i)).child(LOTS_PRIMARY_STATUS_PREFIX).setValue(0);
-            lotRef.child(String.valueOf(i)).child(LOTS_SECONDARY_STATUS_PREFIX).setValue(0);
+        for(int i=n;i<=m;i++){
+            lotRef.child(String.valueOf(i)).child(LOTS_MATERIAL_ORDERED).setValue(0);
+            lotRef.child(String.valueOf(i)).child(LOTS_ARCH_LOT).setValue(0);
+        }
+    }
+
+    void createLotNode2(String siteKey,ArrayList<LotInterval> lotIntervals) {
+        DatabaseReference lotRef = FirebaseDatabase.getInstance().getReference().child(LOTS_NODE_PREFIX+siteKey).getRef();
+        for(LotInterval lotInterval:lotIntervals){
+            long m = lotInterval.getM();
+            for(long n = lotInterval.getN();n<=m;n++){
+                lotRef.child(String.valueOf(n)).child(LOTS_ARCH_LOT).setValue(false);
+                lotRef.child(String.valueOf(n)).child(LOTS_ARCH_ORDERED).setValue(false);
+                lotRef.child(String.valueOf(n)).child(LOTS_ARCH_STATUS).setValue(Lot.WORK_ORDER_REQUIRED);
+                lotRef.child(String.valueOf(n)).child(LOTS_MATERIAL_ORDERED).setValue(false);
+            }
+
         }
     }
 

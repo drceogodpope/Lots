@@ -6,9 +6,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 class Utility {
     public static int calculateNoOfColumns(Context context,int imageSize) {
@@ -32,7 +34,17 @@ class Utility {
             return titleCase.toString();
     }
 
-
+    static void printSites(ArrayList<Site> sites,String TAG){
+        Log.d(TAG,"PRINTING SITES");
+        Log.d(TAG,String.valueOf(sites.size())+" sites found");
+        for(Site site:sites){
+            Log.d(TAG,site.getName());
+            for(LotInterval lotInterval:site.getLotIntervals()){
+                Log.d(TAG,String.valueOf(lotInterval.getN()));
+                Log.d(TAG,String.valueOf(lotInterval.getM()));
+            }
+        }
+    }
 
     public static int calculateNoOfColumns(Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();

@@ -12,7 +12,7 @@
             android:id="@+id/remove_line"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:src="@drawable/remove_grey_36x36"
+            android:src="@drawable/ic_remove_white_24px"
             android:background="@color/colorDarkBackground"
             android:layout_height="wrap_content" />
         <EditText
@@ -52,7 +52,7 @@
             android:id="@+id/add_line"
             android:layout_width="wrap_content"
             android:background="@color/colorDarkBackground"
-            android:src="@drawable/add_grey_36x36"
+            android:src="@drawable/ic_add_white_24px"
             android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>

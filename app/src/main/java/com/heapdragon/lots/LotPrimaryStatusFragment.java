@@ -17,7 +17,7 @@ public class LotPrimaryStatusFragment extends LotStatusFragment {
 
     @Override
     protected void setNodeKey() {
-        this.nodeKey = DataBaseConstants.LOTS_PRIMARY_STATUS_PREFIX;
+        this.nodeKey = DataBaseConstants.LOTS_MATERIAL_ORDERED;
     }
 
     @Override

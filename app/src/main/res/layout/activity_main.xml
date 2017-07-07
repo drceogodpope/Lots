@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.heapdragon.lots.MainActivity">
+    tools:context="com.heapdragon.lots.SitesActivity">
 
     <LinearLayout
         android:layout_centerInParent="true"
@@ -46,15 +46,20 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/colorDarkBackground"
-        android:layout_below="@+id/toolbar"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/SitesActivity_swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/site_activity_sites_recycler_view"/>
+        android:layout_below="@+id/toolbar"
 
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:elevation="1dp"
+            android:layout_height="match_parent"
+            android:id="@+id/site_activity_sites_recycler_view"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
     <ProgressBar
         android:id="@+id/main_activity_progressBar"
         android:layout_width="wrap_content"
@@ -64,4 +69,7 @@
         android:id="@+id/connection_frag"
         android:visibility="gone"
         layout="@layout/fragment_check_connection"/>
+
+
+
 </RelativeLayout>

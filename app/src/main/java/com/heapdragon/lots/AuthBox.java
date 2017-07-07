@@ -52,7 +52,7 @@ class AuthBox {
     }
 
     private void startMainActivity(){
-        context.startActivity(new Intent(context,MainActivity.class));
+        context.startActivity(new Intent(context,SitesActivity.class));
     }
 
     void setAuthStateListener(){

@@ -28,24 +28,20 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
     private static final int GALLERY_INTENT = 2;
 
     private EditText siteName;
-    private EditText numberOfLotsN;
-    private EditText numberOfLotsM;
     private CardView siteColorPicker;
-    private Button createSiteButton;
     private ImageButton chooseSiteMapButton;
     private Uri siteMapUri;
     private FrameLayout fl;
     private int siteColor;
     private int[] siteColors;
     private LotIntervalFragment lotIntervalFragment;
-
     private MapUploaderBitch dbBitch;
 
     private class MapUploaderBitch extends DatabaseBitch{
         @Override
         protected void next() {
             super.next();
-            startActivity(new Intent(AddSiteActivity.this,MainActivity.class));
+            startActivity(new Intent(AddSiteActivity.this,SitesActivity.class));
         }
     }
 
@@ -56,15 +52,12 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
 
         //VIEWS//
         siteName = (EditText) findViewById(R.id.add_site_activity_name);
-        numberOfLotsN = (EditText) findViewById(R.id.n_lots);
-        numberOfLotsM = (EditText) findViewById(R.id.m_lots);
-        createSiteButton = (Button) findViewById(R.id.create_button);
+        Button createSiteButton = (Button) findViewById(R.id.create_button);
         siteColorPicker = (CardView) findViewById(R.id.colorPicker);
         chooseSiteMapButton = (ImageButton) findViewById(R.id.choose_site_map_button);
         fl = (FrameLayout) findViewById(R.id.colorFrag_layout);
         fl.setVisibility(View.GONE);
         //VIEWS//
-
 
         //INIT OBJECTS//
         dbBitch = new MapUploaderBitch();
@@ -79,25 +72,22 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
         addLotIntervalFragment();
         //CREATE DYNAMIC VIEWS//
 
-
         //ADD ONCLICK LISTENERS//
         createSiteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(checkSiteName()&&checkLotRange()){
-//                    String name = Utility.capitilizeFirst(siteName.getText().toString());
-//                    int n = Integer.valueOf(numberOfLotsN.getText().toString());
-//                    int m =  Integer.valueOf(numberOfLotsM.getText().toString());
-//                    Site site = new Site(name,n,m);
-//
-//                    String siteKey = dbBitch.createSiteNode(site,siteColor);
-//                    dbBitch.createLotNode(siteKey,n,m);
-//                    dbBitch.setSiteMap(siteKey,AddSiteActivity.this,siteMapUri);
-//                }
-
                 if(lotIntervalFragment!=null){
-
-                   lotIntervalFragment.validateLotIntervals(lotIntervalFragment.getLotIntervals());
+                    if(checkSiteName()){
+                        ArrayList<LotInterval> lotIntervals = lotIntervalFragment.getLotIntervals();
+                        if((boolean)lotIntervalFragment.validateLotIntervals(lotIntervals)[0]){
+                            String name = Utility.capitilizeFirst(siteName.getText().toString());
+                            Site site = new Site(name,lotIntervals);
+                            String key = dbBitch.createSiteNode2(site,siteColor);
+                            dbBitch.createIntervalsNode(lotIntervals,key);
+                            dbBitch.createLotNode2(key,lotIntervalFragment.getLotIntervals());
+                            startActivity(new Intent(AddSiteActivity.this,SitesActivity.class));
+                        }
+                    }
                 }
 
             }
@@ -136,43 +126,6 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
             return false;
         }
     }
-
-    private boolean checkLotRange(){
-        int nLots = Integer.parseInt(numberOfLotsN.getText().toString());
-        int mLots = Integer.parseInt(numberOfLotsM.getText().toString());
-        if(mLots<nLots){
-            YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLotsN);
-            YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLotsM);
-            Toast.makeText(getApplicationContext(),
-                    "Enter a valid range!",
-                    Toast.LENGTH_LONG).show();
-            return false;
-        }
-        if(mLots-nLots+1>2000){
-            YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLotsN);
-            YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLotsM);
-            Toast.makeText(getApplicationContext(),
-                    "Number of lots in range must not exceed 2000!",
-                    Toast.LENGTH_LONG).show();
-            return false;
-        }
-        if(nLots<=0){
-            YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLotsN);
-            Toast.makeText(getApplicationContext(),
-                    "Lower bound of range must be greater than 0!",
-                    Toast.LENGTH_LONG).show();
-            return false;
-        }
-        if(mLots>9999){
-            YoYo.with(Techniques.Shake).duration(500).playOn(numberOfLotsM);
-            Toast.makeText(getApplicationContext(),
-                    "Upper bound of range must not exceed 9999!",
-                    Toast.LENGTH_LONG).show();
-            return false;
-        }
-        return true;
-    }
-
 
     private void addColorChooserFrag(){
         FragmentManager fragmentManager = getSupportFragmentManager();

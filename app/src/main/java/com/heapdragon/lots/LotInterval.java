@@ -1,26 +1,29 @@
 package com.heapdragon.lots;
 
-/**
- * Created by Francesco on 2017-06-18.
- */
+class LotInterval{
+    private long n;
+    private long m;
 
- class LotInterval {
-    private int n;
-    private int m;
-    public LotInterval(int n,int m){
-            this.n = n;
-            this.m = m;
+    LotInterval(long n,long m){
+        this.n = n;
+        this.m = m;
     }
-    public int getM() {
+    long getM() {
         return m;
     }
-    public int getN() {
+    long getN() {
         return n;
+    }
+
+    public String toLogString(){
+        String nValue = String.valueOf(n);
+        String mValue = String.valueOf(m);
+        return "(" + nValue + "," +mValue+")";
     }
 
     public String toString(){
         String nValue = String.valueOf(n);
         String mValue = String.valueOf(m);
-        return "(" + nValue + "," +mValue+")";
+        return  nValue + ":" +mValue;
     }
 }

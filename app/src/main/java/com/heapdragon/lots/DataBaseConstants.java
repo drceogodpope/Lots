@@ -12,13 +12,17 @@ package com.heapdragon.lots;
         static final String READY_LOTS_NODE = "ready_lots";
         static final String ISSUE_LOTS_NODE = "issue_lots";
         static final String SITE_COLOR_NODE = "site_color";
+        static final String RANGES = "ranges";
     //SITE NODE CONSTANTS
 
     //LOTS NODE CONSTANTS
         static final String LOTS_NODE_PREFIX = "lots_";
-        static final String LOTS_PRIMARY_STATUS_PREFIX = "primary_status";
-        static final String LOTS_SECONDARY_STATUS_PREFIX = "secondary_status";
-    //LOTS NODE CONSTANTS
+        static final String LOTS_ARCH_LOT = "arch_lot";
+        static final String LOTS_ARCH_ORDERED = "arch_ordered";
+        static final String LOTS_ARCH_STATUS = "arch_status";
+     static final String LOTS_MATERIAL_ORDERED = "material_ordered";
+
+     //LOTS NODE CONSTANTS
 
     //LOG NODE CONSTANTS
         static final String LOG_NODE_PREFIX = "log_";
@@ -28,8 +32,12 @@ package com.heapdragon.lots;
         static final String LOG_NUMBER = "number";
      //LOG NODE CONSTANTS
 
+    //RANGES NODE CONSTANTS//
+        static final String RANGES_PREFIX = "ranges_";
+     //RANGES NODE CONSTANTS//
 
-    //STORAGE CONSTANTS
+
+     //STORAGE CONSTANTS
         //SITE MAPS ROOT
             static final String SITE_MAPS_ROOT = "site_maps";
 

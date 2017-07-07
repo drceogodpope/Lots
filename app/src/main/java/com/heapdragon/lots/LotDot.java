@@ -32,6 +32,9 @@ class LotDot extends View{
         this.setBackgroundTintList(ColorStateList.valueOf(getColor(this.getContext(),color)));
     }
 
+
+
+
     @Override
     protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
         final int width = getDefaultSize(getSuggestedMinimumWidth(),widthMeasureSpec);

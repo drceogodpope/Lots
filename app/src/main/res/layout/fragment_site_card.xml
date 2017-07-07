@@ -1,127 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".MainActivity"
-    app:cardBackgroundColor="@color/colorDarkBackground"
-    app:cardCornerRadius="0dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_marginTop="8dp"
+    <android.support.v7.widget.CardView android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/site_card"
-        app:cardBackgroundColor="@color/colorIndigo"
-        android:layout_height="wrap_content">
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true"
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
         <LinearLayout
-            android:background="@android:color/transparent"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:weightSum="10"
-            android:layout_height="match_parent">
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:background="@android:color/transparent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:id="@+id/site_card_total_ready"
-                    android:layout_height="match_parent"
-                    android:textSize="40sp"
-                    android:layout_margin="20dp"
-                    android:gravity="center"
-                    android:textColor="@android:color/white"
-                    android:text="100"/>
-            </FrameLayout>
-
-            <LinearLayout
+            android:orientation="vertical"
+            android:layout_margin="20dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/site_card_name"
+                style="@style/Base.TextAppearance.AppCompat.Headline"
                 android:layout_width="match_parent"
-                android:gravity="top"
-                android:paddingEnd="20dp"
-                android:layout_marginEnd="30dp"
-                android:layout_weight="7"
-                android:orientation="vertical"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_margin="20dp"
-                    android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="20dp"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="5dp"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:text="Lotus Pointe"
-                            android:textColor="@color/colorLightText"
-                            style="@style/Base.TextAppearance.AppCompat.Headline"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/site_card_name" />
-                        <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:id="@+id/site_card_issue_image"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/warning_amber_24x24"/>
-                    </LinearLayout>
-
-
-                    <TextView
-                        android:id="@+id/site_card_total_lots"
-                        android:layout_width="match_parent"
-                        style="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorLightText"
-                        android:text="153 lots"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-
-                <FrameLayout
-                    android:visibility="gone"
-                    android:layout_marginStart="20dp"
-                    android:paddingEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_gravity="start"
-                        android:textColor="@color/colorLightText"
-                        android:background="@android:color/transparent"
-                        android:layout_height="wrap_content"
-                        android:text="Map"
-                        android:id="@+id/site_card_map_button" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_gravity="end"
-                        android:textColor="@color/colorLightText"
-                        android:id="@+id/site_card_lot_button"
-                        android:background="@android:color/transparent"
-                        android:layout_height="wrap_content"
-                        android:text="Log"/>
-                </FrameLayout>
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:text="Lotus Pointe"
+                android:textColor="@color/colorLightText"/>
+            <TextView
+                android:id="@+id/site_card_total_lots"
+                android:layout_width="match_parent"
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorLightText"
+                android:text="153 lots"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
-
-
-
-</android.support.v7.widget.CardView>
 

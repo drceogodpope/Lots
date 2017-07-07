@@ -141,6 +141,8 @@ public class SiteMapFragment extends android.support.v4.app.Fragment {
                 public void onFailure(@NonNull Exception e) {
                     Log.d(TAG,e.toString());
                     Toast.makeText(getContext(),"Error uploading site map!",Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
+                    linearLayout.setVisibility(View.VISIBLE);
                 }
             });
         }catch (Exception e){

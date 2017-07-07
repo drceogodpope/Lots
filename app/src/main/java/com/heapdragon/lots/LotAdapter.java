@@ -24,7 +24,7 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
     }
 
     static class LotDotHolder extends RecyclerView.ViewHolder {
-        LotDot outterdot;
+        LotDot outerDot;
         LotDot innerDot;
         TextView number;
         String siteKey;
@@ -32,7 +32,7 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
         LotDotHolder(View itemView) {
             super(itemView);
             innerDot = (LotDot) itemView.findViewById(R.id.inner_shit);
-            outterdot = (LotDot) itemView.findViewById(R.id.outter_shit);
+            outerDot = (LotDot) itemView.findViewById(R.id.outter_shit);
 
             number = (TextView) itemView.findViewById(R.id.lot_dot_number);
             innerDot.setOnClickListener(new View.OnClickListener() {
@@ -66,39 +66,30 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
         holder.siteKey = siteKey;
         holder.number.setText(String.valueOf(holder.lot.getNumber()));
 
-        switch ((int)holder.lot.getPrimaryStatus()){
-            case Lot.NOT_READY:
-                holder.innerDot.setColor(R.color.colorNotReady);
-                break;
-            case Lot.READY:
-                holder.innerDot.setColor(R.color.colorReady);
-                break;
-            case Lot.ISSUE:
-                holder.innerDot.setColor(R.color.colorIssue);
-                break;
-            default:
-                holder.innerDot.setColor(R.color.colorReceived);
 
+        if(holder.lot.getMaterialOrdered()){
+            holder.innerDot.setColor(R.color.colorReady);
+        }
+        else{
+            holder.innerDot.setColor(R.color.colorNotReady);
         }
 
-        switch ((int)holder.lot.getSecondaryStatus()){
-            case Lot.MATERIAL_ORDERED:
-                holder.outterdot.setColor(R.color.colorMaterialOrdered);
-                break;
-            case Lot.ARCH_IN_PRODUCTION:
-                holder.outterdot.setColor(R.color.colorArchInProduction);
-                break;
-            case Lot.ARCH_IN_SHIPPING:
-                holder.outterdot.setColor(R.color.colorArchInShipping);
-                break;
-            case Lot.ARCH_REQUIRED:
-                holder.outterdot.setColor(R.color.colorArchRequired);
-                break;
-            default:
-                holder.outterdot.setColor(R.color.colorArchRequired);
+        if(holder.lot.getArchLot()){
+            switch ((int)holder.lot.getArchStatus()){
+                case (int)Lot.WORK_ORDER_REQUIRED:
+                    holder.outerDot.setColor(R.color.colorMaterialOrdered);
+                    break;
+                case (int)Lot.ARCH_IN_PRODUCTION_1:
+                    holder.outerDot.setColor(R.color.colorArchInProduction);
+                    break;
+                case (int)Lot.ARCH_IN_SHIPPING_1:
+                    holder.outerDot.setColor(R.color.colorArchInShipping);
+                    break;
+            }
         }
-
-
+        else{
+            holder.outerDot.setBackgroundTintList(holder.innerDot.getBackgroundTintList());
+        }
     }
 
 

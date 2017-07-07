@@ -38,7 +38,7 @@ public class LotSecondaryStatusFragment extends LotStatusFragment {
 
     @Override
     protected void setNodeKey() {
-        this.nodeKey = DataBaseConstants.LOTS_SECONDARY_STATUS_PREFIX;
+        this.nodeKey = DataBaseConstants.LOTS_ARCH_LOT;
     }
 
     @Override

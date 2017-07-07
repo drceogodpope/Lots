@@ -30,7 +30,7 @@ public class Splash extends Activity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 tv.setVisibility(View.GONE);
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(),SitesActivity.class);
                 startActivity(intent);
             }
 

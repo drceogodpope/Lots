@@ -46,6 +46,8 @@ public class SiteActivity extends AppCompatActivity implements ColorChooserFrag.
     private TabLayout tabLayout;
     private TextView mToolbarTitle;
     private String key;
+    private int color;
+    private String name;
     private Toolbar toolbar;
     private DatabaseReference mSitesRef;
     private DatabaseReference mRootRef;
@@ -55,12 +57,16 @@ public class SiteActivity extends AppCompatActivity implements ColorChooserFrag.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"onCreate()");
+
+        //SET CONTENT VIEW AND TOOLBAR//
         setContentView(R.layout.activity_site);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar()!=null){
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+
+        //FIND VIEWS//
         colorPickerFragLayout = (FrameLayout) findViewById(R.id.colorPickerFragLayout);
         colorPickerFragLayout.setVisibility(View.GONE);
         mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -68,8 +74,16 @@ public class SiteActivity extends AppCompatActivity implements ColorChooserFrag.
         mToolbarTitle = (TextView) findViewById(R.id.site_activity_toolbar_title);
         mToolbarTitle.setText(getIntent().getStringExtra("name"));
 
-        key = getIntent().getStringExtra("key");
 
+        //GET EXTRAS//
+        key = getIntent().getStringExtra("key");
+        color = getIntent().getIntExtra("color",0);
+        name = getIntent().getStringExtra("name");
+        Log.d(TAG,   "key: " + key + "\n"
+                    +"color: " + String.valueOf(color) + "\n"
+                    +"name: " + name);
+
+        //SET UP VIEW PAGER//
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(new SiteFragAdapter(getSupportFragmentManager(),key));
         mViewPager.setOffscreenPageLimit(3);
@@ -94,8 +108,9 @@ public class SiteActivity extends AppCompatActivity implements ColorChooserFrag.
             }
         });
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.setBackgroundColor(getIntent().getIntExtra("color",0));
-        toolbar.setBackgroundColor((getIntent().getIntExtra("color",0)));
+//        tabLayout.setBackgroundColor(getIntent().getIntExtra("color",0));
+//        toolbar.setBackgroundColor((getIntent().getIntExtra("color",0)));
+        setColors(color);
         getWindow().setStatusBarColor(Utility.darker(getIntent().getIntExtra("color",0),0.8f));
         mViewPager.setCurrentItem(getIntent().getIntExtra("adapterPage",0));
 
@@ -190,17 +205,23 @@ public class SiteActivity extends AppCompatActivity implements ColorChooserFrag.
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this,SitesActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void onColorChosen(int color) {
         int[] siteColors = getResources().getIntArray(R.array.siteColors);
-        tabLayout.setBackgroundColor(siteColors[color]);
-        getWindow().setStatusBarColor(Utility.darker(siteColors[color],0.8f));
-        toolbar.setBackgroundColor(siteColors[color]);
+        setColors(color);
         mSitesRef.child(key).child(SITE_COLOR_NODE).setValue(color);
         colorPickerFragLayout.setVisibility(View.GONE);
     }
+
+    private void setColors(int color){
+        int[] siteColors = getResources().getIntArray(R.array.siteColors);
+        tabLayout.setBackgroundColor(siteColors[color]);
+        toolbar.setBackgroundColor(siteColors[color]);
+        getWindow().setStatusBarColor(Utility.darker(siteColors[color],0.8f));
+    }
+
 }

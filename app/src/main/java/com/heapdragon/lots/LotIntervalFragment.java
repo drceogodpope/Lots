@@ -61,11 +61,11 @@ public class LotIntervalFragment extends Fragment {
         clearTints();
         Object[] result = new Object[2];
         result[1] = 0;
-        int lastM = 0;
+        long lastM = 0;
         for (int i = 0; i < lotIntervals.size(); i++) {
             result[1] = i;
-            int n = lotIntervals.get(i).getN();
-            int m = lotIntervals.get(i).getM();
+            long n = lotIntervals.get(i).getN();
+            long m = lotIntervals.get(i).getM();
             if (n<=0 || n>=m || m>=10000 || n<=lastM) {
                 result[0] = false;
                 showError(result);

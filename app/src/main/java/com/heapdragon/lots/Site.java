@@ -1,5 +1,7 @@
 package com.heapdragon.lots;
 
+import java.util.ArrayList;
+
 public class Site{
     private final static String TAG = "Site";
 
@@ -14,6 +16,8 @@ public class Site{
     private int issue_lots;
     private int siteColor;
 
+    private ArrayList<LotInterval> lotIntervals;
+
     public Site(String name,int n,int m){
         this.name = name;
         this.numberOfLots = (m-n)+1;
@@ -23,6 +27,18 @@ public class Site{
         this.issue_lots = 0;
         this.n = n;
         this.m = m;
+    }
+
+    public Site(String name,ArrayList<LotInterval> lotIntervals){
+        this.name = name;
+        this.lotIntervals = lotIntervals;
+    }
+
+    public Site(String name,ArrayList<LotInterval> lotIntervals,int siteColor,String id){
+        this.name = name;
+        this.lotIntervals = lotIntervals;
+        this.siteColor = siteColor;
+        this.id = id;
     }
 
     public Site(String name, int numberOfLots, int incompleteLots, int issueLots, int readyLots, int receivedLots, int siteColor,String id,int n,int m) {
@@ -69,4 +85,20 @@ public class Site{
         return issue_lots;
     }
     int getSiteColor() {return siteColor;}
+
+    public ArrayList<LotInterval> getLotIntervals() {
+        return lotIntervals;
+    }
+
+    public void setLotIntervals(ArrayList<LotInterval> lotIntervals) {
+        this.lotIntervals = lotIntervals;
+    }
+
+    public String lotIntervalsToString(){
+        String result = "";
+        for (LotInterval lotInterval:lotIntervals){
+            result += lotInterval.toString() + "  ";
+        }
+        return result;
+    }
 }
