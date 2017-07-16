@@ -211,7 +211,6 @@ public class SiteActivity extends AppCompatActivity implements ColorChooserFrag.
 
     @Override
     public void onColorChosen(int color) {
-        int[] siteColors = getResources().getIntArray(R.array.siteColors);
         setColors(color);
         mSitesRef.child(key).child(SITE_COLOR_NODE).setValue(color);
         colorPickerFragLayout.setVisibility(View.GONE);

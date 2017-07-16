@@ -2,6 +2,7 @@ package com.heapdragon.lots;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -49,16 +51,13 @@ public class PrimaryScrollableFrag extends ScrollableParentFrag {
     @Override
     protected ArrayList<Fragment> createFrags() {
         ArrayList<Fragment> frags = new ArrayList<>();
-        Bundle args = new Bundle();
-        args.putString("key", key);
-        args.putInt("lotNumber", lotNumber);
-//        LotPrimaryStatusFragment primaryStatusFrag = new LotPrimaryStatusFragment();
-//        primaryStatusFrag.setArguments(getArguments());
-//        Fragment lotLogFrag = PrimaryLogFrag.newInstance(key,lotNumber);
-//        frags.add(primaryStatusFrag);
-//        frags.add(lotLogFrag);
+        MaterialStatusFragment materialStatusFragment = MaterialStatusFragment.newInstance(key,lotNumber);
+        MaterialDotFragment materialDotFragment = MaterialDotFragment.newInstance(key,lotNumber);
+        Fragment logFrag = PrimaryLogFrag.newInstance(key,lotNumber);
 
-
+        frags.add(materialDotFragment);
+        frags.add(materialStatusFragment);
+        frags.add(logFrag);
         return frags;
     }
 

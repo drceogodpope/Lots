@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +41,7 @@ class SiteAdapter2 extends RecyclerView.Adapter<SiteAdapter2.SiteCardViewHolder2
     static class SiteCardViewHolder2 extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView siteName;
+        FrameLayout frameLayout;
         TextView totalLots;
         int[] siteColors;
         protected Site site;
@@ -50,7 +52,9 @@ class SiteAdapter2 extends RecyclerView.Adapter<SiteAdapter2.SiteCardViewHolder2
             cardView = (CardView) itemView.findViewById(R.id.site_card);
             totalLots = (TextView) itemView.findViewById(R.id.site_card_total_lots);
             siteName = (TextView) itemView.findViewById(R.id.site_card_name);
-            cardView.setOnClickListener(new View.OnClickListener() {
+            frameLayout = (FrameLayout) itemView.findViewById(R.id.site_card_frame_layout);
+
+                    cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(cardView.getContext(),SiteActivity.class);
@@ -70,7 +74,7 @@ class SiteAdapter2 extends RecyclerView.Adapter<SiteAdapter2.SiteCardViewHolder2
         holder.siteName.setText(site.getName());
         holder.totalLots.setText(holder.site.lotIntervalsToString());
         try {
-            holder.cardView.setCardBackgroundColor(holder.siteColors[holder.site.getSiteColor()]);
+            holder.frameLayout.setBackgroundColor(holder.siteColors[holder.site.getSiteColor()]);
         }
         catch (Exception e) {
             e.printStackTrace();

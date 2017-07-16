@@ -36,8 +36,8 @@ class LotFragAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position){
-            case 0: return "Status 1";
-            case 1:return "Status 2";
+            case 0: return "Material";
+            case 1:return "Arch";
             default:return "Issue";
         }
     }

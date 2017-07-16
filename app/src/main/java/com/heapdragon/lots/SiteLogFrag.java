@@ -1,13 +1,9 @@
 package com.heapdragon.lots;
 
 import android.os.Bundle;
-
 import com.google.firebase.database.DataSnapshot;
-
 import org.joda.time.DateTime;
-
 import java.util.ArrayList;
-
 import static com.heapdragon.lots.DataBaseConstants.LOG_FIELD_UPDATED;
 import static com.heapdragon.lots.DataBaseConstants.LOG_NUMBER;
 import static com.heapdragon.lots.DataBaseConstants.LOG_STATUS;
@@ -27,11 +23,11 @@ public class SiteLogFrag extends LogFrag {
     public void queryLogs(DataSnapshot dataSnapshot, ArrayList<SiteLog> logs) {
         for (DataSnapshot ds : dataSnapshot.getChildren()) {
             long lotNumber = (long) ds.child(LOG_NUMBER).getValue();
-            long priority = (long)ds.child(LOG_FIELD_UPDATED).getValue();
             String logKey = ds.getKey();
+            String value = ds.child(LOG_STATUS).getValue().toString();
+            String fieldUpdated = ds.child(LOG_FIELD_UPDATED).getValue().toString();
             DateTime dateTime = new DateTime(ds.child(LOG_TIME_STAMP).getValue());
-            long status = (long) ds.child(LOG_STATUS).getValue();
-            logs.add(new SiteLog(dateTime, lotNumber, (int)status,logKey,key,priority));
+            logs.add(new SiteLog(dateTime, lotNumber,value,logKey,key,fieldUpdated));
         }
     }
 }

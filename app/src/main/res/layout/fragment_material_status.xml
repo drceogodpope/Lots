@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    android:id="@+id/material_status_fragment_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardUseCompatPadding="true"
     android:elevation="3dp"
+    app:cardBackgroundColor="@color/colorDarkBackground"
     android:layout_height="wrap_content">
 
     <RadioGroup
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
+        android:id="@+id/material_fragment_radio_group"
         android:orientation="horizontal"
+        android:layout_gravity="center"
         android:gravity="center"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+
         <LinearLayout
             android:layout_margin="10dp"
             android:layout_width="wrap_content"
@@ -19,6 +25,8 @@
             android:gravity="center"
             android:layout_height="wrap_content">
             <RadioButton
+                android:buttonTint="@color/colorRed"
+                android:id="@+id/material_fragment_lot_not_prepared"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
@@ -26,7 +34,7 @@
                 android:layout_height="wrap_content"
                 style="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textAlignment="center"
-                android:text="LOT NOT PREPARED"/>
+                android:text="LOT NOT\nPREPARED"/>
         </LinearLayout>
 
         <LinearLayout
@@ -36,15 +44,21 @@
             android:gravity="center"
             android:layout_height="wrap_content">
             <RadioButton
+                android:buttonTint="@color/colorGreen"
+
+                android:id="@+id/material_fragment_material_ordered"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:textAlignment="center"
                 style="@style/Base.TextAppearance.AppCompat.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MATERIAL ORDERED"/>
+                android:text="MATERIAL\nORDERED"/>
         </LinearLayout>
+
     </RadioGroup>
+
 
 
 </android.support.v7.widget.CardView>

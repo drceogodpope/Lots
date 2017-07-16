@@ -23,6 +23,7 @@
                 android:background="@drawable/circle2"
                 />
             <com.heapdragon.lots.LotDot
+                android:layout_marginTop="10dp"
                 android:id="@+id/outter_dot"
                 android:layout_centerInParent="true"
                 android:layout_width="160dp"
@@ -40,6 +41,7 @@
         </RelativeLayout>
         <TextView
             android:layout_margin="5dp"
+            android:id="@+id/status_dot_text"
             style="@style/Base.TextAppearance.AppCompat.Large"
             android:textAlignment="center"
             android:layout_width="match_parent"

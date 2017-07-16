@@ -54,8 +54,8 @@ import static com.heapdragon.lots.DataBaseConstants.SITE_N_LOT;
 import static com.heapdragon.lots.DataBaseConstants.TOTAL_LOTS_NODE;
 
 class DatabaseBitch {
-
     private static final String TAG = "DatabaseBitch";
+
     void createLog(int status, String siteKey,int lotNumber,long priorityLevel) {
          DatabaseReference logRef = FirebaseDatabase.getInstance().getReference().child(LOG_NODE_PREFIX+siteKey);
          Map<String,Object> map = new HashMap<>();
@@ -66,7 +66,18 @@ class DatabaseBitch {
          logRef.push().setValue(map);
     }
 
-     ArrayList<SiteLog> getAllLogs(final ArrayList<SiteLog> logs, final String key) {
+    void createLog2(String siteKey,int lotNumber,String field,Object value) {
+        DatabaseReference logRef = FirebaseDatabase.getInstance().getReference().child(LOG_NODE_PREFIX+siteKey);
+        Map<String,Object> map = new HashMap<>();
+        map.put(LOG_NUMBER,lotNumber);
+        map.put(LOG_FIELD_UPDATED,field);
+        map.put(LOG_STATUS,value);
+        map.put(LOG_TIME_STAMP,new DateTime().getMillis());
+        logRef.push().setValue(map);
+    }
+
+
+    ArrayList<SiteLog> getAllLogs(final ArrayList<SiteLog> logs, final String key) {
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference logRef = rootRef.child(LOG_NODE_PREFIX + key).getRef();
         logRef.addValueEventListener(new ValueEventListener() {
@@ -74,12 +85,12 @@ class DatabaseBitch {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 logs.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String logKey = ds.getKey();
                     long lotNumber = (long) ds.child(LOG_NUMBER).getValue();
+                    String fieldUpdated = ds.child(LOG_FIELD_UPDATED).getValue().toString();
+                    String value = ds.child(LOG_STATUS).getValue().toString();
+                    String logKey = ds.getKey();
                     DateTime dateTime = new DateTime(ds.child(LOG_TIME_STAMP).getValue());
-                    long status = (long) ds.child(LOG_STATUS).getValue();
-                    long priority = (long)ds.child(LOG_FIELD_UPDATED).getValue();
-                    logs.add(new SiteLog(dateTime, lotNumber, (int) status,logKey,key,priority));
+                    logs.add(new SiteLog(dateTime, lotNumber,value,logKey,key,fieldUpdated));
                 }
                 Collections.sort(logs, new Comparator<SiteLog>() {
                     @Override

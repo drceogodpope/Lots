@@ -12,7 +12,6 @@ public class LotPrimaryStatusFragment extends LotStatusFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.statusLevel = SiteLog.PRIMARY;
     }
 
     @Override
@@ -51,7 +50,7 @@ public class LotPrimaryStatusFragment extends LotStatusFragment {
         b0.setText("Ready to Receive");
         b1.setText("Not Ready to Receive");
         b2.setText("Materials Received");
-        b3.setText("New Lot Issue");
+        b3.setText("New Lot \n Issue");
 
 
         b0.setOnClickListener(new View.OnClickListener() {

@@ -20,7 +20,7 @@ package com.heapdragon.lots;
         static final String LOTS_ARCH_LOT = "arch_lot";
         static final String LOTS_ARCH_ORDERED = "arch_ordered";
         static final String LOTS_ARCH_STATUS = "arch_status";
-     static final String LOTS_MATERIAL_ORDERED = "material_ordered";
+        static final String LOTS_MATERIAL_ORDERED = "material_ordered";
 
      //LOTS NODE CONSTANTS
 

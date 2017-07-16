@@ -31,10 +31,22 @@ public abstract class ScrollableParentFrag extends Fragment{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        addChildFrags(createFrags());
+        if(savedInstanceState==null){
+            addChildFrags(createFrags());
+        }
     }
 
-    protected abstract void addChildFrags(ArrayList<Fragment> fragments);
+
+
+    //IN THIS METHOD YOU MUST CREATE A NEW ArrayList<Fragment> FILL IT WITH NEW INSTANCES OF FRAGMENTS THAT
+    // YOU WANT IN THIS ScrollableView SUBCLASS
+    // AND THEN RETURN THE ArrayList<FRAGMENT>
+    // addChildFrags() WILL THEN LOOP THROUGH THIS ArrayList<Fragment> and add them to THIS ScrollableView SUBCLASS
+    // sequentially.
     protected abstract ArrayList<Fragment> createFrags();
+
+
+    protected abstract void addChildFrags(ArrayList<Fragment> fragments);
+
 
 }

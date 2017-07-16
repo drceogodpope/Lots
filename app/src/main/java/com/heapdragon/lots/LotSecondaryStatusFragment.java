@@ -11,7 +11,7 @@ public class LotSecondaryStatusFragment extends LotStatusFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.statusLevel = SiteLog.SECONDARY;
+//        this.statusLevel = SiteLog.SECONDARY;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class LotSecondaryStatusFragment extends LotStatusFragment {
                 break;
             default:
                 outerDot.setColor(R.color.colorNotReady);
-                status.setText("Arch Required");
+                status.setText("Arch " + "\n" + " Required");
         }
     }
 

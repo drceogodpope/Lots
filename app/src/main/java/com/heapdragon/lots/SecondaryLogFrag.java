@@ -25,14 +25,12 @@ public class SecondaryLogFrag extends LogFrag {
     public void queryLogs(DataSnapshot dataSnapshot, ArrayList<SiteLog> logs) {
         Log.d(TAG,"queryLogs");
         for (DataSnapshot ds : dataSnapshot.getChildren()) {
-            long lotNumber = (long) ds.child(LOG_NUMBER).getValue();
-            long priority = (long)ds.child(LOG_FIELD_UPDATED).getValue();
-            if(lotNumber == getArguments().getInt("lotNumber") && priority == SiteLog.SECONDARY){
-                String logKey = ds.getKey();
-                DateTime dateTime = new DateTime(ds.child(LOG_TIME_STAMP).getValue());
-                long status = (long) ds.child(LOG_STATUS).getValue();
-                logs.add(new SiteLog(dateTime, lotNumber, (int)status,logKey,key,priority));
-            }
+             long lotNumber = (long) ds.child(LOG_NUMBER).getValue();
+        String logKey = ds.getKey();
+        String value = ds.child(LOG_STATUS).getValue().toString();
+        String fieldUpdated = ds.child(LOG_FIELD_UPDATED).getValue().toString();
+        DateTime dateTime = new DateTime(ds.child(LOG_TIME_STAMP).getValue());
+        logs.add(new SiteLog(dateTime, lotNumber,value,logKey,key,fieldUpdated));
         }
     }
 }

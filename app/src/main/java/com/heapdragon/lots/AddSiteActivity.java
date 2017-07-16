@@ -85,7 +85,9 @@ public class AddSiteActivity extends AppCompatActivity implements ColorChooserFr
                             String key = dbBitch.createSiteNode2(site,siteColor);
                             dbBitch.createIntervalsNode(lotIntervals,key);
                             dbBitch.createLotNode2(key,lotIntervalFragment.getLotIntervals());
-                            startActivity(new Intent(AddSiteActivity.this,SitesActivity.class));
+                            dbBitch.setSiteMap(key,AddSiteActivity.this,siteMapUri);
+
+//                          startActivity(new Intent(AddSiteActivity.this,SitesActivity.class));
                         }
                     }
                 }

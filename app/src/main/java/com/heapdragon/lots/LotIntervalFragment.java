@@ -115,7 +115,9 @@ public class LotIntervalFragment extends Fragment {
             add.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    intervalLayout.addView(new IntervalLine(getContext()));
+                    if(intervalLayout.getChildCount()<5){
+                        intervalLayout.addView(new IntervalLine(getContext()));
+                    }
                 }
             });
             delete.setOnClickListener(new View.OnClickListener(){

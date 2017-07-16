@@ -5,12 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Splash">
+
+    <RelativeLayout
+        android:id="@+id/root_circles"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.FloatingActionButton
+            android:layout_centerInParent="true"
+            android:layout_margin="100dp"
+            android:id="@+id/splash_ring1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <android.support.design.widget.FloatingActionButton
+            android:layout_centerInParent="true"
+            android:layout_margin="140dp"
+            android:id="@+id/splash_ring2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <android.support.design.widget.FloatingActionButton
+            android:layout_centerInParent="true"
+            android:layout_margin="180dp"
+            android:id="@+id/splash_ring3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <android.support.design.widget.FloatingActionButton
+            android:layout_centerInParent="true"
+            android:layout_margin="200dp"
+            android:id="@+id/splash_ring4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+
     <TextView
+        android:visibility="gone"
+        android:layout_below="@+id/root_circles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/splash_text"
         android:layout_centerInParent="true"
         style="@style/Base.TextAppearance.AppCompat.Large"
-        android:text="lots v1.3"/>
+        android:text="lots v1.5"/>
 
 </RelativeLayout>

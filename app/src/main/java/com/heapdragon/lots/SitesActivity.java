@@ -149,4 +149,9 @@ public class SitesActivity extends AppCompatActivity {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

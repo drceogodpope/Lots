@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
+import static com.heapdragon.lots.DataBaseConstants.*;
 
 class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
     private static final String TAG = "LogAdapter";
@@ -74,38 +75,37 @@ class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
         holder.logUser.setText(holder.siteLog.getUser());
         holder.logTimeStamp.setText(String.valueOf(holder.siteLog.getTimeStamp()));
 
-        if(holder.siteLog.getPriority() == SiteLog.PRIMARY){
-            holder.innerDot.setVisibility(View.INVISIBLE);
-            switch (holder.siteLog.getStatus()){
-                case 0:
-                    holder.outerDot.setColor(R.color.colorNotReady);
-                    break;
-                case 1:
-                    holder.outerDot.setColor(R.color.colorReady);
-                    break;
-                case 2:
-                    holder.outerDot.setColor(R.color.colorIssue);
-                    break;
-                default:
-                    holder.outerDot.setColor(R.color.colorReceived);
-            }
-        }else{
-            holder.innerDot.setVisibility(View.VISIBLE);
-            holder.innerDot.setColor(R.color.colorDarkBackground);
-            switch (holder.siteLog.getStatus()) {
-                case Lot.MATERIAL_ORDERED:
-                    holder.outerDot.setColor(R.color.colorMaterialOrdered);
-                    break;
-                case Lot.ARCH_IN_SHIPPING:
-                    holder.outerDot.setColor(R.color.colorArchInShipping);
-                    break;
-                case Lot.ARCH_IN_PRODUCTION:
-                    holder.outerDot.setColor(R.color.colorArchInProduction);
-                    break;
-                default:
-                    holder.outerDot.setColor(R.color.colorArchRequired);
-            }
-        }
+//            holder.innerDot.setVisibility(View.INVISIBLE);
+//            switch (holder.siteLog.getStatus()){
+//                case 0:
+//                    holder.outerDot.setColor(R.color.colorNotReady);
+//                    break;
+//                case 1:
+//                    holder.outerDot.setColor(R.color.colorReady);
+//                    break;
+//                case 2:
+//                    holder.outerDot.setColor(R.color.colorIssue);
+//                    break;
+//                default:
+//                    holder.outerDot.setColor(R.color.colorReceived);
+//            }
+//        }else{
+//            holder.innerDot.setVisibility(View.VISIBLE);
+//            holder.innerDot.setColor(R.color.colorDarkBackground);
+//            switch (holder.siteLog.getStatus()) {
+//                case Lot.MATERIAL_ORDERED:
+//                    holder.outerDot.setColor(R.color.colorMaterialOrdered);
+//                    break;
+//                case Lot.ARCH_IN_SHIPPING:
+//                    holder.outerDot.setColor(R.color.colorArchInShipping);
+//                    break;
+//                case Lot.ARCH_IN_PRODUCTION:
+//                    holder.outerDot.setColor(R.color.colorArchInProduction);
+//                    break;
+//                default:
+//                    holder.outerDot.setColor(R.color.colorArchRequired);
+//            }
+//        }
 
         holder.logCard.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

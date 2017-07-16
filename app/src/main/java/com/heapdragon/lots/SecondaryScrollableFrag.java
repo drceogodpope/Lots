@@ -39,14 +39,12 @@ public class SecondaryScrollableFrag extends ScrollableParentFrag {
     @Override
     protected ArrayList<Fragment> createFrags() {
         ArrayList<Fragment> frags = new ArrayList<>();
-        Bundle args = new Bundle();
-        args.putString("key", key);
-        args.putInt("lotNumber", lotNumber);
-        LotSecondaryStatusFragment fragment = new LotSecondaryStatusFragment();
-        fragment.setArguments(args);
-        Fragment lotLogFrag = SecondaryLogFrag.newInstance(key,lotNumber);
-        frags.add(fragment);
-        frags.add(lotLogFrag);
+        ArchOrderedFrag archOrderedFrag =ArchOrderedFrag.newInstance(key,lotNumber);
+        ArchDotFragment archDotFragment =  ArchDotFragment.newInstance(key,lotNumber);
+        frags.add(archDotFragment);
+        frags.add(archOrderedFrag);
+        Fragment logFrag = PrimaryLogFrag.newInstance(key,lotNumber);
+        frags.add(logFrag);
         return frags;
     }
 }
