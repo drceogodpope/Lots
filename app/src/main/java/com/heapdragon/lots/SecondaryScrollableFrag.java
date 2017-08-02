@@ -1,5 +1,6 @@
 package com.heapdragon.lots;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,7 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 
@@ -39,12 +39,20 @@ public class SecondaryScrollableFrag extends ScrollableParentFrag {
     @Override
     protected ArrayList<Fragment> createFrags() {
         ArrayList<Fragment> frags = new ArrayList<>();
-        ArchOrderedFrag archOrderedFrag =ArchOrderedFrag.newInstance(key,lotNumber);
+        ArchStatusFrag archStatusFrag = ArchStatusFrag.newInstance(key,lotNumber);
         ArchDotFragment archDotFragment =  ArchDotFragment.newInstance(key,lotNumber);
+        ArchLotFragment archLotFragment = ArchLotFragment.newInstance(key,lotNumber);
+        PrimaryLogFrag logFrag = PrimaryLogFrag.newInstance(key,lotNumber);
+
+        ((Activator) getActivity()).addFrag(archStatusFrag);
+        ((Activator) getActivity()).addFrag(archDotFragment);
+        ((Activator) getActivity()).addFrag(logFrag);
+
         frags.add(archDotFragment);
-        frags.add(archOrderedFrag);
-        Fragment logFrag = PrimaryLogFrag.newInstance(key,lotNumber);
+        frags.add(archStatusFrag);
+        frags.add(archLotFragment);
         frags.add(logFrag);
         return frags;
     }
+
 }

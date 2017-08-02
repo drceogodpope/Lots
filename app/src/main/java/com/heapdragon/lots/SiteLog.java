@@ -20,7 +20,7 @@ public class SiteLog implements Comparator<SiteLog>{
     private String logKey;
     private String siteKey;
     private String fieldUpdated;
-    private String value;
+    private Object value;
 
     public SiteLog(DateTime dateTime,long lotNumber,String value,String logKey,String siteKey,String fieldUpdated) {
         this.dateTime = dateTime;
@@ -98,7 +98,7 @@ public class SiteLog implements Comparator<SiteLog>{
         return siteKey;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
 }

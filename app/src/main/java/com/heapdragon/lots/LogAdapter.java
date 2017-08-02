@@ -75,21 +75,24 @@ class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
         holder.logUser.setText(holder.siteLog.getUser());
         holder.logTimeStamp.setText(String.valueOf(holder.siteLog.getTimeStamp()));
 
-//            holder.innerDot.setVisibility(View.INVISIBLE);
-//            switch (holder.siteLog.getStatus()){
-//                case 0:
-//                    holder.outerDot.setColor(R.color.colorNotReady);
-//                    break;
-//                case 1:
-//                    holder.outerDot.setColor(R.color.colorReady);
-//                    break;
-//                case 2:
-//                    holder.outerDot.setColor(R.color.colorIssue);
-//                    break;
-//                default:
-//                    holder.outerDot.setColor(R.color.colorReceived);
-//            }
-//        }else{
+            if(holder.siteLog.getFieldUpdated().equals(LOTS_ARCH_STATUS)){
+                holder.innerDot.setColor(R.color.colorDarkBackground);
+
+                switch (Integer.valueOf((String)holder.siteLog.getValue())){
+                    case 0:
+                    holder.outerDot.setColor(R.color.colorPurple1);
+                    break;
+                    case 1:
+                        holder.outerDot.setColor(R.color.colorAmber);
+                        break;
+                    case 2:
+                        holder.outerDot.setColor(R.color.colorBlue);
+                        break;
+                    default:
+                        holder.outerDot.setColor(R.color.colorReceived);
+            }
+        }
+//        else{
 //            holder.innerDot.setVisibility(View.VISIBLE);
 //            holder.innerDot.setColor(R.color.colorDarkBackground);
 //            switch (holder.siteLog.getStatus()) {

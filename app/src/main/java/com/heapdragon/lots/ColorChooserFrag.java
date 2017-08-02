@@ -23,7 +23,7 @@ public class ColorChooserFrag extends Fragment implements ColorAdapter.OnColorTo
     }
 
 
-    public interface OnColorChosenListener {
+     interface OnColorChosenListener {
          void onColorChosen(int color);
     }
 

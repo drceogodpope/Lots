@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -90,6 +91,7 @@ public class SitesActivity extends AppCompatActivity {
                 startActivity(new Intent(SitesActivity.this,AddSiteActivity.class));
             }
         });
+        noSitesLayout.setClickable(true);
     }
 
     void resetRefresher(){
@@ -152,6 +154,11 @@ public class SitesActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+    }
+
+    public void startAddSiteActivity(View view) {
+        startActivity(new Intent(SitesActivity.this,AddSiteActivity.class));
 
     }
 }

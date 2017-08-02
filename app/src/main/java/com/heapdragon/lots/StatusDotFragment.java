@@ -3,16 +3,12 @@ package com.heapdragon.lots;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 public abstract class  StatusDotFragment extends Fragment {
 
     protected String siteKey;
@@ -22,8 +18,7 @@ public abstract class  StatusDotFragment extends Fragment {
     protected LotDot innerDot;
     protected LotDot outterDot;
     protected DatabaseReference dbRef;
-
-
+    protected CardView cardView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,13 +35,14 @@ public abstract class  StatusDotFragment extends Fragment {
         innerDot = (LotDot) view.findViewById(R.id.inner_dot);
         outterDot = (LotDot) view.findViewById(R.id.outter_dot);
         statusText = (TextView) view.findViewById(R.id.status_dot_text);
+        cardView = (CardView) view.findViewById(R.id.status_dot_cardview);
+        setDatabaseReference();
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setDatabaseReference();
     }
 
     protected abstract void setDatabaseReference();

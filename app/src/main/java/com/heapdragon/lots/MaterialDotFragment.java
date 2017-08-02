@@ -27,16 +27,22 @@ public class MaterialDotFragment extends StatusDotFragment {
     protected void setDatabaseReference() {
         innerDot.setVisibility(View.GONE);
         dbRef = FirebaseDatabase.getInstance().getReference().child(DataBaseConstants.LOTS_NODE_PREFIX+siteKey).child(String.valueOf(lotNumber));
+
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Boolean materialOrdered = (boolean) dataSnapshot.child(DataBaseConstants.LOTS_MATERIAL_ORDERED).getValue();
-                setStatusText(materialOrdered);
-                number.setText(dataSnapshot.getKey());
-                if(materialOrdered){
-                    outterDot.setColor(R.color.colorGreen);
+                if(dataSnapshot.exists()){
+                    Boolean materialOrdered = (boolean) dataSnapshot.child(DataBaseConstants.LOTS_MATERIAL_ORDERED).getValue();
+                    setStatusText(materialOrdered);
+                    number.setText(dataSnapshot.getKey());
+                    if(materialOrdered){
+                        outterDot.setColor(R.color.colorGreen);
+                    }
+                    else{
+                        outterDot.setColor(R.color.colorRed);
+                    }
                 }
-                else outterDot.setColor(R.color.colorRed);
+
             }
 
             @Override

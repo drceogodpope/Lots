@@ -34,6 +34,7 @@ import java.io.IOException;
 import static com.heapdragon.lots.DataBaseConstants.LOG_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.LOTS_NODE_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.NAME_NODE;
+import static com.heapdragon.lots.DataBaseConstants.RANGES_PREFIX;
 import static com.heapdragon.lots.DataBaseConstants.SITES_NODE;
 import static com.heapdragon.lots.DataBaseConstants.SITE_COLOR_NODE;
 import static com.heapdragon.lots.DataBaseConstants.SITE_MAPS_ROOT;
@@ -108,12 +109,8 @@ public class SiteActivity extends AppCompatActivity implements ColorChooserFrag.
             }
         });
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-//        tabLayout.setBackgroundColor(getIntent().getIntExtra("color",0));
-//        toolbar.setBackgroundColor((getIntent().getIntExtra("color",0)));
-        setColors(color);
-        getWindow().setStatusBarColor(Utility.darker(getIntent().getIntExtra("color",0),0.8f));
         mViewPager.setCurrentItem(getIntent().getIntExtra("adapterPage",0));
-
+        setColors(color);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
@@ -191,6 +188,7 @@ public class SiteActivity extends AppCompatActivity implements ColorChooserFrag.
         mSitesRef.child(key).removeValue();
         mRootRef.child(LOTS_NODE_PREFIX+key).removeValue();
         mRootRef.child(LOG_NODE_PREFIX+key).removeValue();
+        mRootRef.child(RANGES_PREFIX+key).removeValue();
         deleteSiteMap();
     }
 
@@ -220,7 +218,7 @@ public class SiteActivity extends AppCompatActivity implements ColorChooserFrag.
         int[] siteColors = getResources().getIntArray(R.array.siteColors);
         tabLayout.setBackgroundColor(siteColors[color]);
         toolbar.setBackgroundColor(siteColors[color]);
-        getWindow().setStatusBarColor(Utility.darker(siteColors[color],0.8f));
+        getWindow().setStatusBarColor(Utility.darker(siteColors[color],0.3f));
     }
 
 }

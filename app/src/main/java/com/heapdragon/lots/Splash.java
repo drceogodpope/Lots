@@ -38,19 +38,17 @@ public class Splash extends Activity {
         ring3 = (FloatingActionButton) findViewById(R.id.splash_ring3);
 
         circlesRoot = (RelativeLayout) findViewById(R.id.root_circles);
-        final int color1 = ContextCompat.getColor(getApplicationContext(),R.color.colorAmber);
-        final int color3 = ContextCompat.getColor(getApplicationContext(),R.color.colorBlue2);
-        final int color2 = ContextCompat.getColor(getApplicationContext(),R.color.colorRed);
-        final int color4 = ContextCompat.getColor(getApplicationContext(),R.color.colorGreen);
-        final int color5 = ContextCompat.getColor(getApplicationContext(),R.color.colorPurple1);
+        final int color1 = ContextCompat.getColor(getApplicationContext(), R.color.colorAmber);
+        final int color3 = ContextCompat.getColor(getApplicationContext(), R.color.colorBlue2);
+        final int color2 = ContextCompat.getColor(getApplicationContext(), R.color.colorRed);
+        final int color4 = ContextCompat.getColor(getApplicationContext(), R.color.colorGreen);
+        final int color5 = ContextCompat.getColor(getApplicationContext(), R.color.colorPurple1);
 
-        final int color = ContextCompat.getColor(getApplicationContext(),R.color.colorDarkBlueGrey);
+        final int color = ContextCompat.getColor(getApplicationContext(), R.color.colorDarkBlueGrey);
         ring1.setBackgroundTintList(ColorStateList.valueOf(color2));
         ring3.setBackgroundTintList(ColorStateList.valueOf(color2));
         ring2.setBackgroundTintList(ColorStateList.valueOf(color2));
         ring4.setBackgroundTintList(ColorStateList.valueOf(color2));
-
-
 
 
         final ArrayList<Integer> colorsOdd = new ArrayList<>();
@@ -67,22 +65,21 @@ public class Splash extends Activity {
         colorsOdd.add(color);
 
 
-        final Animation  animFadein = AnimationUtils.loadAnimation(getApplicationContext(),
+        final Animation hover = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.hover);
-        circlesRoot.startAnimation(animFadein);
-        animFadein.setAnimationListener(new Animation.AnimationListener() {
+        circlesRoot.startAnimation(hover);
+        hover.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                ViewHelper.changeFabMultiColor(colorsOdd,ring1,1000);
-                ViewHelper.changeFabMultiColor(colorsEven,ring2,1000);
-                ViewHelper.changeFabMultiColor(colorsOdd,ring3,1000);
-                ViewHelper.changeFabMultiColor(colorsEven,ring4,1000);
-
+                ViewHelper.changeFabMultiColor(colorsOdd, ring1, 1000);
+                ViewHelper.changeFabMultiColor(colorsEven, ring2, 1000);
+                ViewHelper.changeFabMultiColor(colorsOdd, ring3, 1000);
+                ViewHelper.changeFabMultiColor(colorsEven, ring4, 1000);
             }
+
             @Override
             public void onAnimationEnd(Animation animation) {
-                Splash.this.startActivity(new Intent(Splash.this,SitesActivity.class));
-
+                Splash.this.startActivity(new Intent(Splash.this, SitesActivity.class));
             }
 
             @Override
@@ -90,30 +87,8 @@ public class Splash extends Activity {
 
             }
         });
-        circlesRoot.startAnimation(animFadein);
+        circlesRoot.startAnimation(hover);
 
 
-        final Animation anim = AnimationUtils.loadAnimation(getBaseContext(),android.R.anim.fade_in);
-        anim.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                ViewHelper.changeFabMultiColor(colorsOdd,ring1,2000);
-                ViewHelper.changeFabMultiColor(colorsEven,ring2,2000);
-                ViewHelper.changeFabMultiColor(colorsOdd,ring3,2000);
-                ViewHelper.changeFabMultiColor(colorsEven,ring4,2000);
-
-            }
-            @Override
-            public void onAnimationEnd(Animation animation) {}
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {}
-        });
-
-        circlesRoot.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-            }
-        }, 4000);
     }
 }

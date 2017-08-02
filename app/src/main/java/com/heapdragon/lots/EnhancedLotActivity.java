@@ -3,6 +3,7 @@ package com.heapdragon.lots;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,15 +15,26 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 import static com.heapdragon.lots.DataBaseConstants.NAME_NODE;
 import static com.heapdragon.lots.DataBaseConstants.SITES_NODE;
 
-public class EnhancedLotActivity extends AppCompatActivity {
+interface Activator{
+    void activate();
+    void deactivate();
+    void addFrag(Deactivatable frag);
+}
+
+public class EnhancedLotActivity extends AppCompatActivity implements Activator {
 
     private final static String TAG = "EnhancedLotActivity";
     private String key;
     private int lotNumber;
     private TextView toolbarTitle;
+    ViewPager viewPager;
+    private ArrayList<Deactivatable> deactivatableFrags;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,13 +51,15 @@ public class EnhancedLotActivity extends AppCompatActivity {
             setToolbarTitle();
         }
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new LotFragAdapter(getSupportFragmentManager(),key,lotNumber));
         viewPager.setOffscreenPageLimit(3);
         TabLayout tl = (TabLayout) findViewById(R.id.tab_layout);
         tl.setupWithViewPager(viewPager);
-
+        deactivatableFrags = new ArrayList<>();
     }
+
+
 
     private void setToolbarTitle(){
         if(lotNumber!= 0){
@@ -64,6 +78,25 @@ public class EnhancedLotActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public void activate() {
+        for(Deactivatable fragment:deactivatableFrags){
+            fragment.activate();
+        }
+    }
+
+    @Override
+    public void deactivate() {
+        for(Deactivatable fragment:deactivatableFrags){
+            fragment.deactivate();
+        }
+    }
+
+    @Override
+    public void addFrag(Deactivatable frag) {
+        deactivatableFrags.add(frag);
     }
 }
 

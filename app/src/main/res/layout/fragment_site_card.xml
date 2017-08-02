@@ -3,6 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/site_card"
         app:cardElevation="3dp"
+        app:cardBackgroundColor="@color/colorDarkBackground"
         app:cardUseCompatPadding="true"
         android:layout_width="match_parent"
         xmlns:android="http://schemas.android.com/apk/res/android">

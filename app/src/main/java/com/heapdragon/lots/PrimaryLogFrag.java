@@ -14,10 +14,10 @@ import static com.heapdragon.lots.DataBaseConstants.LOG_NUMBER;
 import static com.heapdragon.lots.DataBaseConstants.LOG_STATUS;
 import static com.heapdragon.lots.DataBaseConstants.LOG_TIME_STAMP;
 
-public class PrimaryLogFrag extends LogFrag {
+public class PrimaryLogFrag extends LogFrag implements Deactivatable {
     private static final String TAG = "PrimaryLogFrag";
 
-    public static LogFrag newInstance(String key,int lotNumber) {
+    public static PrimaryLogFrag newInstance(String key,int lotNumber) {
         Bundle args = new Bundle();
         args.putString("key", key);
         args.putInt("lotNumber",lotNumber);
@@ -40,4 +40,5 @@ public class PrimaryLogFrag extends LogFrag {
         }
 
     }
+
 }

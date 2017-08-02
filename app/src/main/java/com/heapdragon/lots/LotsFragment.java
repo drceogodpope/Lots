@@ -66,14 +66,6 @@ public class LotsFragment extends android.support.v4.app.Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 lots.clear();
 
-
-//                for(DataSnapshot ds:dataSnapshot.getChildren()){
-//                    Long id = Long.valueOf(ds.getKey());
-//                    Long primaryStatus = (Long) ds.child(LOTS_MATERIAL_ORDERED).getValue();
-//                    Long secondaryStatus = (Long) ds.child(LOTS_ARCH_LOT).getValue();
-//                    lots.add(new Lot(id,primaryStatus,secondaryStatus));
-//                }
-
                 for(DataSnapshot ds:dataSnapshot.getChildren()){
                     Long id = Long.valueOf(ds.getKey());
                     Boolean materialOrdered = (Boolean) ds.child(LOTS_MATERIAL_ORDERED).getValue();

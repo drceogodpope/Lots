@@ -51,21 +51,31 @@ public class MaterialStatusFragment extends Fragment {
                 handleRadioClick(materialOrderedButton);
             }
         });
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        checkCurrentStatus();
+
+    }
+
+    private void checkCurrentStatus() {
         DatabaseReference lotReference = FirebaseDatabase.getInstance().getReference().child(DataBaseConstants.LOTS_NODE_PREFIX + siteKey).child(String.valueOf(lotNumber)).child(DataBaseConstants.LOTS_MATERIAL_ORDERED);
         lotReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if((boolean)dataSnapshot.getValue()){
+                if ((boolean) dataSnapshot.getValue()) {
                     radioGroup.check(materialOrderedButton.getId());
-                }
-                else radioGroup.check(lotNotPreparedButton.getId());
+                } else radioGroup.check(lotNotPreparedButton.getId());
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        return view;
+
     }
 
     @Override

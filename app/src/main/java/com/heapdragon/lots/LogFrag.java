@@ -3,6 +3,7 @@ package com.heapdragon.lots;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -31,12 +32,13 @@ interface Loggable{
     void queryLogs(DataSnapshot dataSnapshot,ArrayList<SiteLog> logs);
 }
 
-public abstract class LogFrag extends Fragment implements Loggable {
+public abstract class LogFrag extends Fragment implements Loggable,Deactivatable {
 
     protected static final String TAG = "LogFrag";
     protected RecyclerView recyclerView;
     protected String key;
     protected LinearLayout noLogsLayout;
+    protected CardView cardView;
     protected ArrayList<SiteLog> logs;
 
     @Override
@@ -46,12 +48,23 @@ public abstract class LogFrag extends Fragment implements Loggable {
         logs = new ArrayList<>();
     }
 
+    @Override
+    public void activate() {
+        cardView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void deactivate() {
+        cardView.setVisibility(View.GONE);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_log, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.log_fragment_recyclerView);
         noLogsLayout = (LinearLayout) view.findViewById(R.id.no_logs_layout);
+        cardView = (CardView) view.findViewById(R.id.log_frag_cardview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(new LogAdapter(getLogs(key)));

@@ -18,7 +18,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorSquareV
         this.colors = colors;
     }
 
-    public interface OnColorTouchedListener {
+     interface OnColorTouchedListener {
          void onColorTouched(int color);
     }
 

@@ -5,7 +5,6 @@
     android:background="@color/colorDarkBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context="com.heapdragon.lots.SitesActivity">
 
     <LinearLayout
@@ -13,7 +12,9 @@
         android:id="@+id/no_site_layout"
         android:layout_width="wrap_content"
         android:visibility="gone"
+        android:elevation="100dp"
         android:gravity="center"
+        android:onClick="startAddSiteActivity"
         android:orientation="vertical"
         android:layout_height="wrap_content">
         <TextView

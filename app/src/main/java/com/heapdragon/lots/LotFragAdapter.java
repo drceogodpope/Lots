@@ -9,6 +9,15 @@ class LotFragAdapter extends FragmentPagerAdapter {
 
     private  String key;
     private  int lotNumber;
+    private PrimaryScrollableFrag psf;
+    private SecondaryScrollableFrag ssf;
+
+    ScrollableParentFrag getPrimaryScrollableFrag(){
+        return psf;
+    }
+    ScrollableParentFrag getSecondaryScrollableFrag(){
+        return psf;
+    }
 
      LotFragAdapter(FragmentManager fm,String key,int lotNumber) {
         super(fm);

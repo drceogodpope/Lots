@@ -2,6 +2,7 @@
 <android.support.v7.widget.CardView android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardBackgroundColor="@color/colorDarkBackground"
+    android:id="@+id/status_dot_cardview"
     app:cardElevation="3dp"
     app:cardUseCompatPadding="true"
     xmlns:android="http://schemas.android.com/apk/res/android"

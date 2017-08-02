@@ -7,7 +7,9 @@
     tools:context=".Splash">
 
     <RelativeLayout
+        android:paddingBottom="20dp"
         android:id="@+id/root_circles"
+        android:layout_alignParentTop="true"
         android:layout_width="wrap_content"
         android:layout_centerInParent="true"
         android:layout_height="wrap_content">
@@ -31,7 +33,7 @@
             android:layout_height="match_parent" />
         <android.support.design.widget.FloatingActionButton
             android:layout_centerInParent="true"
-            android:layout_margin="200dp"
+            android:layout_margin="190dp"
             android:id="@+id/splash_ring4"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -39,13 +41,22 @@
 
 
     <TextView
-        android:visibility="gone"
-        android:layout_below="@+id/root_circles"
+        android:paddingTop="150dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/splash_text"
+         android:id="@+id/splash_text"
         android:layout_centerInParent="true"
+        android:textSize="100dp"
+        android:textColor="@color/colorGrey"
+        android:text="L o t s"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
         style="@style/Base.TextAppearance.AppCompat.Large"
-        android:text="lots v1.5"/>
+        android:layout_below="@id/splash_text"
+        android:textColor="@color/colorGrey"
+        android:textAlignment="center"
+        android:text="v  1 . 4"/>
 
 </RelativeLayout>

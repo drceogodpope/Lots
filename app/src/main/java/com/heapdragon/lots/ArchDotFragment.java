@@ -4,6 +4,7 @@ import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
@@ -11,7 +12,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ArchDotFragment extends StatusDotFragment {
+public class ArchDotFragment extends StatusDotFragment implements Deactivatable {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,18 +33,21 @@ public class ArchDotFragment extends StatusDotFragment {
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                long archStatus = (long) dataSnapshot.child(DataBaseConstants.LOTS_ARCH_STATUS).getValue();
-                setStatusText(archStatus);
-                number.setText(dataSnapshot.getKey());
-                if(archStatus==0){
-                    outterDot.setColor(R.color.colorPurple1);
+                if(dataSnapshot.exists()){
+                    long archStatus = (long) dataSnapshot.child(DataBaseConstants.LOTS_ARCH_STATUS).getValue();
+                    setStatusText(archStatus);
+                    number.setText(dataSnapshot.getKey());
+                    if(archStatus==0){
+                        outterDot.setColor(R.color.colorPurple1);
+                    }
+                    if(archStatus==1){
+                        outterDot.setColor(R.color.colorAmber);
+                    }
+                    if(archStatus==2){
+                        outterDot.setColor(R.color.colorBlue3);
+                    }
                 }
-                if(archStatus==1){
-                    outterDot.setColor(R.color.colorAmber);
-                }
-                if(archStatus==2){
-                    outterDot.setColor(R.color.colorBlue3);
-                }
+
             }
 
             @Override
@@ -52,11 +56,6 @@ public class ArchDotFragment extends StatusDotFragment {
             }
         });
         innerDot.setColor(R.color.colorDarkBackground);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -71,5 +70,15 @@ public class ArchDotFragment extends StatusDotFragment {
         if(value_==2){
             statusText.setText("Arch In Shipping");
         }
+    }
+
+    @Override
+    public void deactivate() {
+        cardView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void activate() {
+        cardView.setVisibility(View.VISIBLE);
     }
 }
