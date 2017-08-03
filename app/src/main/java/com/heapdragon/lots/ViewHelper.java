@@ -4,6 +4,10 @@ import android.animation.Animator;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +36,24 @@ public class ViewHelper {
             @Override
             public void onAnimationUpdate(ValueAnimator animator) {
                 view.setBackgroundColor((int) animator.getAnimatedValue());
+            }
+
+        });
+        colorAnimation.start();
+    }
+
+    public static void changeViewBackgoundTintListColor(int colorTo, final LotDot view, int durationMilli){
+        int color = Color.TRANSPARENT;
+        Drawable background = view.getBackground();
+        if (background instanceof ColorDrawable) color = ((ColorDrawable) background).getColor();
+        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(),color, colorTo);
+        colorAnimation.setDuration(durationMilli); // milliseconds
+        colorAnimation.setRepeatMode(ValueAnimator.REVERSE);
+        colorAnimation.setRepeatCount(ValueAnimator.INFINITE);
+        colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator) {
+                view.setBackgroundTintList(ColorStateList.valueOf((int)animator.getAnimatedValue()));
             }
 
         });

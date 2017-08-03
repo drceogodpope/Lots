@@ -77,13 +77,13 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
         if(holder.lot.getArchLot()){
             switch ((int)holder.lot.getArchStatus()){
                 case (int)Lot.WORK_ORDER_REQUIRED:
-                    holder.outerDot.setColor(R.color.colorMaterialOrdered);
+                    holder.outerDot.setColor(R.color.colorPurple1);
                     break;
                 case (int)Lot.ARCH_IN_PRODUCTION_1:
-                    holder.outerDot.setColor(R.color.colorArchInProduction);
+                    holder.outerDot.setColor(R.color.colorAmber);
                     break;
                 case (int)Lot.ARCH_IN_SHIPPING_1:
-                    holder.outerDot.setColor(R.color.colorArchInShipping);
+                    holder.outerDot.setColor(R.color.colorBlue3);
                     break;
             }
         }

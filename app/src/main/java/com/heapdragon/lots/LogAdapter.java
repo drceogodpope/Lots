@@ -69,15 +69,14 @@ class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
 
     @Override
     public void onBindViewHolder(final LogCardHolder holder, int position) {
-        holder.siteLog = logs.get(position);
+        holder.siteLog = logs.get(holder.getAdapterPosition());
         holder.logNumber.setText(String.valueOf(holder.siteLog.getLotNumber()));
         holder.logTitle.setText(holder.siteLog.getTitle());
         holder.logUser.setText(holder.siteLog.getUser());
         holder.logTimeStamp.setText(String.valueOf(holder.siteLog.getTimeStamp()));
-
+        holder.innerDot.setVisibility(View.VISIBLE);
             if(holder.siteLog.getFieldUpdated().equals(LOTS_ARCH_STATUS)){
                 holder.innerDot.setColor(R.color.colorDarkBackground);
-
                 switch (Integer.valueOf((String)holder.siteLog.getValue())){
                     case 0:
                     holder.outerDot.setColor(R.color.colorPurple1);
@@ -92,23 +91,11 @@ class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
                         holder.outerDot.setColor(R.color.colorReceived);
             }
         }
-//        else{
-//            holder.innerDot.setVisibility(View.VISIBLE);
-//            holder.innerDot.setColor(R.color.colorDarkBackground);
-//            switch (holder.siteLog.getStatus()) {
-//                case Lot.MATERIAL_ORDERED:
-//                    holder.outerDot.setColor(R.color.colorMaterialOrdered);
-//                    break;
-//                case Lot.ARCH_IN_SHIPPING:
-//                    holder.outerDot.setColor(R.color.colorArchInShipping);
-//                    break;
-//                case Lot.ARCH_IN_PRODUCTION:
-//                    holder.outerDot.setColor(R.color.colorArchInProduction);
-//                    break;
-//                default:
-//                    holder.outerDot.setColor(R.color.colorArchRequired);
-//            }
-//        }
+        if(holder.siteLog.getFieldUpdated().equals(LOTS_MATERIAL_ORDERED)){
+            holder.innerDot.setVisibility(View.GONE);
+            if(Boolean.valueOf((String)holder.siteLog.getValue()))holder.outerDot.setColor(R.color.colorGreen);
+            else holder.outerDot.setColor(R.color.colorRed);
+        }
 
         holder.logCard.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

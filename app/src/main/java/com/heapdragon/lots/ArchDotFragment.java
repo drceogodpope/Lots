@@ -47,7 +47,6 @@ public class ArchDotFragment extends StatusDotFragment implements Deactivatable 
                         outterDot.setColor(R.color.colorBlue3);
                     }
                 }
-
             }
 
             @Override

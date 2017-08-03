@@ -30,7 +30,6 @@ public class ArchStatusFrag extends Fragment implements SimpleCallBack,Deactivat
     private DatabaseBitch dbBitch;
     private CardView root;
 
-
     public static ArchStatusFrag newInstance(String siteKey, int lotNumber){
         Bundle args = new Bundle();
         args.putInt("lotNumber",lotNumber);
@@ -40,7 +39,29 @@ public class ArchStatusFrag extends Fragment implements SimpleCallBack,Deactivat
         return archStatusFrag;
     }
 
-
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.siteKey = getArguments().getString("siteKey");
+        this.lotNumber = getArguments().getInt("lotNumber");
+        lotRef = FirebaseDatabase.getInstance().getReference().child(DataBaseConstants.LOTS_NODE_PREFIX+siteKey).child(String.valueOf(lotNumber));
+        dbBitch = new DatabaseBitch();
+        DatabaseReference lotReference = lotRef.child(DataBaseConstants.LOTS_ARCH_STATUS);
+        lotReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Object check = dataSnapshot.getValue();
+                if(check!=null){
+                    long value = (long)dataSnapshot.getValue();
+                    simpleCallBack(value);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG,"CANCELLED");
+            }
+        });
+    }
 
     @Nullable
     @Override
@@ -50,6 +71,12 @@ public class ArchStatusFrag extends Fragment implements SimpleCallBack,Deactivat
         archInProduction = (RadioButton) view.findViewById(R.id.arch_in_production);
         archInShipping = (RadioButton) view.findViewById(R.id.arch_in_shipping);
         root = (CardView) view.findViewById(R.id.arch_status_root);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         workOrderRequired.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,15 +95,7 @@ public class ArchStatusFrag extends Fragment implements SimpleCallBack,Deactivat
                 handleButtonClick(archInProduction);
             }
         });
-        return view;
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-
 
     private void handleButtonClick(RadioButton rb) {
         Log.d(TAG,"handleButtonClick()");
@@ -122,32 +141,6 @@ public class ArchStatusFrag extends Fragment implements SimpleCallBack,Deactivat
         }
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.siteKey = getArguments().getString("siteKey");
-        this.lotNumber = getArguments().getInt("lotNumber");
-        lotRef = FirebaseDatabase.getInstance().getReference().child(DataBaseConstants.LOTS_NODE_PREFIX+siteKey).child(String.valueOf(lotNumber));
-        dbBitch = new DatabaseBitch();
-        DatabaseReference lotReference = lotRef.child(DataBaseConstants.LOTS_ARCH_STATUS);
-
-        lotReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Object check = dataSnapshot.getValue();
-                if(check!=null){
-                    long value = (long)dataSnapshot.getValue();
-                    simpleCallBack(value);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d(TAG,"CANCELLED");
-            }
-        });
-    }
-
     private void setArchStatus(long status){
         lotRef.child(DataBaseConstants.LOTS_ARCH_STATUS).setValue(status);
     }
@@ -172,8 +165,10 @@ public class ArchStatusFrag extends Fragment implements SimpleCallBack,Deactivat
     public void activate(){
         root.setVisibility(View.VISIBLE);
     }
-
     public void deactivate(){
+        setButtonValues(workOrderRequired);
+        setArchStatus(Lot.WORK_ORDER_REQUIRED);
         root.setVisibility(View.GONE);
     }
+
 }
