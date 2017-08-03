@@ -1,6 +1,5 @@
 package com.heapdragon.lots;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,10 +11,10 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-public class SecondaryScrollableFrag extends ScrollableParentFrag {
+public class ArchScrollableFrag extends ScrollableParentFrag {
 
-    public static SecondaryScrollableFrag newInstance(Bundle args){
-        SecondaryScrollableFrag fragment = new SecondaryScrollableFrag();
+    public static ArchScrollableFrag newInstance(Bundle args){
+        ArchScrollableFrag fragment = new ArchScrollableFrag();
         fragment.setArguments(args);
         return fragment;
     }
@@ -42,7 +41,7 @@ public class SecondaryScrollableFrag extends ScrollableParentFrag {
         ArchStatusFrag archStatusFrag = ArchStatusFrag.newInstance(key,lotNumber);
         ArchDotFragment archDotFragment =  ArchDotFragment.newInstance(key,lotNumber);
         ArchLotFragment archLotFragment = ArchLotFragment.newInstance(key,lotNumber);
-        PrimaryLogFrag logFrag = PrimaryLogFrag.newInstance(key,lotNumber);
+        ArchLogFrag logFrag = ArchLogFrag.newInstance(key,lotNumber);
 
         ((Activator) getActivity()).addFrag(archStatusFrag);
         ((Activator) getActivity()).addFrag(archDotFragment);

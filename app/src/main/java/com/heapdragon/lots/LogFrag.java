@@ -40,11 +40,13 @@ public abstract class LogFrag extends Fragment implements Loggable,Deactivatable
     protected LinearLayout noLogsLayout;
     protected CardView cardView;
     protected ArrayList<SiteLog> logs;
+    protected long lotNumber;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         key = getArguments().getString("key");
+        lotNumber = (long) getArguments().getInt("lotNumber");
         logs = new ArrayList<>();
     }
 

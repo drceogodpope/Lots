@@ -63,7 +63,8 @@ class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
 
     @Override
     public LogCardHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.log_card_e,parent,false);
+        View itemView = LayoutInflater.from(parent.getContext()).
+                inflate(R.layout.log_card_e,parent,false);
         return new LogCardHolder(itemView);
     }
 
@@ -79,13 +80,16 @@ class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
                 holder.innerDot.setColor(R.color.colorDarkBackground);
                 switch (Integer.valueOf((String)holder.siteLog.getValue())){
                     case 0:
-                    holder.outerDot.setColor(R.color.colorPurple1);
-                    break;
+                        holder.outerDot.setColor(R.color.colorPurple1);
+                        holder.logTitle.setText("Work Order Required");
+                        break;
                     case 1:
                         holder.outerDot.setColor(R.color.colorAmber);
+                        holder.logTitle.setText("Arch In Production");
                         break;
                     case 2:
                         holder.outerDot.setColor(R.color.colorBlue);
+                        holder.logTitle.setText("Arch In Shipping");
                         break;
                     default:
                         holder.outerDot.setColor(R.color.colorReceived);
@@ -93,9 +97,17 @@ class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
         }
         if(holder.siteLog.getFieldUpdated().equals(LOTS_MATERIAL_ORDERED)){
             holder.innerDot.setVisibility(View.GONE);
-            if(Boolean.valueOf((String)holder.siteLog.getValue()))holder.outerDot.setColor(R.color.colorGreen);
-            else holder.outerDot.setColor(R.color.colorRed);
+            if(Boolean.valueOf((String)holder.siteLog.getValue())){
+                holder.outerDot.setColor(R.color.colorGreen);
+                holder.logTitle.setText("Material Ordered");
+
+            }
+            else{
+                holder.outerDot.setColor(R.color.colorRed);
+                holder.logTitle.setText("Lot Not Prepared");
+            }
         }
+
 
         holder.logCard.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -118,7 +130,9 @@ class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogCardHolder> {
                     case DialogInterface.BUTTON_POSITIVE:
                         logs.remove(holder.getAdapterPosition());
                         notifyItemRemoved(holder.getAdapterPosition());
-                        DatabaseReference logRef = FirebaseDatabase.getInstance().getReference().child(DataBaseConstants.LOG_NODE_PREFIX+holder.siteLog.getSiteKey()).child(holder.siteLog.getLogKey());
+                        DatabaseReference logRef =FirebaseDatabase.getInstance().getReference()
+                                .child(DataBaseConstants.LOG_NODE_PREFIX+holder.siteLog.getSiteKey())
+                                .child(holder.siteLog.getLogKey());
                         logRef.removeValue();
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:

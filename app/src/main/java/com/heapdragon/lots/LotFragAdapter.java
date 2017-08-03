@@ -9,8 +9,8 @@ class LotFragAdapter extends FragmentPagerAdapter {
 
     private  String key;
     private  int lotNumber;
-    private PrimaryScrollableFrag psf;
-    private SecondaryScrollableFrag ssf;
+    private MaterialScrollableFrag psf;
+    private ArchScrollableFrag ssf;
 
     ScrollableParentFrag getPrimaryScrollableFrag(){
         return psf;
@@ -33,9 +33,9 @@ class LotFragAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0: // Fragment # 0 - This will show FirstFragment
-                return PrimaryScrollableFrag.newInstance(bundle);
+                return MaterialScrollableFrag.newInstance(bundle);
             case 1: // Fragment # 0 - This will show FirstFragment different title
-                return SecondaryScrollableFrag.newInstance(bundle);
+                return ArchScrollableFrag.newInstance(bundle);
             case 2: // Fragment # 1 - This will show SecondFragment
             default:
                 return null;
