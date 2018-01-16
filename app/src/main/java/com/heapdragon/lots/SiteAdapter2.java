@@ -26,22 +26,20 @@ import static com.heapdragon.lots.DataBaseConstants.SITES_NODE;
 class SiteAdapter2 extends RecyclerView.Adapter<SiteAdapter2.SiteCardViewHolder2> {
     public static final String TAG = "SiteAdapter";
     private ArrayList<Site> sites;
-
     SiteAdapter2(ArrayList<Site> sites) {
         this.sites = sites;
     }
-
     @Override
     public SiteCardViewHolder2 onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.fragment_site_card,parent,false);
         return new SiteCardViewHolder2(itemView);
     }
-
     static class SiteCardViewHolder2 extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView siteName;
         FrameLayout frameLayout;
+        LotDot archDot;
         TextView totalLots;
         int[] siteColors;
         protected Site site;
@@ -53,6 +51,7 @@ class SiteAdapter2 extends RecyclerView.Adapter<SiteAdapter2.SiteCardViewHolder2
             totalLots = (TextView) itemView.findViewById(R.id.site_card_total_lots);
             siteName = (TextView) itemView.findViewById(R.id.site_card_name);
             frameLayout = (FrameLayout) itemView.findViewById(R.id.site_card_frame_layout);
+            archDot = (LotDot) itemView.findViewById(R.id.site_card_arch_dot);
 
                     cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -66,7 +65,6 @@ class SiteAdapter2 extends RecyclerView.Adapter<SiteAdapter2.SiteCardViewHolder2
             });
         }
     }
-
     @Override
     public void onBindViewHolder(final SiteCardViewHolder2 holder, int position) {
         final Site site = sites.get(position);

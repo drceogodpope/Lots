@@ -26,8 +26,8 @@
         <CheckBox
             android:id="@+id/arch_ordered_button"
             android:layout_width="wrap_content"
+            android:focusable="true"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorGreen"
             android:layoutDirection="rtl"
             android:layout_alignParentEnd="true"
             android:textAlignment="center"

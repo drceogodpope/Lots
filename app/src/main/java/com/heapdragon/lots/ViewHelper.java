@@ -18,11 +18,12 @@ public class ViewHelper {
     private static final String TAG = "ViewHelper";
     public static void changeColourAnim(int colorFrom, int colorTo, final View view){
         ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
-        colorAnimation.setDuration(250); // milliseconds
+         // milliseconds
+        colorAnimation.setRepeatCount(ValueAnimator.INFINITE);
         colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animator) {
-                view.setBackgroundColor((int) animator.getAnimatedValue());
+                view.setBackgroundTintList(ColorStateList.valueOf((int) animator.getAnimatedValue()));
             }
 
         });
@@ -42,7 +43,7 @@ public class ViewHelper {
         colorAnimation.start();
     }
 
-    public static void changeViewBackgoundTintListColor(int colorTo, final LotDot view, int durationMilli){
+    public static void changeViewBackgoundTintListColor(int colorTo, final View view, int durationMilli){
         int color = Color.TRANSPARENT;
         Drawable background = view.getBackground();
         if (background instanceof ColorDrawable) color = ((ColorDrawable) background).getColor();

@@ -3,6 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/site_card"
         app:cardElevation="3dp"
+        android:background="?attr/selectableItemBackground"
         app:cardBackgroundColor="@color/colorDarkBackground"
         app:cardUseCompatPadding="true"
         android:layout_width="match_parent"
@@ -12,16 +13,30 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="wrap_content">
-            <TextView
-                android:padding="10dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:id="@+id/site_card_name"
-                style="@style/Base.TextAppearance.AppCompat.Headline"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Lotus Pointe"
-                android:textColor="@color/colorLightText"/>
+                android:layout_height="wrap_content">
+                <TextView
+                    android:padding="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:id="@+id/site_card_name"
+                    style="@style/Base.TextAppearance.AppCompat.Headline"
+                    android:layout_width="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_height="wrap_content"
+                    android:text="Lotus Pointe"
+                    android:textColor="@color/colorLightText"/>
+               <com.heapdragon.lots.LotDot
+                   android:visibility="gone"
+                   android:id="@+id/site_card_arch_dot"
+                   android:layout_margin="20dp"
+                   android:layout_width="50dp"
+                   android:background="@drawable/circle"
+                   android:layout_alignParentEnd="true"
+                   android:layout_height="1dp"/>
+            </RelativeLayout>
+
 
             <FrameLayout
                 android:id="@+id/site_card_frame_layout"

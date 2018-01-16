@@ -6,12 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".Splash">
 
+
     <RelativeLayout
-        android:paddingBottom="20dp"
-        android:id="@+id/root_circles"
-        android:layout_alignParentTop="true"
-        android:layout_width="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:id="@+id/root_circles"
         android:layout_height="wrap_content">
         <android.support.design.widget.FloatingActionButton
             android:layout_centerInParent="true"
@@ -41,11 +40,10 @@
 
 
     <TextView
-        android:paddingTop="150dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-         android:id="@+id/splash_text"
-        android:layout_centerInParent="true"
+        android:id="@+id/splash_text"
+        android:layout_centerHorizontal="true"
         android:textSize="100dp"
         android:textColor="@color/colorGrey"
         android:text="L o t s"/>
@@ -58,5 +56,6 @@
         android:textColor="@color/colorGrey"
         android:textAlignment="center"
         android:text="v  1 . 4"/>
+
 
 </RelativeLayout>

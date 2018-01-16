@@ -19,10 +19,11 @@
             android:label="@string/title_activity_site"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AddSiteActivity" />
-        <activity android:name=".Splash">
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".Splash">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

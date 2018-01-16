@@ -1,10 +1,13 @@
 package com.heapdragon.lots;
 
+import android.animation.ValueAnimator;
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
@@ -12,10 +15,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class ArchDotFragment extends StatusDotFragment implements Deactivatable {
+    private static String TAG = "ArchDotFragment";
+    private ValueAnimator valueAnimator;
+    private Context mContext;
+    private ArrayList<Integer> flashyColors;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        Log.d(TAG,"onCreate()");
         super.onCreate(savedInstanceState);
+        flashyColors = new ArrayList<>();
+        mContext = getContext();
     }
 
     public static ArchDotFragment newInstance(String siteKey,int lotNumber){
@@ -35,16 +47,31 @@ public class ArchDotFragment extends StatusDotFragment implements Deactivatable 
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     long archStatus = (long) dataSnapshot.child(DataBaseConstants.LOTS_ARCH_STATUS).getValue();
+                    boolean archOrdered = (boolean) dataSnapshot.child(DataBaseConstants.LOTS_ARCH_ORDERED).getValue();
                     setStatusText(archStatus);
                     number.setText(dataSnapshot.getKey());
-                    if(archStatus==0){
-                        outterDot.setColor(R.color.colorPurple1);
+                    setDotColor(archStatus);
+                    if(archOrdered){
+//                        flashyColors.clear();
+//                        flashyColors.add(outterDot.getColorStateList().getDefaultColor());
+//                        flashyColors.add(ContextCompat.getColor(mContext,R.color.colorGreen));
+//                        if(valueAnimator==null){
+//                            valueAnimator = new ColorAnimFactory(mContext).flashingView(flashyColors, outterDot, 1000);
+//                            valueAnimator.start();
+                        outterDot.startFlashing();
                     }
-                    if(archStatus==1){
-                        outterDot.setColor(R.color.colorAmber);
-                    }
-                    if(archStatus==2){
-                        outterDot.setColor(R.color.colorBlue3);
+                    else{
+                        outterDot.endFlashing();
+                        setDotColor(archStatus);
+
+//                        if(valueAnimator!=null){
+//                            Log.d(TAG,"valueAnimator!=null");
+//                            ArchDotFragment.this.valueAnimator.end();
+//                            valueAnimator = null;
+//                        }
+//                        else{
+//                            Log.d(TAG,"valueAnimator==null");
+//                        }
                     }
                 }
             }
@@ -79,5 +106,17 @@ public class ArchDotFragment extends StatusDotFragment implements Deactivatable 
     @Override
     public void activate() {
         cardView.setVisibility(View.VISIBLE);
+    }
+
+    public void setDotColor(long archStatus) {
+        if(archStatus==0){
+            outterDot.setColor(R.color.colorPurple1);
+        }
+        if(archStatus==1){
+            outterDot.setColor(R.color.colorAmber);
+        }
+        if(archStatus==2){
+            outterDot.setColor(R.color.colorBlue3);
+        }
     }
 }

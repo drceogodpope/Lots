@@ -74,6 +74,13 @@ public class LotAdapter extends RecyclerView.Adapter<LotAdapter.LotDotHolder> {
             holder.innerDot.setColor(R.color.colorNotReady);
         }
 
+        if (holder.lot.getArchOrdered()){
+            holder.outerDot.startFlashing();
+        }
+        else {
+            holder.outerDot.endFlashing();
+        }
+
         if(holder.lot.getArchLot()){
             switch ((int)holder.lot.getArchStatus()){
                 case (int)Lot.WORK_ORDER_REQUIRED:

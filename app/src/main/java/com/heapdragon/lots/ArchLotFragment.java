@@ -1,6 +1,9 @@
 package com.heapdragon.lots;
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 interface Deactivatable {
     void deactivate();
     void activate();
@@ -34,17 +39,28 @@ public class ArchLotFragment extends Fragment implements Deactivatable,CompoundB
     private DatabaseReference archLotRef;
     private DatabaseReference lotRef;
     private DatabaseReference archOrderedRef;
-    private RelativeLayout archLotFrame;
+    private ValueAnimator colorAnimation;
+    private Context mContext;
+    private ArrayList<Integer> flashyColors;
     Activator mActivity;
 
     @Override
     public void deactivate() {
-
+        Log.d(TAG,"deactivateArchFrag()");
+        archOrdered.setVisibility(View.GONE);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(archLotSwitch.getLayoutParams());
+        params.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
+        archLotSwitch.setLayoutParams(params);
+        mActivity.deactivate();
     }
 
     @Override
     public void activate() {
-
+        archOrdered.setVisibility(View.VISIBLE);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(archLotSwitch.getLayoutParams());
+        params.addRule(RelativeLayout.ALIGN_LEFT,R.id.arch_lot_frame);
+        archLotSwitch.setLayoutParams(params);
+        mActivity.activate();
     }
 
     @Override
@@ -61,15 +77,22 @@ public class ArchLotFragment extends Fragment implements Deactivatable,CompoundB
         return archLotFragment;
     }
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        mContext = getContext();
         key = getArguments().getString("siteKey");
         lotNumber = getArguments().getInt("lotNumber");
         rootRef = FirebaseDatabase.getInstance().getReference();
         lotRef = rootRef.child(DataBaseConstants.LOTS_NODE_PREFIX+key).child(String.valueOf(lotNumber));
         archLotRef = rootRef.child(DataBaseConstants.LOTS_NODE_PREFIX+key).child(String.valueOf(lotNumber)).child(DataBaseConstants.LOTS_ARCH_LOT).getRef();
         archOrderedRef = rootRef.child(DataBaseConstants.LOTS_NODE_PREFIX+key).child(String.valueOf(lotNumber)).child(DataBaseConstants.LOTS_ARCH_ORDERED).getRef();
-        Log.d(TAG,"siteKey: " +key + " lotNumber: " + String.valueOf(lotNumber));
+        Log.d(TAG,"siteKey: "+key+" lotNumber: "+String.valueOf(lotNumber));
+
+        flashyColors = new ArrayList<>();
+        flashyColors.add(ContextCompat.getColor(mContext,R.color.colorPurple1));
+        flashyColors.add(ContextCompat.getColor(mContext,R.color.colorAmber));
+        flashyColors.add(ContextCompat.getColor(mContext,R.color.colorBlue));
+        flashyColors.add(ContextCompat.getColor(mContext,R.color.colorGreen));
 
     }
 
@@ -80,31 +103,42 @@ public class ArchLotFragment extends Fragment implements Deactivatable,CompoundB
         archOrdered = (CheckBox) view.findViewById(R.id.arch_ordered_button);
         archOrdered.setHighlightColor(ContextCompat.getColor(getContext(),R.color.colorGreen));
         archLotSwitch = (Switch) view.findViewById(R.id.arch_lot_switch);
-        archLotFrame = (RelativeLayout) view.findViewById(R.id.arch_lot_frame);
         archLotSwitch.setOnCheckedChangeListener(this);
         archOrdered.setOnCheckedChangeListener(this);
+        archOrdered.setButtonTintList(ColorStateList.valueOf(ContextCompat.getColor(mContext,R.color.colorGreen)));
         setButtons();
         return view;
     }
 
     private void setButtons() {
-        lotRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        lotRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if((boolean)dataSnapshot.child(DataBaseConstants.LOTS_ARCH_ORDERED).getValue()){
-                    archOrdered.setChecked(true);
+                if(dataSnapshot.child(DataBaseConstants.LOTS_ARCH_ORDERED).getValue()!=null){
+                    if((boolean)dataSnapshot.child(DataBaseConstants.LOTS_ARCH_ORDERED).getValue()){
+                        if(colorAnimation==null){
+                            ArchLotFragment.this.colorAnimation = ColorAnimFactory.flashingCompoundButtonVar(flashyColors,archOrdered,2000);
+                        }
+                        colorAnimation.start();
+                        archOrdered.setChecked(true);
+                    }
+                    else {
+                        archOrdered.setChecked(false);
+                        if(colorAnimation!=null){
+                            ArchLotFragment.this.colorAnimation.end();
+                        }
+                        archOrdered.setButtonTintList(ColorStateList.valueOf(ContextCompat.getColor(mContext,R.color.colorGreen)));
+                    }
+                    if((boolean)dataSnapshot.child(DataBaseConstants.LOTS_ARCH_LOT).getValue()){
+                        archLotSwitch.setChecked(true);
+                        activate();
+                    }
+                    else{
+                        archLotSwitch.setChecked(false);
+                        deactivate();
+                    }
                 }
-                else {
-                    archOrdered.setChecked(false);
-                }
-                if((boolean)dataSnapshot.child(DataBaseConstants.LOTS_ARCH_LOT).getValue()){
-                    archLotSwitch.setChecked(true);
-                    activateArchFrag();
-                }
-                else{
-                    archLotSwitch.setChecked(false);
-                    deactivateArchFrag();
-                }
+
             }
 
             @Override
@@ -121,12 +155,12 @@ public class ArchLotFragment extends Fragment implements Deactivatable,CompoundB
             if (isChecked) {
                 Log.d(TAG,"isChecked");
                 archLotRef.setValue(true);
-                activateArchFrag();
+                activate();
             }
             else{
                 Log.d(TAG,"!isChecked");
                 archLotRef.setValue(false);
-                deactivateArchFrag();
+                deactivate();
             }
         }
         else {
@@ -141,27 +175,6 @@ public class ArchLotFragment extends Fragment implements Deactivatable,CompoundB
         }
     }
 
-    //CALL WHEN ARCHLOTSWITCH IS SET TO FALSE
-    private void deactivateArchFrag(){
-        Log.d(TAG,"deactivateArchFrag()");
-        archOrdered.setVisibility(View.GONE);
-//      RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)archLotSwitch.getLayoutParams();
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(archLotSwitch.getLayoutParams());
-
-        params.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
-        archLotSwitch.setLayoutParams(params);
-        mActivity.deactivate();
-    }
-
-    private void activateArchFrag(){
-        archOrdered.setVisibility(View.VISIBLE);
-//        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)archLotSwitch.getLayoutParams();
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(archLotSwitch.getLayoutParams());
-        params.addRule(RelativeLayout.ALIGN_LEFT,R.id.arch_lot_frame);
-        archLotSwitch.setLayoutParams(params);
-        mActivity.activate();
-    }
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -171,7 +184,7 @@ public class ArchLotFragment extends Fragment implements Deactivatable,CompoundB
             mActivity = (Activator)activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
+                    + " must implement Activator interface");
         }
     }
 }
