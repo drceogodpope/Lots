@@ -66,7 +66,7 @@ public class LotIntervalFragment extends Fragment {
             result[1] = i;
             long n = lotIntervals.get(i).getN();
             long m = lotIntervals.get(i).getM();
-            if (n<=0 || n>=m || m>=10000 || n<=lastM) {
+            if (n<=0 || n>m || m>=10000 || n<=lastM) {
                 result[0] = false;
                 showError(result);
                 return result;
